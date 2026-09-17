@@ -1,0 +1,493 @@
+{
+  "cars-vans-bentley": [
+    {
+      "label": "Bentley",
+      "img": "/images/brands/bentley.png"
+    }
+  ],
+  "cars-vans-bmw-mini": [
+    {
+      "label": "BMW",
+      "img": "/images/brands/bmw.png"
+    },
+    {
+      "label": "Mini",
+      "img": "/images/brands/mini.png"
+    }
+  ],
+  "cars-vans-bugatti": [
+    {
+      "label": "Bugatti",
+      "img": "/images/brands/bugatti.png"
+    }
+  ],
+  "cars-vans-buick": [
+    {
+      "label": "Buick",
+      "img": "/images/brands/buick.png"
+    }
+  ],
+  "cars-vans-cadillac": [
+    {
+      "label": "Cadillac",
+      "img": "/images/brands/cadillac.png"
+    }
+  ],
+  "cars-vans-chevrolet": [
+    {
+      "label": "Chevrolet",
+      "img": "/images/brands/chevrolet.png"
+    }
+  ],
+  "cars-vans-chrysler": [
+    {
+      "label": "Chrysler",
+      "img": "/images/brands/chrysler.png"
+    }
+  ],
+  "cars-vans-daihatsu": [
+    {
+      "label": "Daihatsu",
+      "img": "/images/brands/daihatsu.png"
+    }
+  ],
+  "cars-vans-dodge": [
+    {
+      "label": "Dodge",
+      "img": "/images/brands/dodge.png"
+    }
+  ],
+  "cars-vans-ds-automobiles": [
+    {
+      "label": "DS Automobiles",
+      "img": "/images/brands/ds-automobiles.png"
+    }
+  ],
+  "cars-vans-fiat-alfa-romeo-lancia": [
+    {
+      "label": "Fiat",
+      "img": "/images/brands/fiat.png"
+    },
+    {
+      "label": "Alfa Romeo",
+      "img": "/images/brands/alfa-romeo.png"
+    },
+    {
+      "label": "Lancia",
+      "img": "/images/brands/lancia.png"
+    }
+  ],
+  "cars-vans-ford": [
+    {
+      "label": "Ford",
+      "img": "/images/brands/ford.png"
+    }
+  ],
+  "cars-vans-gmc": [
+    {
+      "label": "GMC",
+      "img": "/images/brands/gmc.png"
+    }
+  ],
+  "cars-vans-honda": [
+    {
+      "label": "Honda",
+      "img": "/images/brands/honda.png"
+    }
+  ],
+  "cars-vans-hummer": [
+    {
+      "label": "Hummer",
+      "img": "/images/brands/hummer.png"
+    }
+  ],
+  "cars-vans-hyundai": [
+    {
+      "label": "Hyundai",
+      "img": "/images/brands/hyundai.png"
+    }
+  ],
+  "cars-vans-ineos": [
+    {
+      "label": "INEOS"
+    }
+  ],
+  "cars-vans-infinity": [
+    {
+      "label": "Infiniti",
+      "img": "/images/brands/infiniti.png"
+    }
+  ],
+  "cars-vans-isuzu": [
+    {
+      "label": "Isuzu",
+      "img": "/images/brands/isuzu.png"
+    }
+  ],
+  "cars-vans-iveco-daily": [
+    {
+      "label": "Iveco Daily",
+      "img": "/images/brands/iveco-daily.png"
+    }
+  ],
+  "cars-vans-jeep": [
+    {
+      "label": "Jeep",
+      "img": "/images/brands/jeep.png"
+    }
+  ],
+  "cars-vans-kia": [
+    {
+      "label": "KIA",
+      "img": "/images/brands/kia.png"
+    }
+  ],
+  "cars-vans-lada": [
+    {
+      "label": "Lada",
+      "img": "/images/brands/lada.png"
+    }
+  ],
+  "cars-vans-lamborghini": [
+    {
+      "label": "Lamborghini",
+      "img": "/images/brands/lamborghini.png"
+    }
+  ],
+  "cars-vans-land-rover": [
+    {
+      "label": "Land Rover",
+      "img": "/images/brands/land-rover.png"
+    }
+  ],
+  "cars-vans-lexus": [
+    {
+      "label": "Lexus",
+      "img": "/images/brands/lexus.png"
+    }
+  ],
+  "cars-vans-lincoln": [
+    {
+      "label": "Lincoln",
+      "img": "/images/brands/lincoln.png"
+    }
+  ],
+  "cars-vans-man-tg-e": [
+    {
+      "label": "MAN TG-E",
+      "img": "/images/brands/man-tg-e.png"
+    }
+  ],
+  "cars-vans-maserati": [
+    {
+      "label": "Maserati",
+      "img": "/images/brands/maserati.png"
+    }
+  ],
+  "cars-vans-mazda": [
+    {
+      "label": "Mazda",
+      "img": "/images/brands/mazda.png"
+    }
+  ],
+  "cars-vans-mercedes-benz-pkw-van": [
+    {
+      "label": "Mercedes-Benz",
+      "img": "/images/brands/mercedes-benz.png"
+    }
+  ],
+  "cars-vans-mg-saic": [
+    {
+      "label": "MG (SAIC)",
+      "img": "/images/brands/mg-saic.png"
+    }
+  ],
+  "cars-vans-mg-rover": [
+    {
+      "label": "MG-Rover",
+      "img": "/images/brands/mg-rover.png"
+    }
+  ],
+  "cars-vans-mitsubishi": [
+    {
+      "label": "Mitsubishi",
+      "img": "/images/brands/mitsubishi.png"
+    }
+  ],
+  "cars-vans-nissan": [
+    {
+      "label": "Nissan",
+      "img": "/images/brands/nissan.png"
+    }
+  ],
+  "cars-vans-opel": [
+    {
+      "label": "Opel",
+      "img": "/images/brands/opel.png"
+    }
+  ],
+  "cars-vans-peugeot-citroen": [
+    {
+      "label": "Peugeot",
+      "img": "/images/brands/peugeot.png"
+    },
+    {
+      "label": "Citroën",
+      "img": "/images/brands/citroen.png"
+    }
+  ],
+  "cars-vans-polestar": [
+    {
+      "label": "Polestar",
+      "img": "/images/brands/polestar.png"
+    }
+  ],
+  "cars-vans-porsche": [
+    {
+      "label": "Porsche",
+      "img": "/images/brands/porsche.png"
+    }
+  ],
+  "cars-vans-renault-dacia": [
+    {
+      "label": "Renault",
+      "img": "/images/brands/renault.png"
+    },
+    {
+      "label": "Dacia",
+      "img": "/images/brands/dacia.png"
+    }
+  ],
+  "cars-vans-saab": [
+    {
+      "label": "Saab",
+      "img": "/images/brands/saab.png"
+    }
+  ],
+  "cars-vans-smart": [
+    {
+      "label": "Smart",
+      "img": "/images/brands/smart.png"
+    }
+  ],
+  "cars-vans-ssangyong": [
+    {
+      "label": "SsangYong",
+      "img": "/images/brands/ssangyong.png"
+    }
+  ],
+  "cars-vans-subaru": [
+    {
+      "label": "Subaru",
+      "img": "/images/brands/subaru.png"
+    }
+  ],
+  "cars-vans-suzuki": [
+    {
+      "label": "Suzuki",
+      "img": "/images/brands/suzuki.png"
+    }
+  ],
+  "cars-vans-tesla": [
+    {
+      "label": "Tesla",
+      "img": "/images/brands/tesla.png"
+    }
+  ],
+  "cars-vans-toyota": [
+    {
+      "label": "Toyota",
+      "img": "/images/brands/toyota.png"
+    }
+  ],
+  "cars-vans-volvo": [
+    {
+      "label": "Volvo",
+      "img": "/images/brands/volvo.png"
+    }
+  ],
+  "cars-vans-vw-gruppe-audi-cupra-seat-skoda-volkswagen": [
+    {
+      "label": "Audi",
+      "img": "/images/brands/audi.png"
+    },
+    {
+      "label": "Cupra",
+      "img": "/images/brands/cupra.png"
+    },
+    {
+      "label": "Seat",
+      "img": "/images/brands/seat.png"
+    },
+    {
+      "label": "Škoda",
+      "img": "/images/brands/skoda.png"
+    },
+    {
+      "label": "Volkswagen",
+      "img": "/images/brands/volkswagen.png"
+    }
+  ],
+  "truck-bus-daf": [
+    {
+      "label": "DAF",
+      "img": "/images/brands/daf.png"
+    }
+  ],
+  "truck-bus-iveco": [
+    {
+      "label": "Iveco",
+      "img": "/images/brands/iveco.png"
+    }
+  ],
+  "truck-bus-man": [
+    {
+      "label": "MAN",
+      "img": "/images/brands/man.png"
+    }
+  ],
+  "truck-bus-mercedes-benz-truck": [
+    {
+      "label": "Mercedes-Benz Truck",
+      "img": "/images/brands/mercedes-benz-truck.png"
+    }
+  ],
+  "truck-bus-renault-lkw": [
+    {
+      "label": "Renault Trucks",
+      "img": "/images/brands/renault-trucks.png"
+    }
+  ],
+  "truck-bus-scania": [
+    {
+      "label": "Scania",
+      "img": "/images/brands/scania.png"
+    }
+  ],
+  "truck-bus-tatra": [
+    {
+      "label": "Tatra",
+      "img": "/images/brands/tatra.png"
+    }
+  ],
+  "truck-bus-volkswagen": [
+    {
+      "label": "Volkswagen",
+      "img": "/images/brands/volkswagen.png"
+    }
+  ],
+  "truck-bus-volvo-lkw": [
+    {
+      "label": "Volvo Trucks",
+      "img": "/images/brands/volvo-trucks.png"
+    }
+  ],
+  "trailer-haldex": [
+    {
+      "label": "Haldex"
+    }
+  ],
+  "trailer-knorr-bremse": [
+    {
+      "label": "Knorr Bremse"
+    }
+  ],
+  "trailer-wabco": [
+    {
+      "label": "Wabco"
+    }
+  ],
+  "bike-beta": [
+    {
+      "label": "Beta",
+      "img": "/images/brands/beta.svg"
+    }
+  ],
+  "bike-bmw-motorrad": [
+    {
+      "label": "BMW Motorrad",
+      "img": "/images/brands/bmw-motorrad.png"
+    }
+  ],
+  "bike-can-am": [
+    {
+      "label": "Can-Am",
+      "img": "/images/brands/can-am.png"
+    }
+  ],
+  "bike-gasgas": [
+    {
+      "label": "Gasgas",
+      "img": "/images/brands/gasgas.svg"
+    }
+  ],
+  "bike-ducati": [
+    {
+      "label": "Ducati",
+      "img": "/images/brands/ducati.svg"
+    }
+  ],
+  "bike-harley-davidson": [
+    {
+      "label": "Harley-Davidson",
+      "img": "/images/brands/harley-davidson.svg"
+    }
+  ],
+  "bike-honda": [
+    {
+      "label": "Honda",
+      "img": "/images/brands/honda.png"
+    }
+  ],
+  "bike-husqvarna": [
+    {
+      "label": "Husqvarna",
+      "img": "/images/brands/husqvarna.png"
+    }
+  ],
+  "bike-kawasaki": [
+    {
+      "label": "Kawasaki",
+      "img": "/images/brands/kawasaki.png"
+    }
+  ],
+  "bike-ktm": [
+    {
+      "label": "KTM",
+      "img": "/images/brands/ktm.png"
+    }
+  ],
+  "bike-moto-guzzi": [
+    {
+      "label": "Moto Guzzi"
+    }
+  ],
+  "bike-suzuki": [
+    {
+      "label": "Suzuki",
+      "img": "/images/brands/suzuki.png"
+    }
+  ],
+  "bike-triumph": [
+    {
+      "label": "Triumph",
+      "img": "/images/brands/triumph.png"
+    }
+  ],
+  "agrar-krone": [
+    {
+      "label": "Krone"
+    }
+  ],
+  "industrial-volvo-penta": [
+    {
+      "label": "Volvo Penta",
+      "img": "/images/brands/volvo-penta.svg"
+    }
+  ],
+  "accessories-truma": [
+    {
+      "label": "Truma"
+    }
+  ]
+}

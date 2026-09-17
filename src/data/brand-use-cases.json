@@ -1,0 +1,387 @@
+{
+  "cars-vans-fiat-alfa-romeo-lancia": {
+    "de": "Typische Einsatzgebiete bei Fiat/Alfa Romeo/Lancia: Service- und Ölwechsel-Reset, Zurückfahren der elektronischen Parkbremse für den Bremsenservice, DPF-Regeneration bei MultiJet-Dieseln, Löschen sporadischer Elektronik-Fehlermeldungen.",
+    "en": "Typical uses for Fiat/Alfa Romeo/Lancia: service and oil-change reset, retracting the electronic parking brake for brake service, DPF regeneration on MultiJet diesels, clearing intermittent electronics fault messages.",
+    "confidence": "high"
+  },
+  "cars-vans-ford": {
+    "de": "Typische Einsatzgebiete bei Ford: Service-Intervall-Reset, Batterie-Registrierung (BMS-Reset) nach Batteriewechsel, Servicemodus der elektronischen Parkbremse beim Bremsenwechsel, DPF-Regeneration bei TDCi-Dieseln.",
+    "en": "Typical uses for Ford: service interval reset, battery registration (BMS reset) after battery replacement, electronic parking brake service mode for brake jobs, DPF regeneration on TDCi diesels.",
+    "confidence": "high"
+  },
+  "cars-vans-gmc": {
+    "de": "Typische Einsatzgebiete bei GMC: Auslesen und Löschen der Motorkontrollleuchte, Anlernen der TPMS-Reifendrucksensoren, automatisierte ABS-Entlüftung nach Bremsarbeiten, Zurücksetzen der Öllebensdauer-Anzeige.",
+    "en": "Typical uses for GMC: reading and clearing the check-engine light, TPMS tire-pressure sensor relearn, automated ABS brake bleeding after brake work, resetting the oil-life indicator.",
+    "confidence": "high"
+  },
+  "cars-vans-honda": {
+    "de": "Typische Einsatzgebiete bei Honda: Zurücksetzen der Wartungsanzeige (Maintenance Minder), Servicemodus der elektronischen Parkbremse für den Belagwechsel, ABS-Entlüftung am Bremsmodulator, Auslesen und Löschen von Fehlercodes.",
+    "en": "Typical uses for Honda: resetting the Maintenance Minder service indicator, electronic parking brake service mode for pad replacement, ABS bleeding at the brake modulator, reading and clearing fault codes.",
+    "confidence": "high"
+  },
+  "cars-vans-hummer": {
+    "de": "Typische Einsatzgebiete bei Hummer: Auslesen und Löschen von Motor- und ABS-Fehlercodes, ABS-Entlüftung nach Arbeiten an Bremsleitungen, Anlernen der TPMS-Reifendrucksensoren.",
+    "en": "Typical uses for Hummer: reading and clearing engine and ABS fault codes, ABS bleeding after brake line work, TPMS tire-pressure sensor relearn.",
+    "confidence": "high"
+  },
+  "cars-vans-hyundai": {
+    "de": "Typische Einsatzgebiete bei Hyundai: Servicemodus der elektronischen Parkbremse beim Bremsenwechsel, Lenkwinkelsensor-Kalibrierung nach Achsvermessung, Service-Reset, DPF-Regeneration bei CRDi-Dieseln.",
+    "en": "Typical uses for Hyundai: electronic parking brake service mode for brake jobs, steering-angle sensor calibration after wheel alignment, service reset, DPF regeneration on CRDi diesels.",
+    "confidence": "high"
+  },
+  "cars-vans-ineos": {
+    "de": "Typische Einsatzgebiete bei INEOS Grenadier: integrierter Service-Reset, Deaktivieren des Transportmodus, Batterie-Registrierung nach Batteriewechsel, eigenständige Fehlerdiagnose abseits des noch dünnen Werkstattnetzes.",
+    "en": "Typical uses for the INEOS Grenadier: built-in service reset, deactivating transport mode, battery registration after battery replacement, independent fault diagnosis given the still-sparse dealer network.",
+    "confidence": "high"
+  },
+  "cars-vans-infinity": {
+    "de": "Typische Einsatzgebiete bei Infiniti: Auslesen und Löschen von Fehlercodes, Registrierung der TPMS-Reifendrucksensoren, Lenkwinkelsensor-Kalibrierung, Drosselklappen-Anlernen nach Reinigung oder Tausch.",
+    "en": "Typical uses for Infiniti: reading and clearing fault codes, TPMS tire-pressure sensor registration, steering-angle sensor calibration, throttle body relearn after cleaning or replacement.",
+    "confidence": "high"
+  },
+  "cars-vans-isuzu": {
+    "de": "Typische Einsatzgebiete bei Isuzu: manuell angestossene DPF-Regeneration am D-Max, Injektor-Codierung nach Injektortausch, Service-Reset, Auslesen und Löschen von Fehlercodes.",
+    "en": "Typical uses for Isuzu: manually initiated DPF regeneration on the D-Max, injector coding after injector replacement, service reset, reading and clearing fault codes.",
+    "confidence": "high"
+  },
+  "cars-vans-iveco-daily": {
+    "de": "Typische Einsatzgebiete beim Iveco Daily: manuell angestossene DPF-Regeneration bei Wohnmobilen mit vielen Kurzstrecken, Fehler auslesen und löschen nach Notlaufprogramm, Injektor-Codierung nach Tausch, Service-Reset.",
+    "en": "Typical uses for the Iveco Daily: manually initiated DPF regeneration on motorhomes doing many short trips, reading and clearing faults after limp-home mode, injector coding after replacement, service reset.",
+    "confidence": "high"
+  },
+  "cars-vans-bentley": {
+    "de": "Typische Einsatzgebiete bei Bentley: Auslesen und Löschen von Fehlercodes (z.B. Luftfederung), Wartungsmodus der elektronischen Parkbremse beim Belagwechsel, Batterie-Registrierung nach dem Austausch, Service-Rückstellung.",
+    "en": "Typical uses for Bentley: reading and clearing fault codes (e.g. air suspension), electronic parking brake service mode for pad changes, battery registration after replacement, service reset.",
+    "confidence": "medium"
+  },
+  "cars-vans-bmw-mini": {
+    "de": "Typische Einsatzgebiete bei BMW & Mini: Batterie-Registrierung nach dem Batteriewechsel, Rückstellung der Service-Intervalle (CBS), Wartungsmodus der elektronischen Parkbremse, Auslesen und Löschen von Fehlercodes.",
+    "en": "Typical uses for BMW & Mini: battery registration after battery replacement, resetting service intervals (CBS), electronic parking brake service mode, reading and clearing fault codes.",
+    "confidence": "high"
+  },
+  "cars-vans-bugatti": {
+    "de": "Typische Einsatzgebiete bei Bugatti: Auslesen und Löschen von Fehlercodes, Kontrolle von Live-Daten vor und nach Servicearbeiten, Service-Rückstellung.",
+    "en": "Typical uses for Bugatti: reading and clearing fault codes, checking live data before and after service work, service reset.",
+    "confidence": "low"
+  },
+  "cars-vans-buick": {
+    "de": "Typische Einsatzgebiete bei Buick: Zurücksetzen der Öl-Lebensdaueranzeige, automatisierte ABS-Entlüftung nach Bremsarbeiten, Diagnose von StabiliTrak- und Traktionskontroll-Meldungen.",
+    "en": "Typical uses for Buick: resetting the oil life monitor, automated ABS brake bleeding after brake work, diagnosing StabiliTrak and traction control messages.",
+    "confidence": "high"
+  },
+  "cars-vans-cadillac": {
+    "de": "Typische Einsatzgebiete bei Cadillac: Diagnose von StabiliTrak- und Fahrwerksmeldungen (z.B. Magnetic Ride), Wartungsmodus der elektronischen Parkbremse, Zurücksetzen der Öl-Lebensdaueranzeige, ABS-Entlüftung.",
+    "en": "Typical uses for Cadillac: diagnosing StabiliTrak and suspension messages (e.g. Magnetic Ride), electronic parking brake service mode, resetting the oil life monitor, ABS bleeding.",
+    "confidence": "medium"
+  },
+  "cars-vans-chevrolet": {
+    "de": "Typische Einsatzgebiete bei Chevrolet: Auslesen und Löschen von Motor-Fehlercodes, Zurücksetzen der Öl-Lebensdaueranzeige, automatisierte ABS-Entlüftung, Diagnose von StabiliTrak-Meldungen.",
+    "en": "Typical uses for Chevrolet: reading and clearing engine fault codes, resetting the oil life monitor, automated ABS brake bleeding, diagnosing StabiliTrak messages.",
+    "confidence": "high"
+  },
+  "cars-vans-chrysler": {
+    "de": "Typische Einsatzgebiete bei Chrysler: Auslesen von Motor- und Getriebe-Fehlercodes, Öl-Service-Rückstellung, Lenkwinkelsensor-Kalibrierung, Löschen von Warnleuchten nach Reparaturen.",
+    "en": "Typical uses for Chrysler: reading engine and transmission fault codes, oil service reset, steering angle sensor calibration, clearing warning lights after repairs.",
+    "confidence": "medium"
+  },
+  "cars-vans-daihatsu": {
+    "de": "Typische Einsatzgebiete bei Daihatsu: Auslesen und Löschen von Motor-, ABS- und Airbag-Fehlercodes, Zurücksetzen von Warnleuchten nach Reparaturen, Drosselklappen-Anlernung.",
+    "en": "Typical uses for Daihatsu: reading and clearing engine, ABS and airbag fault codes, resetting warning lights after repairs, throttle body relearn.",
+    "confidence": "medium"
+  },
+  "cars-vans-dodge": {
+    "de": "Typische Einsatzgebiete bei Dodge: Auslesen von Motor- und Getriebe-Fehlercodes, Öl-Service-Rückstellung, ABS-Entlüftung nach Bremsarbeiten, Lenkwinkelsensor-Kalibrierung.",
+    "en": "Typical uses for Dodge: reading engine and transmission fault codes, oil service reset, ABS bleeding after brake work, steering angle sensor calibration.",
+    "confidence": "medium"
+  },
+  "cars-vans-ds-automobiles": {
+    "de": "Typische Einsatzgebiete bei DS Automobiles: Service-Rückstellung, Wartungsmodus der elektronischen Parkbremse beim Belagwechsel, angestossene DPF-Regeneration bei BlueHDi-Dieseln, Auslesen und Löschen von Fehlercodes.",
+    "en": "Typical uses for DS Automobiles: service reset, electronic parking brake service mode for pad changes, initiated DPF regeneration on BlueHDi diesels, reading and clearing fault codes.",
+    "confidence": "medium"
+  },
+  "cars-vans-jeep": {
+    "de": "Typische Einsatzgebiete bei Jeep: Öl-Service-Reset, Löschen von ABS- und Airbag-Fehlern, Anlernen von Reifendrucksensoren (TPMS), Lenkwinkelsensor-Kalibrierung nach der Achsvermessung.",
+    "en": "Typical uses for Jeep: oil service reset, clearing ABS and airbag faults, TPMS tyre-pressure sensor relearn, steering-angle sensor calibration after wheel alignment.",
+    "confidence": "high"
+  },
+  "cars-vans-kia": {
+    "de": "Typische Einsatzgebiete bei KIA: Service-Intervall-Reset, DPF-Regeneration bei CRDi-Dieselmodellen, Wartungsmodus der elektronischen Parkbremse beim Bremsenwechsel, Auslesen und Löschen von Fehlercodes.",
+    "en": "Typical uses for KIA: service interval reset, DPF regeneration on CRDi diesel models, electronic parking brake service mode for brake jobs, reading and clearing fault codes.",
+    "confidence": "high"
+  },
+  "cars-vans-lada": {
+    "de": "Typische Einsatzgebiete bei Lada: Auslesen und Löschen von Fehlern am Motorsteuergerät, Drosselklappen-Adaption, Prüfen von Live-Daten wie Lambdasonde und Temperaturfühlern.",
+    "en": "Typical uses for Lada: reading and clearing engine ECU faults, throttle body adaptation, checking live data such as oxygen sensor and temperature sensors.",
+    "confidence": "medium"
+  },
+  "cars-vans-lamborghini": {
+    "de": "Typische Einsatzgebiete bei Lamborghini: Auslesen des Fehlerspeichers aller Steuergeräte, Prüfen des E-Gear-Kupplungsverschleisses (z. B. Gallardo), Service-Reset.",
+    "en": "Typical uses for Lamborghini: reading fault memory across all control units, checking e-gear clutch wear values (e.g. Gallardo), service reset.",
+    "confidence": "medium"
+  },
+  "cars-vans-land-rover": {
+    "de": "Typische Einsatzgebiete bei Land Rover: Fehlerdiagnose und Kalibrierung der Luftfederung, Service-Modus der elektronischen Parkbremse, DPF-Regeneration bei Dieselmodellen, Service-Reset.",
+    "en": "Typical uses for Land Rover: air suspension fault diagnosis and calibration, electronic parking brake service mode, DPF regeneration on diesel models, service reset.",
+    "confidence": "high"
+  },
+  "cars-vans-lexus": {
+    "de": "Typische Einsatzgebiete bei Lexus: Zustandsprüfung der Hybridbatterie über Live-Daten, Öl-Service-Reset, geführte Bremsenentlüftung bei Hybridmodellen, Auslesen und Löschen von Fehlercodes.",
+    "en": "Typical uses for Lexus: hybrid battery health check via live data, oil service reset, guided brake bleeding on hybrid models, reading and clearing fault codes.",
+    "confidence": "high"
+  },
+  "cars-vans-lincoln": {
+    "de": "Typische Einsatzgebiete bei Lincoln: Reset des Batteriemanagement-Systems (BMS) nach dem Batteriewechsel, Öl-Service-Reset, Wartungsmodus der elektronischen Parkbremse, Fehlerdiagnose der Luftfederung (Navigator).",
+    "en": "Typical uses for Lincoln: battery management system (BMS) reset after battery replacement, oil service reset, electronic parking brake service mode, air suspension fault diagnosis (Navigator).",
+    "confidence": "high"
+  },
+  "cars-vans-man-tg-e": {
+    "de": "Typische Einsatzgebiete bei MAN TG-E: DPF-Regeneration im Flotteneinsatz, Service-Intervall-Reset, Injektoren-Codierung nach dem Austausch, Fehlerdiagnose am AdBlue-/SCR-System.",
+    "en": "Typical uses for MAN TG-E: DPF regeneration in fleet operation, service interval reset, injector coding after replacement, AdBlue/SCR system fault diagnosis.",
+    "confidence": "high"
+  },
+  "cars-vans-maserati": {
+    "de": "Typische Einsatzgebiete bei Maserati: Service-Reset, Wartungsmodus der elektronischen Parkbremse beim Belagwechsel, Fehlerdiagnose am Skyhook-Fahrwerk, Auslesen des Fehlerspeichers aller Steuergeräte.",
+    "en": "Typical uses for Maserati: service reset, electronic parking brake service mode for pad changes, Skyhook suspension fault diagnosis, reading fault memory across all control units.",
+    "confidence": "medium"
+  },
+  "cars-vans-mazda": {
+    "de": "Typische Einsatzgebiete bei Mazda: Batterie-Initialisierung für das i-stop-System nach dem Batteriewechsel, DPF-Regeneration bei Skyactiv-D-Dieseln, Service-Reset, Wartungsmodus der elektronischen Parkbremse.",
+    "en": "Typical uses for Mazda: battery initialization for the i-stop system after battery replacement, DPF regeneration on Skyactiv-D diesels, service reset, electronic parking brake service mode.",
+    "confidence": "high"
+  },
+  "bike-beta": {
+    "de": "Typische Einsatzgebiete bei Beta: Auslesen und Löschen von Einspritz-Fehlercodes, Prüfung von Drosselklappensensor (TPS) und Leerlaufsteller, Kontrolle der Sensor-Live-Daten.",
+    "en": "Typical uses for Beta: reading and clearing fuel-injection fault codes, checking the throttle position sensor (TPS) and idle stepper, monitoring live sensor data.",
+    "confidence": "high"
+  },
+  "bike-bmw-motorrad": {
+    "de": "Typische Einsatzgebiete bei BMW Motorrad: Service-Reset (Datum und Kilometerstand), ABS-Entlüftung nach Bremsflüssigkeitswechsel, Kalibrierung von Fahrwerks- und Drosselklappenkomponenten, Fehlerspeicher löschen.",
+    "en": "Typical uses for BMW Motorrad: service reset (date and mileage), ABS bleeding after brake fluid changes, calibration of suspension and throttle components, clearing fault memory.",
+    "confidence": "high"
+  },
+  "bike-can-am": {
+    "de": "Typische Einsatzgebiete bei Can-Am: Auslesen und Löschen von Fehlercodes (z. B. bei Limp Mode), Closed-Throttle-Reset nach Arbeiten an der Drosselklappe, Diagnose von Gasgriff- und Drosselklappensensoren.",
+    "en": "Typical uses for Can-Am: reading and clearing fault codes (e.g. after limp mode), closed-throttle reset after throttle body work, diagnosing throttle grip and throttle position sensors.",
+    "confidence": "high"
+  },
+  "bike-gasgas": {
+    "de": "Typische Einsatzgebiete bei GasGas: Auslesen und Löschen von Einspritz-Fehlercodes, Drosselklappensensor-Abgleich (TPS), Kontrolle von Live-Daten bei Startproblemen oder Störungen.",
+    "en": "Typical uses for GasGas: reading and clearing fuel-injection fault codes, throttle position sensor (TPS) calibration, checking live data for starting problems or faults.",
+    "confidence": "medium"
+  },
+  "bike-ducati": {
+    "de": "Typische Einsatzgebiete bei Ducati: Service-Anzeige zurücksetzen, Prüfung des Auspuffklappen-Stellmotors, Drosselklappen-Adaption, Fehlerspeicher auslesen und löschen.",
+    "en": "Typical uses for Ducati: resetting the service indicator, checking the exhaust valve actuator, throttle adaptation, reading and clearing fault memory.",
+    "confidence": "high"
+  },
+  "bike-harley-davidson": {
+    "de": "Typische Einsatzgebiete bei Harley-Davidson: Diagnose der Motorkontrollleuchte, ABS-Entlüftung nach Bremsflüssigkeitswechsel, Stellglied-Tests, Live-Daten von Motor und Ride-by-Wire-System.",
+    "en": "Typical uses for Harley-Davidson: diagnosing the check-engine light, ABS bleeding after brake fluid changes, actuator tests, live data from the engine and ride-by-wire system.",
+    "confidence": "high"
+  },
+  "bike-honda": {
+    "de": "Typische Einsatzgebiete bei Honda Motorrädern: Auslesen und Löschen von PGM-FI-Fehlercodes (FI-Lampe), ABS-Diagnose, Prüfung von Sensoren über Live-Daten.",
+    "en": "Typical uses for Honda motorcycles: reading and clearing PGM-FI fault codes (FI light), ABS diagnostics, checking sensors via live data.",
+    "confidence": "high"
+  },
+  "bike-husqvarna": {
+    "de": "Typische Einsatzgebiete bei Husqvarna: Auslesen und Löschen von Einspritz-Fehlercodes, Drosselklappen-Abgleich (TPS), Live-Daten-Kontrolle bei Startproblemen oder Leistungsverlust.",
+    "en": "Typical uses for Husqvarna: reading and clearing fuel-injection fault codes, throttle position (TPS) calibration, checking live data for starting problems or power loss.",
+    "confidence": "high"
+  },
+  "bike-kawasaki": {
+    "de": "Typische Einsatzgebiete bei Kawasaki: Auslesen und Löschen von FI-Fehlercodes, ABS-Diagnose, Prüfung von Drosselklappen- und Sensordaten in Echtzeit.",
+    "en": "Typical uses for Kawasaki: reading and clearing FI fault codes, ABS diagnostics, checking throttle and sensor data in real time.",
+    "confidence": "high"
+  },
+  "bike-ktm": {
+    "de": "Typische Einsatzgebiete bei KTM: Auslesen und Löschen von Fehlercodes, Drosselklappen-Abgleich (TPS), Service-Erinnerung zurücksetzen bei entsprechenden Modellen, Live-Daten-Kontrolle.",
+    "en": "Typical uses for KTM: reading and clearing fault codes, throttle position (TPS) calibration, resetting the service reminder on supported models, checking live data.",
+    "confidence": "high"
+  },
+  "bike-moto-guzzi": {
+    "de": "Typische Einsatzgebiete bei Moto Guzzi: Service-Anzeige zurücksetzen, Drosselklappen-Anlernen nach Reinigung oder Tausch, Fehlerspeicher auslesen und löschen.",
+    "en": "Typical uses for Moto Guzzi: resetting the service indicator, throttle body relearn after cleaning or replacement, reading and clearing fault memory.",
+    "confidence": "high"
+  },
+  "bike-suzuki": {
+    "de": "Typische Einsatzgebiete bei Suzuki Motorrädern: Auslesen und Löschen von FI-Fehlercodes, Leerlaufsteller-Anlernen (ISC), ABS-Diagnose, Live-Sensordaten.",
+    "en": "Typical uses for Suzuki motorcycles: reading and clearing FI fault codes, idle speed control (ISC) relearn, ABS diagnostics, live sensor data.",
+    "confidence": "high"
+  },
+  "bike-triumph": {
+    "de": "Typische Einsatzgebiete bei Triumph: Service-Anzeige zurücksetzen, Drosselklappen-Abgleich und -Adaption, ABS-Entlüftung, Fehlerspeicher löschen.",
+    "en": "Typical uses for Triumph: resetting the service indicator, throttle balancing and adaptation, ABS bleeding, clearing fault memory.",
+    "confidence": "high"
+  },
+  "cars-vans-mercedes-benz-pkw-van": {
+    "de": "Typische Einsatzgebiete bei Mercedes-Benz: Service-Reset (ASSYST), Diagnose von SRS- und Airmatic-Fehlern, elektronische Parkbremse beim Bremsenwechsel, DPF-Regeneration bei Sprinter- und Van-Dieseln.",
+    "en": "Typical uses for Mercedes-Benz: service reset (ASSYST), diagnosing SRS and Airmatic faults, electronic parking brake service for pad changes, DPF regeneration on Sprinter and van diesels.",
+    "confidence": "high"
+  },
+  "cars-vans-mg-saic": {
+    "de": "Typische Einsatzgebiete bei MG (SAIC): Fehlerspeicher auslesen und löschen, elektronische Parkbremse in den Wartungsmodus setzen, Live-Daten der Antriebsbatterie einsehen, Service-Reset.",
+    "en": "Typical uses for MG (SAIC): reading and clearing fault codes, putting the electronic parking brake into service mode, viewing live data from the traction battery, service reset.",
+    "confidence": "medium"
+  },
+  "cars-vans-mg-rover": {
+    "de": "Typische Einsatzgebiete bei MG-Rover-Klassikern: Fehlerspeicher von Motor (MEMS), ABS und Airbag auslesen und löschen, Live-Daten zur Fehlersuche, Diagnose sporadischer Elektronikfehler.",
+    "en": "Typical uses for classic MG-Rover: reading and clearing fault codes from engine (MEMS), ABS and airbag, live data for troubleshooting, diagnosing intermittent electronic faults.",
+    "confidence": "high"
+  },
+  "cars-vans-mitsubishi": {
+    "de": "Typische Einsatzgebiete bei Mitsubishi: Fehlerspeicher auslesen und löschen, DPF-Regeneration bei L200- und Pajero-Dieseln, Service-Reset, Live-Daten der Hybridbatterie beim Outlander PHEV.",
+    "en": "Typical uses for Mitsubishi: reading and clearing fault codes, DPF regeneration on L200 and Pajero diesels, service reset, live data from the Outlander PHEV hybrid battery.",
+    "confidence": "high"
+  },
+  "cars-vans-nissan": {
+    "de": "Typische Einsatzgebiete bei Nissan: Fehlerspeicher auslesen und löschen, Live-Daten wie die CVT-Getriebetemperatur überwachen, Batteriezustand (SoH) beim Leaf prüfen, elektronische Parkbremse beim Bremsenwechsel.",
+    "en": "Typical uses for Nissan: reading and clearing fault codes, monitoring live data such as CVT transmission temperature, checking battery state of health (SoH) on the Leaf, electronic parking brake service for pad changes.",
+    "confidence": "high"
+  },
+  "cars-vans-opel": {
+    "de": "Typische Einsatzgebiete bei Opel: Serviceintervall zurücksetzen, elektronische Parkbremse beim Bremsenwechsel, DPF-Regeneration bei CDTI-Dieseln, Lenkwinkelsensor kalibrieren.",
+    "en": "Typical uses for Opel: resetting the service interval, electronic parking brake service for pad changes, DPF regeneration on CDTI diesels, steering-angle sensor calibration.",
+    "confidence": "high"
+  },
+  "cars-vans-peugeot-citroen": {
+    "de": "Typische Einsatzgebiete bei Peugeot & Citroën: Service-Reset, DPF-Regeneration und Additiv-Reset (Eolys) bei HDi-Dieseln, elektronische Parkbremse beim Bremsenwechsel, Fehlerdiagnose am SCR-/AdBlue-System.",
+    "en": "Typical uses for Peugeot & Citroën: service reset, DPF regeneration and additive reset (Eolys) on HDi diesels, electronic parking brake service for pad changes, fault diagnosis on the SCR/AdBlue system.",
+    "confidence": "high"
+  },
+  "cars-vans-polestar": {
+    "de": "Typische Einsatzgebiete bei Polestar: Fehlerspeicher auslesen und löschen, elektronische Parkbremse in den Wartungsmodus setzen, Batteriezustand (SoH) der Hochvoltbatterie über Live-Daten prüfen.",
+    "en": "Typical uses for Polestar: reading and clearing fault codes, putting the electronic parking brake into service mode, checking high-voltage battery state of health (SoH) via live data.",
+    "confidence": "high"
+  },
+  "cars-vans-porsche": {
+    "de": "Typische Einsatzgebiete bei Porsche: Fehlerspeicher aller Steuergeräte auslesen und löschen, Service-Reset, elektronische Parkbremse beim Bremsenwechsel, Auslesen von Betriebsdaten wie Überdrehzahl-Bereichen beim Gebrauchtkauf.",
+    "en": "Typical uses for Porsche: reading and clearing fault codes across all control units, service reset, electronic parking brake service for pad changes, reading operating data such as over-rev ranges when buying used.",
+    "confidence": "high"
+  },
+  "cars-vans-renault-dacia": {
+    "de": "Typische Einsatzgebiete bei Renault & Dacia: Service-Reset, Injektorencodierung nach Tausch bei dCi-Dieseln, DPF-Regeneration, elektronische Parkbremse beim Bremsenwechsel.",
+    "en": "Typical uses for Renault & Dacia: service reset, injector coding after replacement on dCi diesels, DPF regeneration, electronic parking brake service for pad changes.",
+    "confidence": "high"
+  },
+  "cars-vans-saab": {
+    "de": "Typische Einsatzgebiete bei Saab: Fehlercodes von Motor (Trionic), ABS und Bordcomputer auslesen und löschen, Service-Anzeige zurücksetzen, Drosselklappen-Adaption nach Reinigung oder Austausch.",
+    "en": "Typical uses for Saab: reading and clearing fault codes from the engine (Trionic), ABS and on-board computer, resetting the service indicator, throttle body adaptation after cleaning or replacement.",
+    "confidence": "high"
+  },
+  "cars-vans-smart": {
+    "de": "Typische Einsatzgebiete bei Smart: Kupplungsaktuator nach dem Austausch anlernen, Getriebe- und Kupplungsadaption durchführen, Service-Anzeige zurücksetzen, Fehlerspeicher auslesen und löschen.",
+    "en": "Typical uses for Smart: teaching in the clutch actuator after replacement, performing gearbox and clutch adaptation, resetting the service indicator, reading and clearing the fault memory.",
+    "confidence": "high"
+  },
+  "cars-vans-ssangyong": {
+    "de": "Typische Einsatzgebiete bei SsangYong: DPF-Regeneration bei den Dieselmodellen anstossen, Service-Intervall zurücksetzen, Fehlercodes von Motor und ABS auslesen und löschen.",
+    "en": "Typical uses for SsangYong: initiating DPF regeneration on the diesel models, resetting the service interval, reading and clearing engine and ABS fault codes.",
+    "confidence": "medium"
+  },
+  "cars-vans-subaru": {
+    "de": "Typische Einsatzgebiete bei Subaru: elektronische Parkbremse für den Bremsbelagwechsel in Servicestellung bringen, Fehlercodes von Motor, ABS und Airbag auslesen und löschen, Öl-Service zurücksetzen, DPF-Regeneration beim Boxer-Diesel.",
+    "en": "Typical uses for Subaru: putting the electronic parking brake into service mode for pad changes, reading and clearing engine, ABS and airbag fault codes, resetting the oil service reminder, DPF regeneration on the boxer diesel.",
+    "confidence": "high"
+  },
+  "cars-vans-suzuki": {
+    "de": "Typische Einsatzgebiete bei Suzuki: Fehlercodes von Motor, ABS und Airbag auslesen und löschen, Service-/Ölwechsel-Anzeige zurücksetzen, DPF-Regeneration bei den DDiS-Dieselmodellen.",
+    "en": "Typical uses for Suzuki: reading and clearing engine, ABS and airbag fault codes, resetting the service/oil change indicator, DPF regeneration on the DDiS diesel models.",
+    "confidence": "medium"
+  },
+  "cars-vans-tesla": {
+    "de": "Typische Einsatzgebiete bei Tesla: Warn- und Fehlermeldungen auslesen und löschen, Live-Daten von Hochvolt-Batterie und Ladesystem zur Zustandskontrolle einsehen, Fehlerspeicher nach Reparaturen zurücksetzen.",
+    "en": "Typical uses for Tesla: reading and clearing warning and fault messages, viewing live data from the high-voltage battery and charging system for condition checks, resetting the fault memory after repairs.",
+    "confidence": "medium"
+  },
+  "cars-vans-toyota": {
+    "de": "Typische Einsatzgebiete bei Toyota: Zustand der Hybridbatterie über Live-Daten prüfen, Wartungs-/Öl-Anzeige zurücksetzen, ABS-Bremssystem nach Reparaturen entlüften, Nullpunkt-Kalibrierung der Sensoren der Stabilitätskontrolle.",
+    "en": "Typical uses for Toyota: checking hybrid battery health via live data, resetting the maintenance/oil reminder, bleeding the ABS brake system after repairs, zero-point calibration of the stability control sensors.",
+    "confidence": "high"
+  },
+  "cars-vans-volvo": {
+    "de": "Typische Einsatzgebiete bei Volvo: elektronische Parkbremse für den Bremsenservice öffnen, Service-Anzeige zurücksetzen, DPF-Regeneration bei den Dieselmodellen, Fehlercodes aus allen Steuergeräten auslesen und löschen.",
+    "en": "Typical uses for Volvo: releasing the electronic parking brake for brake service, resetting the service indicator, DPF regeneration on the diesel models, reading and clearing fault codes from all control units.",
+    "confidence": "high"
+  },
+  "cars-vans-vw-gruppe-audi-cupra-seat-skoda-volkswagen": {
+    "de": "Typische Einsatzgebiete bei Audi, Cupra, Seat, Škoda und VW: Öl- und Service-Intervall zurücksetzen, neue Batterie nach dem Wechsel anlernen, elektronische Parkbremse für den Belagwechsel zurückfahren, DPF-Regeneration und Injektoren-Codierung bei TDI-Modellen.",
+    "en": "Typical uses for Audi, Cupra, Seat, Škoda and VW: resetting oil and service intervals, registering a new battery after replacement, retracting the electronic parking brake for pad changes, DPF regeneration and injector coding on TDI models.",
+    "confidence": "high"
+  },
+  "truck-bus-daf": {
+    "de": "Typische Einsatzgebiete bei DAF: Auslesen und Löschen von Motor- und Abgasfehlercodes, manuell angestossene DPF-Regeneration, Rückstellung der Serviceintervalle, Diagnose des AdBlue-/SCR-Systems.",
+    "en": "Typical uses for DAF: reading and clearing engine and emissions fault codes, manually initiated DPF regeneration, service interval reset, AdBlue/SCR system diagnosis.",
+    "confidence": "high"
+  },
+  "truck-bus-iveco": {
+    "de": "Typische Einsatzgebiete bei Iveco: Fehlercodes von Motor und ABS/ESP auslesen und löschen, DPF-Regeneration anstossen, Service-Rückstellung, Injektorencodierung nach dem Austausch.",
+    "en": "Typical uses for Iveco: reading and clearing engine and ABS/ESP fault codes, initiating DPF regeneration, service reset, injector coding after replacement.",
+    "confidence": "high"
+  },
+  "truck-bus-man": {
+    "de": "Typische Einsatzgebiete bei MAN: Auslesen und Löschen von Fehlercodes, DPF-Zwangsregeneration, Kalibrierung der ECAS-Luftfederung, Rückstellung der Wartungsintervalle.",
+    "en": "Typical uses for MAN: reading and clearing fault codes, forced DPF regeneration, ECAS air suspension calibration, maintenance interval reset.",
+    "confidence": "high"
+  },
+  "truck-bus-mercedes-benz-truck": {
+    "de": "Typische Einsatzgebiete bei Mercedes-Benz Lkw: Fehlerdiagnose an Motor-, Brems- und Abgassystemen, DPF-Regeneration, Wartungsrückstellung, Diagnose der Luftfederung.",
+    "en": "Typical uses for Mercedes-Benz trucks: fault diagnosis on engine, brake and emissions systems, DPF regeneration, maintenance reset, air suspension diagnosis.",
+    "confidence": "high"
+  },
+  "truck-bus-renault-lkw": {
+    "de": "Typische Einsatzgebiete bei Renault Trucks: Auslesen und Löschen von Fehlercodes, DPF-Regeneration, Service-Rückstellung, Diagnose von EBS und Bremssystem.",
+    "en": "Typical uses for Renault Trucks: reading and clearing fault codes, DPF regeneration, service reset, EBS and brake system diagnosis.",
+    "confidence": "high"
+  },
+  "truck-bus-scania": {
+    "de": "Typische Einsatzgebiete bei Scania: Fehlercodes auslesen und löschen, DPF-Zwangsregeneration, Service-Rückstellung, Diagnose von Retarder und EBS.",
+    "en": "Typical uses for Scania: reading and clearing fault codes, forced DPF regeneration, service reset, retarder and EBS diagnosis.",
+    "confidence": "high"
+  },
+  "truck-bus-tatra": {
+    "de": "Typische Einsatzgebiete bei Tatra: Auslesen und Löschen von Motor- und ABS-Fehlercodes, DPF-Regeneration bei neueren Modellen mit PACCAR-Motor, Systemdiagnose mit Live-Daten.",
+    "en": "Typical uses for Tatra: reading and clearing engine and ABS fault codes, DPF regeneration on newer models with PACCAR engines, system diagnosis with live data.",
+    "confidence": "medium"
+  },
+  "truck-bus-volkswagen": {
+    "de": "Typische Einsatzgebiete bei VW Nutzfahrzeugen: Service- und Ölwechsel-Rückstellung, Batterieregistrierung nach dem Austausch, DPF-Regeneration bei Dieselmodellen, Fehlerdiagnose an Motor und Assistenzsystemen.",
+    "en": "Typical uses for VW commercial vehicles: service and oil change reset, battery registration after replacement, DPF regeneration on diesel models, fault diagnosis on engine and driver assistance systems.",
+    "confidence": "medium"
+  },
+  "truck-bus-volvo-lkw": {
+    "de": "Typische Einsatzgebiete bei Volvo Trucks: Fehlercodes auslesen und löschen, DPF-Zwangsregeneration, Service-Rückstellung, Diagnose von EBS und Luftfederung.",
+    "en": "Typical uses for Volvo Trucks: reading and clearing fault codes, forced DPF regeneration, service reset, EBS and air suspension diagnosis.",
+    "confidence": "high"
+  },
+  "trailer-haldex": {
+    "de": "Typische Einsatzgebiete bei Haldex: Auslesen und Löschen von ABS-/EBS-Fehlercodes am Anhänger, Prüfung von Raddrehzahlsensoren und Ventilen, Abruf von Betriebs- und Verschleissdaten.",
+    "en": "Typical uses for Haldex: reading and clearing trailer ABS/EBS fault codes, testing wheel speed sensors and valves, retrieving operating and wear data.",
+    "confidence": "high"
+  },
+  "trailer-knorr-bremse": {
+    "de": "Typische Einsatzgebiete bei Knorr-Bremse: Fehlercodes am Anhänger-EBS auslesen und löschen, Sensor- und Ventiltests, Abruf von Bremsverschleiss- und Betriebsdaten.",
+    "en": "Typical uses for Knorr-Bremse: reading and clearing trailer EBS fault codes, sensor and valve tests, retrieving brake wear and operating data.",
+    "confidence": "high"
+  },
+  "trailer-wabco": {
+    "de": "Typische Einsatzgebiete bei WABCO: ABS-/EBS-Fehlercodes am Anhänger auslesen und löschen, Kalibrierung der ECAS-Luftfederung, Sensor- und Ventilprüfung, Abruf von Betriebsdaten.",
+    "en": "Typical uses for WABCO: reading and clearing trailer ABS/EBS fault codes, ECAS air suspension calibration, sensor and valve testing, retrieving operating data.",
+    "confidence": "high"
+  },
+  "agrar-krone": {
+    "de": "Typische Einsatzgebiete bei Krone: Zugriff auf die verbauten EBS-Bremssysteme (WABCO, Haldex, Knorr-Bremse), Fehlercodes auslesen und löschen, Abruf von Verschleiss- und Betriebsdaten.",
+    "en": "Typical uses for Krone: accessing the installed EBS brake systems (WABCO, Haldex, Knorr-Bremse), reading and clearing fault codes, retrieving wear and operating data.",
+    "confidence": "medium"
+  },
+  "industrial-volvo-penta": {
+    "de": "Typische Einsatzgebiete bei Volvo Penta: Auslesen und Löschen von Fehlercodes am Motor- und EVC-System, Live-Daten wie Betriebsstunden und Sensorwerte, Diagnose nach Wartung oder vor dem Saisonstart.",
+    "en": "Typical uses for Volvo Penta: reading and clearing engine and EVC system fault codes, live data such as operating hours and sensor values, diagnosis after servicing or before the start of the season.",
+    "confidence": "medium"
+  },
+  "accessories-truma": {
+    "de": "Typische Einsatzgebiete bei Truma: Entriegeln einer nach Störabschaltung gesperrten Heizung, Auslesen und Zurücksetzen von Fehlercodes, Ferndiagnose vor dem Werkstattbesuch.",
+    "en": "Typical uses for Truma: unlocking a heater locked after repeated fault shutdowns, reading and resetting fault codes, remote diagnosis before a workshop visit.",
+    "confidence": "high"
+  }
+}
