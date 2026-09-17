@@ -7,6 +7,9 @@ import {Search} from 'lucide-react';
 import {Input} from '@/components/ui/input';
 import {useTranslations} from 'next-intl';
 
+/**
+ * Header search box; submits to `/search?q=<term>` (locale-aware via next-intl router).
+ */
 export function SearchInput() {
     const t = useTranslations('Navigation');
     const router = useRouter();
@@ -27,12 +30,14 @@ export function SearchInput() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="relative">
-            <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400"/>
+        <form onSubmit={handleSubmit} className="relative w-full max-w-md" role="search">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
                 type="search"
+                name="q"
                 placeholder={t('searchProducts')}
-                className="h-10 w-[34vw] min-w-[220px] max-w-[520px] rounded-md border-slate-300 bg-white pl-10 pr-4 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:border-white/10 dark:bg-white/5"
+                aria-label={t('searchProducts')}
+                className="h-10 w-full rounded-md border-input bg-background pl-10 pr-4 text-sm focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 disabled={isPending}

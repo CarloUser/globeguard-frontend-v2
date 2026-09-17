@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { getRouteLocale } from "@/i18n/server";
-import { getActiveCurrencyCode } from "@/lib/currency-server";
 import { FacetFilters } from "@/components/commerce/facet-filters";
 import { ProductGridSkeleton } from "@/components/shared/product-grid-skeleton";
 import { ProductGrid } from "@/components/commerce/product-grid";
@@ -20,7 +19,6 @@ interface SearchResultsProps {
 export async function SearchResults({ searchParams }: SearchResultsProps) {
   const searchParamsResolved = await searchParams;
   const locale = await getRouteLocale();
-  const currencyCode = await getActiveCurrencyCode();
   const page = getCurrentPage(searchParamsResolved);
   const viewMode: ProductViewMode =
     searchParamsResolved.view === "list" ? "list" : "grid";
@@ -30,7 +28,7 @@ export async function SearchResults({ searchParams }: SearchResultsProps) {
     {
       input: buildSearchInput({ searchParams: searchParamsResolved }),
     },
-    { languageCode: locale, currencyCode, fetch: { cache: "no-store" } },
+    { languageCode: locale, fetch: { cache: "no-store" } },
   );
 
   return (

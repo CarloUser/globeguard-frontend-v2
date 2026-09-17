@@ -8,10 +8,17 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Separator } from '@/components/ui/separator';
 import { OrderLine } from './types';
 import { useCheckout } from './checkout-provider';
-import { Price } from '@/components/commerce/price';
+import { Price, VatNote } from '@/components/commerce/price';
 import {useTranslations} from 'next-intl';
 
+/**
+ * Same rows as the cart summary (cart/order-summary.tsx): line totals and
+ * "Zwischensumme (netto)" are NET (linePrice / subTotal), "MwSt." is the sum of
+ * taxSummary.taxTotal, shipping and the grand total are gross.
+ */
 function OrderSummaryContent({ order, t }: { order: ReturnType<typeof useCheckout>['order']; t: ReturnType<typeof useTranslations<'Checkout'>> }) {
+  const vatTotal = order.taxSummary.reduce((sum, entry) => sum + entry.taxTotal, 0);
+
   return (
     <div className="space-y-4">
       <div className="space-y-3">
@@ -45,8 +52,9 @@ function OrderSummaryContent({ order, t }: { order: ReturnType<typeof useCheckou
                 {t('qty', {quantity: line.quantity})}
               </p>
             </div>
-            <div className="text-sm font-medium">
-              <Price value={line.linePriceWithTax} currencyCode={order.currencyCode} />
+            <div className="text-right text-sm font-medium">
+              <Price value={line.linePrice} currencyCode={order.currencyCode} />
+              <VatNote className="block text-xs font-normal text-muted-foreground" />
             </div>
           </div>
         ))}
@@ -56,9 +64,9 @@ function OrderSummaryContent({ order, t }: { order: ReturnType<typeof useCheckou
 
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">{t('subtotal')}</span>
+          <span className="text-muted-foreground">{t('subtotalNet')}</span>
           <span>
-            <Price value={order.subTotalWithTax} currencyCode={order.currencyCode} />
+            <Price value={order.subTotal} currencyCode={order.currencyCode} />
           </span>
         </div>
 
@@ -68,11 +76,20 @@ function OrderSummaryContent({ order, t }: { order: ReturnType<typeof useCheckou
               <div key={index} className="flex justify-between text-sm text-green-600">
                 <span>{discount.description}</span>
                 <span>
-                  <Price value={discount.amountWithTax} currencyCode={order.currencyCode} />
+                  <Price value={discount.amount} currencyCode={order.currencyCode} />
                 </span>
               </div>
             ))}
           </>
+        )}
+
+        {order.taxSummary.length > 0 && (
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{t('vat')}</span>
+            <span>
+              <Price value={vatTotal} currencyCode={order.currencyCode} />
+            </span>
+          </div>
         )}
 
         <div className="flex justify-between text-sm">

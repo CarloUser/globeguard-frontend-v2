@@ -2,9 +2,9 @@
 
 import {mutate} from '@/lib/vendure/api';
 import {LoginMutation, LogoutMutation} from '@/lib/vendure/mutations';
-import {removeAuthToken, setAuthToken} from '@/lib/auth';
+import {getSafeRedirectPath, removeAuthToken, setAuthToken} from '@/lib/auth';
 import {redirect} from '@/i18n/navigation';
-import {revalidatePath} from "next/cache";
+import {revalidatePath} from 'next/cache';
 import {getLocale, getTranslations} from 'next-intl/server';
 
 export async function loginAction(prevState: { error?: string } | undefined, formData: FormData) {
@@ -35,19 +35,25 @@ export async function loginAction(prevState: { error?: string } | undefined, for
     const locale = await getLocale();
     revalidatePath(`/${locale}`, 'layout');
 
-    // Validate redirectTo is a safe internal path
-    const safeRedirect = redirectTo?.startsWith('/') && !redirectTo.startsWith('//')
-        ? redirectTo
-        : '/';
+    // Only same-site relative paths are accepted as redirect targets
+    const safeRedirect = getSafeRedirectPath(redirectTo, '/');
 
     redirect({href: safeRedirect, locale});
-
 }
 
 export async function logoutAction() {
-    await mutate(LogoutMutation);
-    await removeAuthToken();
+    // Send the session token so the Vendure session is actually invalidated
+    // server-side, not just the browser cookie.
+    try {
+        await mutate(LogoutMutation, {}, {useAuthToken: true});
+    } catch (error) {
+        // The cookie is cleared regardless; an unreachable API must not turn logout into an error page.
+        console.error('Logout: could not invalidate the Vendure session', error);
+    } finally {
+        await removeAuthToken();
+    }
 
     const locale = await getLocale();
-    redirect({href: '/', locale})
+    revalidatePath(`/${locale}`, 'layout');
+    redirect({href: '/', locale});
 }

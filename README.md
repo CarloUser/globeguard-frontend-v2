@@ -1,78 +1,49 @@
-<h1 align="center">
-  GlobeGuard Storefront
-</h1>
-<h3 align="center">
-  Next.js storefront for the GlobeGuard Vendure commerce backend
-</h3>
-<p align="center">
-  Product, cart, checkout, account, and collection pages backed by the local GlobeGuard Vendure API.
-</p>
+# globeguard-frontend
 
-## Features
+Storefront for **GlobeGuard GmbH** (globeguard.ch): OBD vehicle diagnostic devices, licences, updates and accessories for motorhomes, overlanders and workshops. Headless frontend for the GlobeGuard Vendure backend (`globeguard-backend`).
 
-**Authentication & Accounts**
-- Customer registration with email verification
-- Login/logout with session management
-- Password reset & change password
-- Email address updates with verification
+## Stack
 
-**Customer Account**
-- Profile management (name, email, password)
-- Address management (create, update, delete, set default)
-- Order history with pagination & detailed order views
+- Next.js 16 (App Router), React 19, TypeScript
+- Tailwind CSS 4 (CSS-first tokens in `src/app/[locale]/globals.css`), shadcn `base-vega` components on `@base-ui/react`
+- next-intl 4: German at the root (`/`), English under `/en/` (`localePrefix: 'as-needed'`), messages in `messages/de.json` and `messages/en.json`
+- gql.tada typed client against the Vendure Shop API (`src/lib/vendure/*`, schema types in `src/graphql-env.d.ts`)
+- Font: Inter via `next/font` (light theme only)
+- Orders are always in CHF; EUR is display-only
 
-**Product Browsing**
-- Collections & featured products
-- Product detail pages with variants & galleries
-- Full-text search with faceted filtering
-- Pagination & sorting
+## Environment
 
-**Shopping Cart**
-- Add/remove items, adjust quantities
-- Promotion code support
-- Real-time cart updates with totals
+Copy `.env.example` to `.env.local` and fill in the values. Required:
 
-**Checkout**
-- Multi-step flow: shipping address, delivery method, payment, review
-- Saved address selection
-- Shipping method selection
-- Payment integration
+| Variable | Purpose |
+| --- | --- |
+| `VENDURE_SHOP_API_URL` | Vendure Shop API endpoint (server-side) |
+| `VENDURE_CHANNEL_TOKEN` | Vendure channel token |
+| `NEXT_PUBLIC_SITE_URL` | Public origin (no trailing slash). Inlined at build time for page metadata/canonicals, so it must be passed as a build arg; `sitemap.xml` and `robots.txt` are evaluated per request and read the runtime value (a host containing `beta.` disallows all crawling) |
+| `NEXT_PUBLIC_SITE_NAME` | Site name (`GlobeGuard`) |
+| `NEXT_PUBLIC_ASSET_HOST` | Hostname that serves Vendure assets (allowed for `next/image`) |
+| `REVALIDATION_SECRET` | Secret for the `/api/revalidate` endpoint |
 
-**Order Management**
-- Order confirmation page
-- Order tracking with status
-- Detailed order information
-
-**Internationalization**
-- Multi-language support via next-intl (English & German out of the box)
-- Multi-currency support with persistent currency selection
-- Locale-aware price formatting
-
-## Getting Started
-
-First, run the development server:
+## Commands
 
 ```bash
-npm run dev
+npm install
+npm run dev          # http://localhost:3001
+npm run check-types  # tsc --noEmit
+npm run lint         # eslint
+npm run build        # next build (standalone output)
+npm run start
 ```
 
-Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+Docker (local testing / Hetzner deployment; the image listens on port 3100, `npm run dev` on 3001):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker build --build-arg NEXT_PUBLIC_SITE_URL=https://globeguard.ch -t globeguard-frontend .
+docker run -p 3100:3100 --env-file .env.local globeguard-frontend   # http://localhost:3100
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`NEXT_PUBLIC_*` values are baked into the client bundle by `next build`, so `NEXT_PUBLIC_SITE_URL` must be passed as a build arg (one image per public host) even though `sitemap.xml` / `robots.txt` also read it at request time. Do not submit the sitemap to Search Console before the routes it lists exist (see `src/app/sitemap.ts`, `implemented`).
 
-## Learn More
+## Documentation
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Project decisions, route map, merge inventory and phase plans live outside this repo in `C:/GlobeGuard/docs` (see `DECISIONS.md` there).

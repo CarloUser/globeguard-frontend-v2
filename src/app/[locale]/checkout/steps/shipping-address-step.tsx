@@ -9,8 +9,9 @@ import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Field, FieldLabel, FieldError, FieldGroup } from '@/components/ui/field';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useForm, Controller } from 'react-hook-form';
-import { Loader2 } from 'lucide-react';
+import { Loader2, AlertCircle } from 'lucide-react';
 import { useRouter } from '@/i18n/navigation';
 import { useCheckout } from '../checkout-provider';
 import { setShippingAddress, createCustomerAddress } from '../actions';
@@ -36,7 +37,7 @@ interface AddressFormData {
 export default function ShippingAddressStep({ onComplete }: ShippingAddressStepProps) {
   const t = useTranslations('Checkout');
   const router = useRouter();
-  const { addresses, countries, order, isGuest } = useCheckout();
+  const { addresses, countries, order } = useCheckout();
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(() => {
     if (order.shippingAddress) {
       const matchingAddress = addresses.find(
@@ -49,32 +50,20 @@ export default function ShippingAddressStep({ onComplete }: ShippingAddressStepP
     const defaultAddress = addresses.find((a) => a.defaultShippingAddress);
     return defaultAddress?.id || null;
   });
-  const [dialogOpen, setDialogOpen] = useState(addresses.length === 0 && !isGuest);
+  const [dialogOpen, setDialogOpen] = useState(addresses.length === 0);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [useSameForBilling, setUseSameForBilling] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const getDefaultFormValues = (): Partial<AddressFormData> => {
     const customerFullName = order.customer
       ? `${order.customer.firstName} ${order.customer.lastName}`.trim()
       : '';
 
-    if (isGuest && order.shippingAddress?.streetLine1) {
-      return {
-        fullName: order.shippingAddress.fullName || customerFullName,
-        streetLine1: order.shippingAddress.streetLine1 || '',
-        streetLine2: order.shippingAddress.streetLine2 || '',
-        city: order.shippingAddress.city || '',
-        province: order.shippingAddress.province || '',
-        postalCode: order.shippingAddress.postalCode || '',
-        countryCode: countries.find(c => c.name === order.shippingAddress?.country)?.code || countries[0]?.code || 'US',
-        phoneNumber: order.shippingAddress.phoneNumber || order.customer?.phoneNumber || '',
-        company: order.shippingAddress.company || '',
-      };
-    }
     return {
       fullName: customerFullName,
-      countryCode: countries[0]?.code || 'US',
+      countryCode: 'CH',
       phoneNumber: order.customer?.phoneNumber || '',
     };
   };
@@ -87,6 +76,7 @@ export default function ShippingAddressStep({ onComplete }: ShippingAddressStepP
     if (!selectedAddressId) return;
 
     setLoading(true);
+    setError(null);
     try {
       const selectedAddress = addresses.find(a => a.id === selectedAddressId);
       if (!selectedAddress) return;
@@ -105,8 +95,9 @@ export default function ShippingAddressStep({ onComplete }: ShippingAddressStepP
 
       router.refresh();
       onComplete();
-    } catch (error) {
-      console.error('Error setting address:', error);
+    } catch (err) {
+      console.error('Error setting address:', err);
+      setError(t('addressError'));
     } finally {
       setLoading(false);
     }
@@ -114,149 +105,30 @@ export default function ShippingAddressStep({ onComplete }: ShippingAddressStepP
 
   const onSaveNewAddress = async (data: AddressFormData) => {
     setSaving(true);
+    setError(null);
     try {
       const newAddress = await createCustomerAddress(data);
       setDialogOpen(false);
       reset();
       router.refresh();
       setSelectedAddressId(newAddress.id);
-    } catch (error) {
-      console.error('Error creating address:', error);
-      alert(`Error creating address: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } catch (err) {
+      console.error('Error creating address:', err);
+      setError(t('addressError'));
     } finally {
       setSaving(false);
     }
   };
 
-  const onSubmitGuestAddress = async (data: AddressFormData) => {
-    setLoading(true);
-    try {
-      await setShippingAddress(data, useSameForBilling);
-      router.refresh();
-      onComplete();
-    } catch (error) {
-      console.error('Error setting address:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (isGuest) {
-    return (
-      <div className="space-y-6">
-        <form onSubmit={handleSubmit(onSubmitGuestAddress)}>
-          <FieldGroup>
-            <div className="grid grid-cols-2 gap-4">
-              <Field className="col-span-2">
-                <FieldLabel htmlFor="fullName">{t('fullName')}</FieldLabel>
-                <Input
-                  id="fullName"
-                  {...register('fullName', { required: t('fullNameRequired') })}
-                />
-                <FieldError>{errors.fullName?.message}</FieldError>
-              </Field>
-
-              <Field className="col-span-2">
-                <FieldLabel htmlFor="company">{t('company')}</FieldLabel>
-                <Input id="company" {...register('company')} />
-              </Field>
-
-              <Field className="col-span-2">
-                <FieldLabel htmlFor="streetLine1">{t('streetAddress')}</FieldLabel>
-                <Input
-                  id="streetLine1"
-                  {...register('streetLine1', { required: t('streetRequired') })}
-                />
-                <FieldError>{errors.streetLine1?.message}</FieldError>
-              </Field>
-
-              <Field className="col-span-2">
-                <FieldLabel htmlFor="streetLine2">{t('apartment')}</FieldLabel>
-                <Input id="streetLine2" {...register('streetLine2')} />
-              </Field>
-
-              <Field>
-                <FieldLabel htmlFor="city">{t('city')}</FieldLabel>
-                <Input
-                  id="city"
-                  {...register('city', { required: t('cityRequired') })}
-                />
-                <FieldError>{errors.city?.message}</FieldError>
-              </Field>
-
-              <Field>
-                <FieldLabel htmlFor="province">{t('stateProvince')}</FieldLabel>
-                <Input
-                  id="province"
-                  {...register('province')}
-                />
-                <FieldError>{errors.province?.message}</FieldError>
-              </Field>
-
-              <Field>
-                <FieldLabel htmlFor="postalCode">{t('postalCode')}</FieldLabel>
-                <Input
-                  id="postalCode"
-                  {...register('postalCode', { required: t('postalCodeRequired') })}
-                />
-                <FieldError>{errors.postalCode?.message}</FieldError>
-              </Field>
-
-              <Field>
-                <FieldLabel htmlFor="countryCode">{t('country')}</FieldLabel>
-                <Controller
-                  name="countryCode"
-                  control={control}
-                  rules={{ required: t('countryRequired') }}
-                  render={({ field }) => (
-                    <CountrySelect
-                      countries={countries}
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      disabled={loading}
-                    />
-                  )}
-                />
-                <FieldError>{errors.countryCode?.message}</FieldError>
-              </Field>
-
-              <Field className="col-span-2">
-                <FieldLabel htmlFor="phoneNumber">{t('phoneNumber')}</FieldLabel>
-                <Input
-                  id="phoneNumber"
-                  type="tel"
-                  {...register('phoneNumber', { required: t('phoneRequired') })}
-                />
-                <FieldError>{errors.phoneNumber?.message}</FieldError>
-              </Field>
-            </div>
-
-            <div className="flex items-center space-x-2 mt-4">
-              <Checkbox
-                id="same-billing-guest"
-                checked={useSameForBilling}
-                onCheckedChange={(checked) => setUseSameForBilling(checked === true)}
-              />
-              <label
-                htmlFor="same-billing-guest"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t('useSameForBilling')}
-              </label>
-            </div>
-
-            <Button type="submit" disabled={loading} className="w-full mt-4">
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {t('continue')}
-            </Button>
-          </FieldGroup>
-        </form>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+
       {addresses.length > 0 && (
         <div className="space-y-4">
           <h3 className="font-semibold">{t('selectSavedAddress')}</h3>
@@ -274,7 +146,7 @@ export default function ShippingAddressStep({ onComplete }: ShippingAddressStepP
                         {address.streetLine2 && `, ${address.streetLine2}`}
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        {address.city}, {address.province} {address.postalCode}
+                        {address.postalCode} {address.city}{address.province ? `, ${address.province}` : ''}
                       </p>
                       <p className="text-sm text-muted-foreground">{address.country.name}</p>
                       <p className="text-sm text-muted-foreground">{address.phoneNumber}</p>

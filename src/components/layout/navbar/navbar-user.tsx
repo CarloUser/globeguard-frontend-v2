@@ -17,7 +17,14 @@ import {getTranslations} from 'next-intl/server';
 export async function NavbarUser() {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Navigation'});
-    const customer = await getActiveCustomer()
+
+    // A failing shop API is treated as "logged out" so the header still renders.
+    let customer: Awaited<ReturnType<typeof getActiveCustomer>> = null;
+    try {
+        customer = await getActiveCustomer();
+    } catch (error) {
+        console.warn('NavbarUser: could not load the active customer, treating as logged out', error);
+    }
 
     if (!customer) {
         return (

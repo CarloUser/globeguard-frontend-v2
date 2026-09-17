@@ -4,14 +4,12 @@ import { PromotionCode } from "@/app/[locale]/cart/promotion-code";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getRouteLocale } from "@/i18n/server";
-import { getActiveCurrencyCode } from "@/lib/currency-server";
 import { query } from "@/lib/vendure/api";
 import { GetActiveOrderQuery } from "@/lib/vendure/queries";
 import { getTranslations } from "next-intl/server";
 
 export async function Cart() {
   const locale = await getRouteLocale();
-  const currencyCode = await getActiveCurrencyCode();
   const t = await getTranslations("Cart");
   const { data } = await query(
     GetActiveOrderQuery,
@@ -19,7 +17,6 @@ export async function Cart() {
     {
       useAuthToken: true,
       languageCode: locale,
-      currencyCode,
     },
   );
 
@@ -31,12 +28,12 @@ export async function Cart() {
 
   return (
     <div>
-      <div className="mb-5 flex flex-col justify-between gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-end">
+      <div className="mb-5 flex flex-col justify-between gap-3 border-b border-border pb-5 sm:flex-row sm:items-end">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-primary">
             {t("reviewBeforeCheckout")}
           </p>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-muted-foreground">
             {t("cartLineCount", { count: activeOrder.totalQuantity })}
           </p>
         </div>

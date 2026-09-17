@@ -3,14 +3,16 @@ import {Suspense} from 'react';
 import {getTranslations} from 'next-intl/server';
 import {getRouteLocale} from '@/i18n/server';
 import {OrderConfirmation} from './order-confirmation';
-import {noIndexRobots} from '@/lib/metadata';
+import {buildAlternates, noIndexRobots} from '@/lib/metadata';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({params}: PageProps<'/[locale]/order-confirmation/[code]'>): Promise<Metadata> {
+    const {code} = await params;
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'OrderConfirmation'});
     return {
         title: t('pageTitle'),
         robots: noIndexRobots(),
+        alternates: buildAlternates(locale, `/order-confirmation/${code}`),
     };
 }
 

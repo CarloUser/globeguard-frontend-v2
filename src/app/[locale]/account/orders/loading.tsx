@@ -1,20 +1,25 @@
+import {getTranslations} from 'next-intl/server';
+import {getRouteLocale} from '@/i18n/server';
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table';
 import {Skeleton} from '@/components/ui/skeleton';
 
-export default function OrdersLoading() {
+export default async function OrdersLoading() {
+    const locale = await getRouteLocale();
+    const t = await getTranslations({locale, namespace: 'Account'});
+
     return (
         <div>
-            <h1 className="text-3xl font-bold mb-6">My Orders</h1>
+            <h1 className="text-3xl font-bold mb-6">{t('myOrders')}</h1>
 
             <div className="border rounded-lg">
                 <Table>
                     <TableHeader className="bg-muted">
                         <TableRow>
-                            <TableHead>Order Number</TableHead>
-                            <TableHead>Date</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Items</TableHead>
-                            <TableHead className="text-right">Total</TableHead>
+                            <TableHead>{t('orderNumber')}</TableHead>
+                            <TableHead>{t('date')}</TableHead>
+                            <TableHead>{t('status')}</TableHead>
+                            <TableHead>{t('itemsHeader')}</TableHead>
+                            <TableHead className="text-right">{t('totalHeader')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

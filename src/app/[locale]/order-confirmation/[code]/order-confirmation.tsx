@@ -1,10 +1,10 @@
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Check, ShoppingBag, ClipboardList} from 'lucide-react';
+import {Check, Clock, ShoppingBag, ClipboardList, XCircle, CreditCard} from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import {Separator} from '@/components/ui/separator';
-import {Price} from '@/components/commerce/price';
+import {Price, VatNote} from '@/components/commerce/price';
 import {notFound} from 'next/navigation';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
@@ -17,8 +17,20 @@ const GetOrderByCodeQuery = graphql(`
             id
             code
             state
+            subTotal
+            shippingWithTax
             totalWithTax
             currencyCode
+            taxSummary {
+                description
+                taxRate
+                taxBase
+                taxTotal
+            }
+            discounts {
+                description
+                amount
+            }
             lines {
                 id
                 productVariant {
@@ -35,7 +47,7 @@ const GetOrderByCodeQuery = graphql(`
                     }
                 }
                 quantity
-                linePriceWithTax
+                linePrice
             }
             shippingAddress {
                 fullName
@@ -50,6 +62,26 @@ const GetOrderByCodeQuery = graphql(`
     }
 `);
 
+type ConfirmationVariant = 'success' | 'pending' | 'cancelled';
+
+/**
+ * Maps the Vendure order state to what the confirmation page should say.
+ * - PaymentSettled / PaymentAuthorized (and every later fulfilment state) -> success
+ * - ArrangingPayment / AddingItems -> payment still outstanding
+ * - Cancelled -> failure
+ */
+function getConfirmationVariant(state: string): ConfirmationVariant {
+    switch (state) {
+        case 'Cancelled':
+            return 'cancelled';
+        case 'AddingItems':
+        case 'ArrangingPayment':
+            return 'pending';
+        default:
+            return 'success';
+    }
+}
+
 interface OrderConfirmationProps {
     paramsPromise: Promise<{ locale: string; code: string }>;
 }
@@ -59,30 +91,68 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'OrderConfirmation'});
 
-    const {data} = await query(GetOrderByCodeQuery, {code}, {useAuthToken: true});
+    const {data} = await query(GetOrderByCodeQuery, {code}, {useAuthToken: true, languageCode: locale});
     const order = data.orderByCode;
 
     if (!order) {
         notFound();
     }
 
+    const variant = getConfirmationVariant(order.state);
+    // Same rows as the cart/checkout summaries: NET subtotal, VAT, gross shipping and total.
+    const vatTotal = order.taxSummary.reduce((sum, entry) => sum + entry.taxTotal, 0);
+
     return (
         <div className="container mx-auto px-4 py-16">
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-10">
-                    <div className="flex justify-center mb-6">
-                        <div className="rounded-full bg-primary p-5 shadow-lg shadow-primary/25">
-                            <Check className="h-10 w-10 text-primary-foreground" strokeWidth={3} />
-                        </div>
-                    </div>
-                    <h1 className="text-3xl font-bold mb-2">{t('orderConfirmed')}</h1>
-                    <p className="text-muted-foreground">
-                        {t('thankYou')}{' '}
-                        <span className="font-semibold text-foreground">{order.code}</span>
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-1">
-                        {t('emailConfirmation')}
-                    </p>
+                    {variant === 'success' && (
+                        <>
+                            <div className="flex justify-center mb-6">
+                                <div className="rounded-full bg-primary p-5 shadow-lg shadow-primary/25">
+                                    <Check className="h-10 w-10 text-primary-foreground" strokeWidth={3} />
+                                </div>
+                            </div>
+                            <h1 className="text-3xl font-bold mb-2">{t('orderConfirmed')}</h1>
+                            <p className="text-muted-foreground">
+                                {t('thankYou')}{' '}
+                                <span className="font-semibold text-foreground">{order.code}</span>
+                            </p>
+                            <p className="text-sm text-muted-foreground mt-1">
+                                {t('emailConfirmation')}
+                            </p>
+                        </>
+                    )}
+
+                    {variant === 'pending' && (
+                        <>
+                            <div className="flex justify-center mb-6">
+                                <div className="rounded-full bg-muted p-5">
+                                    <Clock className="h-10 w-10 text-muted-foreground" strokeWidth={2.5} />
+                                </div>
+                            </div>
+                            <h1 className="text-3xl font-bold mb-2">{t('paymentPending')}</h1>
+                            <p className="text-muted-foreground">
+                                {t('paymentPendingMessage')}{' '}
+                                <span className="font-semibold text-foreground">{order.code}</span>
+                            </p>
+                        </>
+                    )}
+
+                    {variant === 'cancelled' && (
+                        <>
+                            <div className="flex justify-center mb-6">
+                                <div className="rounded-full bg-destructive/10 p-5">
+                                    <XCircle className="h-10 w-10 text-destructive" strokeWidth={2.5} />
+                                </div>
+                            </div>
+                            <h1 className="text-3xl font-bold mb-2">{t('orderCancelled')}</h1>
+                            <p className="text-muted-foreground">
+                                {t('orderCancelledMessage')}{' '}
+                                <span className="font-semibold text-foreground">{order.code}</span>
+                            </p>
+                        </>
+                    )}
                 </div>
 
                 <Card className="mb-6">
@@ -114,11 +184,37 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                                 </div>
                                 <div className="text-right">
                                     <p className="font-semibold">
-                                        <Price value={line.linePriceWithTax} currencyCode={order.currencyCode}/>
+                                        <Price value={line.linePrice} currencyCode={order.currencyCode}/>
                                     </p>
+                                    <VatNote className="text-xs text-muted-foreground" />
                                 </div>
                             </div>
                         ))}
+
+                        <Separator/>
+
+                        <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">{t('subtotalNet')}</span>
+                                <span><Price value={order.subTotal} currencyCode={order.currencyCode}/></span>
+                            </div>
+                            {order.discounts.map((discount, index) => (
+                                <div key={index} className="flex justify-between text-green-600">
+                                    <span>{discount.description}</span>
+                                    <span><Price value={discount.amount} currencyCode={order.currencyCode}/></span>
+                                </div>
+                            ))}
+                            {order.taxSummary.length > 0 && (
+                                <div className="flex justify-between">
+                                    <span className="text-muted-foreground">{t('vat')}</span>
+                                    <span><Price value={vatTotal} currencyCode={order.currencyCode}/></span>
+                                </div>
+                            )}
+                            <div className="flex justify-between">
+                                <span className="text-muted-foreground">{t('shipping')}</span>
+                                <span><Price value={order.shippingWithTax} currencyCode={order.currencyCode}/></span>
+                            </div>
+                        </div>
 
                         <Separator/>
 
@@ -143,8 +239,8 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                                 {order.shippingAddress.streetLine2 && `, ${order.shippingAddress.streetLine2}`}
                             </p>
                             <p className="text-sm text-muted-foreground">
-                                {order.shippingAddress.city}, {order.shippingAddress.province}{' '}
-                                {order.shippingAddress.postalCode}
+                                {order.shippingAddress.postalCode} {order.shippingAddress.city}
+                                {order.shippingAddress.province && `, ${order.shippingAddress.province}`}
                             </p>
                             <p className="text-sm text-muted-foreground">{order.shippingAddress.country}</p>
                         </CardContent>
@@ -152,10 +248,17 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-3">
-                    <Button nativeButton={false} render={<Link href="/" />} className="flex-1" size="lg">
-                        <ShoppingBag className="mr-2 h-4 w-4" />
-                        {t('continueShopping')}
-                    </Button>
+                    {variant === 'pending' ? (
+                        <Button nativeButton={false} render={<Link href="/checkout" />} className="flex-1" size="lg">
+                            <CreditCard className="mr-2 h-4 w-4" />
+                            {t('completePayment')}
+                        </Button>
+                    ) : (
+                        <Button nativeButton={false} render={<Link href="/" />} className="flex-1" size="lg">
+                            <ShoppingBag className="mr-2 h-4 w-4" />
+                            {t('continueShopping')}
+                        </Button>
+                    )}
                     <Button nativeButton={false} render={<Link href="/account/orders" />} variant="outline" className="flex-1" size="lg">
                         <ClipboardList className="mr-2 h-4 w-4" />
                         {t('viewOrders')}

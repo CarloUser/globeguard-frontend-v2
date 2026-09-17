@@ -1,15 +1,10 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Minus, Plus, X } from "lucide-react";
+import { Minus, Package, Plus, X } from "lucide-react";
 import { Price } from "@/components/commerce/price";
 import { removeFromCart, adjustQuantity } from "./actions";
 import { getTranslations } from "next-intl/server";
-import {
-  ProductVisual,
-  getProductVisualKind,
-  getProductVisualLabel,
-} from "@/components/commerce/product-visual";
 
 type ActiveOrder = {
   id: string;
@@ -17,8 +12,10 @@ type ActiveOrder = {
   lines: Array<{
     id: string;
     quantity: number;
-    unitPriceWithTax: number;
-    linePriceWithTax: number;
+    /** NET unit price in minor units. */
+    unitPrice: number;
+    /** NET line total in minor units. */
+    linePrice: number;
     productVariant: {
       id: string;
       name: string;
@@ -34,27 +31,22 @@ type ActiveOrder = {
   }>;
 };
 
-function isDigitalLine(name: string) {
-  return /software|license|lizenz|sgw|gateway|update|remote|support/i.test(
-    name,
-  );
-}
-
 export async function CartItems({
   activeOrder,
 }: {
   activeOrder: ActiveOrder | null;
 }) {
   const t = await getTranslations("Cart");
+  const tCommon = await getTranslations("Common");
 
   if (!activeOrder || activeOrder.lines.length === 0) {
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-md text-center">
-          <h1 className="mb-4 text-3xl font-bold text-[#101820]">
+          <h1 className="mb-4 text-3xl font-bold text-foreground">
             {t("empty")}
           </h1>
-          <p className="mb-8 text-slate-600">{t("emptyMessage")}</p>
+          <p className="mb-8 text-muted-foreground">{t("emptyMessage")}</p>
           <Button render={<Link href="/search" />} nativeButton={false}>
             {t("continueShopping")}
           </Button>
@@ -65,8 +57,8 @@ export async function CartItems({
 
   return (
     <div className="lg:col-span-2">
-      <div className="overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm">
-        <div className="hidden grid-cols-[112px_minmax(0,1fr)_120px_132px_120px_40px] border-b border-slate-200 bg-slate-50 px-5 py-3 text-xs font-bold uppercase tracking-wide text-slate-500 md:grid">
+      <div className="overflow-hidden rounded-md border border-border bg-card shadow-sm">
+        <div className="hidden grid-cols-[112px_minmax(0,1fr)_120px_132px_120px_40px] border-b border-border bg-muted px-5 py-3 text-xs font-bold uppercase tracking-wide text-muted-foreground md:grid">
           <span>{t("imageColumn")}</span>
           <span>{t("productColumn")}</span>
           <span className="text-right">{t("unitPrice")}</span>
@@ -75,14 +67,10 @@ export async function CartItems({
           <span className="sr-only">{t("removeItem")}</span>
         </div>
 
-        <div className="divide-y divide-slate-200">
+        <div className="divide-y divide-border">
           {activeOrder.lines.map((line) => {
             const productName = line.productVariant.product.name;
-            const visualKind = getProductVisualKind(productName);
-            const visualLabel = getProductVisualLabel(visualKind);
-            const supportLine = isDigitalLine(productName)
-              ? t("activationLine")
-              : t("shippingLine");
+            const productHref = `/products/${line.productVariant.product.slug}`;
 
             return (
               <div
@@ -90,8 +78,8 @@ export async function CartItems({
                 className="relative grid gap-4 p-4 md:grid-cols-[112px_minmax(0,1fr)_120px_132px_120px_40px] md:items-center md:p-5"
               >
                 <Link
-                  href={`/product/${line.productVariant.product.slug}`}
-                  className="block h-24 w-28 overflow-hidden rounded-md border border-slate-200 bg-slate-50"
+                  href={productHref}
+                  className="block h-24 w-28 overflow-hidden rounded-md border border-border bg-muted"
                 >
                   {line.productVariant.product.featuredAsset ? (
                     <Image
@@ -102,53 +90,46 @@ export async function CartItems({
                       className="h-full w-full object-contain p-2"
                     />
                   ) : (
-                    <ProductVisual
-                      name={productName}
-                      asset={line.productVariant.product.featuredAsset}
-                      className="h-full w-full"
-                    />
+                    <span
+                      className="flex h-full w-full items-center justify-center text-muted-foreground"
+                      aria-hidden="true"
+                    >
+                      <Package className="size-8" strokeWidth={1.5} />
+                    </span>
                   )}
                 </Link>
 
                 <div className="min-w-0 pr-10 md:pr-0">
-                  <div className="mb-2 flex flex-wrap items-center gap-2">
-                    <span className="rounded bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-primary">
-                      {visualLabel}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs font-medium text-emerald-700">
-                      <CheckCircle2 className="size-3.5" />
-                      {supportLine}
-                    </span>
-                  </div>
-
                   <Link
-                    href={`/product/${line.productVariant.product.slug}`}
-                    className="block text-base font-bold leading-snug text-[#101820] hover:text-primary"
+                    href={productHref}
+                    className="block text-base font-bold leading-snug text-foreground hover:text-primary"
                   >
                     {productName}
                   </Link>
                   {line.productVariant.name !== productName && (
-                    <p className="mt-1 text-sm text-slate-600">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       {line.productVariant.name}
                     </p>
                   )}
-                  <p className="mt-1 font-mono text-xs text-slate-500">
+                  <p className="mt-1 font-mono text-xs text-muted-foreground">
                     {t("sku", { sku: line.productVariant.sku })}
                   </p>
                 </div>
 
                 <div className="hidden text-right md:block">
-                  <p className="font-semibold text-[#101820]">
+                  <p className="font-semibold text-foreground">
                     <Price
-                      value={line.unitPriceWithTax}
+                      value={line.unitPrice}
                       currencyCode={activeOrder.currencyCode}
                     />
                   </p>
-                  <p className="mt-1 text-xs text-slate-500">{t("each")}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t("each")} · {tCommon("exclVat")}
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-3 md:justify-center">
-                  <div className="flex items-center gap-1 border border-slate-200 bg-slate-50">
+                  <div className="flex items-center gap-1 border border-border bg-muted">
                     <form
                       action={async () => {
                         "use server";
@@ -162,7 +143,7 @@ export async function CartItems({
                         type="submit"
                         variant="ghost"
                         size="icon"
-                        className="h-9 w-9 rounded-none hover:bg-white"
+                        className="h-9 w-9 rounded-none hover:bg-background"
                         disabled={line.quantity <= 1}
                         aria-label={t("decreaseQuantity")}
                       >
@@ -184,7 +165,7 @@ export async function CartItems({
                         type="submit"
                         variant="ghost"
                         size="icon"
-                        className="h-9 w-9 rounded-none hover:bg-white"
+                        className="h-9 w-9 rounded-none hover:bg-background"
                         aria-label={t("increaseQuantity")}
                       >
                         <Plus className="h-4 w-4" />
@@ -195,26 +176,29 @@ export async function CartItems({
 
                 <div className="flex items-end justify-between gap-4 md:block md:text-right">
                   <div className="md:hidden">
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                       {t("unitPrice")}
                     </p>
                     <p className="font-semibold">
                       <Price
-                        value={line.unitPriceWithTax}
+                        value={line.unitPrice}
                         currencyCode={activeOrder.currencyCode}
                       />{" "}
                       {t("each")}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-slate-500 md:hidden">
+                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground md:hidden">
                       {t("lineTotal")}
                     </p>
-                    <p className="text-lg font-bold text-[#101820]">
+                    <p className="text-lg font-bold text-foreground">
                       <Price
-                        value={line.linePriceWithTax}
+                        value={line.linePrice}
                         currencyCode={activeOrder.currencyCode}
                       />
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {tCommon("exclVat")}
                     </p>
                   </div>
                 </div>
@@ -230,7 +214,7 @@ export async function CartItems({
                     type="submit"
                     variant="ghost"
                     size="icon"
-                    className="h-9 w-9 rounded-full text-slate-400 hover:bg-red-50 hover:text-destructive"
+                    className="h-9 w-9 rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
                     aria-label={t("removeItem")}
                   >
                     <X className="h-5 w-5" />

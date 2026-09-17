@@ -8,6 +8,10 @@ export const size = {
 };
 export const contentType = 'image/png';
 
+// Brand-only Open Graph image: wordmark + tagline, no product claims.
+// Relies on the default font bundled with next/og so it never depends on a network font fetch.
+const TAGLINE = 'Lösungen für Reisemobile, Fernreisende und Werkstätten';
+
 export default function OpenGraphImage() {
     return new ImageResponse(
         (
@@ -18,31 +22,18 @@ export default function OpenGraphImage() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    padding: 72,
+                    padding: 80,
                     color: '#ffffff',
-                    background: 'linear-gradient(135deg, #0f172a 0%, #115e59 58%, #f59e0b 100%)',
-                    fontFamily: 'Arial, sans-serif',
+                    background: 'linear-gradient(135deg, #0E1E4B 0%, #0083C2 100%)',
                 }}
             >
                 <div
                     style={{
                         display: 'flex',
-                        fontSize: 28,
-                        letterSpacing: 4,
-                        textTransform: 'uppercase',
-                        opacity: 0.86,
-                    }}
-                >
-                    Vendure Commerce
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        marginTop: 28,
-                        maxWidth: 880,
-                        fontSize: 88,
+                        fontSize: 112,
                         fontWeight: 700,
-                        lineHeight: 1.02,
+                        letterSpacing: -2,
+                        lineHeight: 1,
                     }}
                 >
                     {SITE_NAME}
@@ -50,14 +41,26 @@ export default function OpenGraphImage() {
                 <div
                     style={{
                         display: 'flex',
-                        marginTop: 30,
-                        maxWidth: 760,
-                        fontSize: 34,
+                        marginTop: 36,
+                        maxWidth: 900,
+                        fontSize: 40,
                         lineHeight: 1.3,
                         opacity: 0.92,
                     }}
                 >
-                    Modern storefront powered by Vendure and Next.js
+                    {TAGLINE}
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        marginTop: 48,
+                        fontSize: 26,
+                        letterSpacing: 3,
+                        textTransform: 'uppercase',
+                        opacity: 0.75,
+                    }}
+                >
+                    globeguard.ch
                 </div>
             </div>
         ),

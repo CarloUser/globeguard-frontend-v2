@@ -82,10 +82,13 @@ export const ApplyPromotionCodeMutation = graphql(`
             ... on Order {
                 id
                 code
+                subTotal
+                total
                 totalWithTax
                 couponCodes
                 discounts {
                     description
+                    amount
                     amountWithTax
                 }
             }
@@ -102,10 +105,13 @@ export const RemovePromotionCodeMutation = graphql(`
         removeCouponCode(couponCode: $couponCode) {
             id
             code
+            subTotal
+            total
             totalWithTax
             couponCodes
             discounts {
                 description
+                amount
                 amountWithTax
             }
         }
@@ -227,7 +233,10 @@ export const SetOrderShippingMethodMutation = graphql(`
             ... on Order {
                 id
                 code
+                shipping
                 shippingWithTax
+                subTotal
+                total
                 totalWithTax
                 shippingLines {
                     shippingMethod {
@@ -235,6 +244,7 @@ export const SetOrderShippingMethodMutation = graphql(`
                         name
                         description
                     }
+                    price
                     priceWithTax
                 }
             }

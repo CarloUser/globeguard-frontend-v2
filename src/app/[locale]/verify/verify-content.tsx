@@ -1,12 +1,12 @@
 'use client';
 
-import {use} from 'react';
-import {VerifyResult} from './verify-result';
+import {use, useEffect, useRef, useState} from 'react';
+import {VerifyResult, type VerifyResultType} from './verify-result';
 import {verifyAccountAction} from './actions';
 import {Card, CardContent} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import { Link } from '@/i18n/navigation';
-import {XCircle} from 'lucide-react';
+import {Loader2, XCircle} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 
 interface VerifyContentProps {
@@ -17,6 +17,25 @@ export function VerifyContent({searchParams}: VerifyContentProps) {
     const t = useTranslations('Verify');
     const params = use(searchParams);
     const token = params.token;
+
+    const [result, setResult] = useState<VerifyResultType | null>(null);
+    // The verification token is single-use: guard against React StrictMode
+    // double-invoking the effect in development.
+    const startedRef = useRef(false);
+
+    useEffect(() => {
+        if (!token || startedRef.current) return;
+        startedRef.current = true;
+
+        let cancelled = false;
+        verifyAccountAction(token).then((res) => {
+            if (!cancelled) setResult(res);
+        });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [token]);
 
     if (!token) {
         return (
@@ -48,7 +67,23 @@ export function VerifyContent({searchParams}: VerifyContentProps) {
         );
     }
 
-    const verifyPromise = verifyAccountAction(token);
+    if (!result) {
+        return (
+            <Card>
+                <CardContent className="pt-6 space-y-4">
+                    <div className="flex justify-center">
+                        <Loader2 className="h-16 w-16 text-primary animate-spin"/>
+                    </div>
+                    <div className="space-y-2 text-center">
+                        <h1 className="text-2xl font-bold">{t('verifying')}</h1>
+                        <p className="text-muted-foreground">
+                            {t('verifyingMessage')}
+                        </p>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
 
-    return <VerifyResult resultPromise={verifyPromise}/>;
+    return <VerifyResult result={result}/>;
 }

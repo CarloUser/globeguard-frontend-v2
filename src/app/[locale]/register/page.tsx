@@ -5,13 +5,15 @@ import {getTranslations} from 'next-intl/server';
 import { RegistrationForm } from "./registration-form";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import {SITE_NAME} from "@/lib/metadata";
+import {buildAlternates, SITE_NAME} from "@/lib/metadata";
+import {isSafeRedirectPath} from "@/lib/auth";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Auth'});
     return {
         title: t('createAccount'),
+        alternates: buildAlternates(locale, '/register'),
     };
 }
 
@@ -56,7 +58,10 @@ function RegistrationFormSkeleton() {
 
 async function RegisterContent({searchParams}: {searchParams: Promise<Record<string, string | string[] | undefined>>}) {
     const resolvedParams = await searchParams;
-    const redirectTo = resolvedParams?.redirectTo as string | undefined;
+    const rawRedirectTo = resolvedParams?.redirectTo;
+    const candidate = Array.isArray(rawRedirectTo) ? rawRedirectTo[0] : rawRedirectTo;
+    // Only same-site relative paths are accepted as redirect targets
+    const redirectTo = isSafeRedirectPath(candidate) ? candidate : undefined;
 
     return <RegistrationForm redirectTo={redirectTo} />;
 }
@@ -64,6 +69,7 @@ async function RegisterContent({searchParams}: {searchParams: Promise<Record<str
 export default async function RegisterPage({searchParams}: PageProps<'/[locale]/register'>) {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Auth'});
+    const tCommon = await getTranslations({locale, namespace: 'Common'});
 
     return (
         <div className="flex min-h-[calc(100vh-4rem)] mt-16">
@@ -72,22 +78,8 @@ export default async function RegisterPage({searchParams}: PageProps<'/[locale]/
                 <div className="max-w-md text-primary-foreground space-y-6">
                     <h2 className="text-4xl font-bold tracking-tight">{SITE_NAME}</h2>
                     <p className="text-xl text-primary-foreground/80 leading-relaxed">
-                        {t('joinUs')}
+                        {tCommon('siteDescription')}
                     </p>
-                    <div className="flex gap-8 pt-4">
-                        <div>
-                            <p className="text-3xl font-bold">{t('featureFast')}</p>
-                            <p className="text-sm text-primary-foreground/70">{t('featureCheckout')}</p>
-                        </div>
-                        <div>
-                            <p className="text-3xl font-bold">{t('featureSecure')}</p>
-                            <p className="text-sm text-primary-foreground/70">{t('featurePayments')}</p>
-                        </div>
-                        <div>
-                            <p className="text-3xl font-bold">{t('featureEasy')}</p>
-                            <p className="text-sm text-primary-foreground/70">{t('featureReturns')}</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 

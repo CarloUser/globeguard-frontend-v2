@@ -3,6 +3,7 @@
 import {mutate} from '@/lib/vendure/api';
 import {RegisterCustomerAccountMutation} from '@/lib/vendure/mutations';
 import {redirect} from '@/i18n/navigation';
+import {isSafeRedirectPath} from '@/lib/auth';
 import {getLocale, getTranslations} from 'next-intl/server';
 
 export async function registerAction(prevState: { error?: string } | undefined, formData: FormData) {
@@ -12,7 +13,9 @@ export async function registerAction(prevState: { error?: string } | undefined, 
     const lastName = formData.get('lastName') as string;
     const phoneNumber = formData.get('phoneNumber') as string;
     const password = formData.get('password') as string;
-    const redirectTo = formData.get('redirectTo') as string | null;
+    const rawRedirectTo = formData.get('redirectTo') as string | null;
+    // Only same-site relative paths are carried through the verification flow
+    const redirectTo = isSafeRedirectPath(rawRedirectTo) ? rawRedirectTo : null;
 
     if (!emailAddress || !password) {
         return {error: t('emailPasswordRequired')};

@@ -5,12 +5,13 @@ import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
-import { Loader2, Truck } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertCircle, Loader2, Truck } from 'lucide-react';
 import { useRouter } from '@/i18n/navigation';
 import { useCheckout } from '../checkout-provider';
 import { setShippingMethod as setShippingMethodAction } from '../actions';
-import {useTranslations, useLocale} from 'next-intl';
-import {toIntlLocale} from '@/i18n/locale-utils';
+import { Price } from '@/components/commerce/price';
+import {useTranslations} from 'next-intl';
 
 interface DeliveryStepProps {
   onComplete: () => void;
@@ -18,8 +19,6 @@ interface DeliveryStepProps {
 
 export default function DeliveryStep({ onComplete }: DeliveryStepProps) {
   const t = useTranslations('Checkout');
-  const locale = useLocale();
-  const intlLocale = toIntlLocale(locale);
   const router = useRouter();
   const { shippingMethods, order } = useCheckout();
   const [selectedMethodId, setSelectedMethodId] = useState<string | null>(() => {
@@ -29,17 +28,20 @@ export default function DeliveryStep({ onComplete }: DeliveryStepProps) {
     return shippingMethods.length === 1 ? shippingMethods[0].id : null;
   });
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleContinue = async () => {
     if (!selectedMethodId) return;
 
     setSubmitting(true);
+    setError(null);
     try {
       await setShippingMethodAction(selectedMethodId);
       router.refresh();
       onComplete();
-    } catch (error) {
-      console.error('Error setting shipping method:', error);
+    } catch (err) {
+      console.error('Error setting shipping method:', err);
+      setError(t('shippingMethodError'));
     } finally {
       setSubmitting(false);
     }
@@ -56,6 +58,13 @@ export default function DeliveryStep({ onComplete }: DeliveryStepProps) {
   return (
     <div className="space-y-6">
       <h3 className="font-semibold">{t('selectShippingMethod')}</h3>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       <RadioGroup value={selectedMethodId || ''} onValueChange={setSelectedMethodId}>
         {shippingMethods.map((method) => (
@@ -78,10 +87,7 @@ export default function DeliveryStep({ onComplete }: DeliveryStepProps) {
                   <p className="font-semibold">
                     {method.priceWithTax === 0
                       ? t('free')
-                      : (method.priceWithTax / 100).toLocaleString(intlLocale, {
-                          style: 'currency',
-                          currency: 'USD',
-                        })}
+                      : <Price value={method.priceWithTax} currencyCode={order.currencyCode} />}
                   </p>
                 </div>
               </div>

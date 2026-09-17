@@ -1,120 +1,81 @@
+import {getTranslations} from 'next-intl/server';
 import {NavigationLink} from '@/components/shared/navigation-link';
-import {getGlobeguardContent} from '@/content/globeguard';
+import {globeguardCompany} from '@/content/globeguard';
 import {GlobeguardBrand} from '@/components/layout/globeguard-brand';
+import {
+    FOOTER_INFORMATION_LINKS,
+    FOOTER_LEGAL_LINKS,
+    FOOTER_PRODUCT_LINKS,
+    type SiteNavItem,
+} from '@/components/layout/navbar/site-navigation';
 
-const COPYRIGHT_YEAR = 2026;
+const headingClassName = 'mb-4 text-sm font-bold uppercase tracking-wider text-accent';
+const linkClassName = 'text-secondary-foreground/80 transition-colors hover:text-secondary-foreground';
+
+async function FooterLinkColumn({
+    title,
+    items,
+    locale,
+    labels,
+}: {
+    title: string;
+    items: readonly SiteNavItem[];
+    locale: string;
+    labels: (key: string) => string;
+}) {
+    return (
+        <div>
+            <h4 className={headingClassName}>{title}</h4>
+            <ul className="space-y-2 text-sm">
+                {items.map((item) => (
+                    <li key={item.href}>
+                        <NavigationLink locale={locale} href={item.href} className={linkClassName}>
+                            {labels(item.key)}
+                        </NavigationLink>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
 
 export async function Footer({locale}: {locale: string}) {
-    const content = getGlobeguardContent(locale);
+    const t = await getTranslations({locale, namespace: 'Footer'});
+    const tNav = await getTranslations({locale, namespace: 'Navigation'});
+    const {name, address, email} = globeguardCompany;
+    const year = new Date().getFullYear();
 
     return (
-        <footer className="w-full bg-[#0E1E4B] py-16 text-white border-t border-slate-800">
+        <footer className="w-full border-t border-secondary-foreground/10 bg-secondary py-16 text-secondary-foreground">
             <div className="container mx-auto px-4 lg:px-8">
-                <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mb-12">
-                    {/* Products Column */}
-                    <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#4594E1] mb-4">Products</h4>
-                        <ul className="space-y-2 text-sm text-[#D9DEE8]">
-                            <li>
-                                <NavigationLink locale={locale} href="/search?q=BASIC" className="transition-colors hover:text-white">
-                                    GlobeGuard Basic
-                                </NavigationLink>
-                            </li>
-                            <li>
-                                <NavigationLink locale={locale} href="/search?q=Camper" className="transition-colors hover:text-white">
-                                    GlobeGuard Camper
-                                </NavigationLink>
-                            </li>
-                            <li>
-                                <NavigationLink locale={locale} href="/search?q=PRO" className="transition-colors hover:text-white">
-                                    GlobeGuard Pro
-                                </NavigationLink>
-                            </li>
-                            <li>
-                                <NavigationLink locale={locale} href="/search?q=Elite" className="transition-colors hover:text-white">
-                                    GlobeGuard Elite
-                                </NavigationLink>
-                            </li>
-                        </ul>
-                    </div>
+                <div className="mb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <FooterLinkColumn title={t('products')} items={FOOTER_PRODUCT_LINKS} locale={locale} labels={tNav} />
+                    <FooterLinkColumn title={t('information')} items={FOOTER_INFORMATION_LINKS} locale={locale} labels={tNav} />
+                    <FooterLinkColumn title={t('legal')} items={FOOTER_LEGAL_LINKS} locale={locale} labels={tNav} />
 
-                    {/* Supported Vehicles Column */}
                     <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#4594E1] mb-4">Supported Vehicles</h4>
-                        <ul className="space-y-2 text-sm text-[#D9DEE8]">
-                            <li><a href="#supported-vehicles" className="transition-colors hover:text-white">Cars</a></li>
-                            <li><a href="#supported-vehicles" className="transition-colors hover:text-white">Motorcycles</a></li>
-                            <li><a href="#supported-vehicles" className="transition-colors hover:text-white">Campers</a></li>
-                            <li><a href="#supported-vehicles" className="transition-colors hover:text-white">Trucks</a></li>
-                            <li><a href="#supported-vehicles" className="transition-colors hover:text-white">Commercial Vehicles</a></li>
-                            <li><a href="#supported-vehicles" className="transition-colors hover:text-white">Special Vehicles</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Software Licenses Column */}
-                    <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#4594E1] mb-4">Software Licenses</h4>
-                        <ul className="space-y-2 text-sm text-[#D9DEE8]">
-                            <li><a href="#software-licenses" className="transition-colors hover:text-white">Brand Modules</a></li>
-                            <li><a href="#software-licenses" className="transition-colors hover:text-white">Activation Keys</a></li>
-                            <li><a href="#software-licenses" className="transition-colors hover:text-white">Update Subscriptions</a></li>
-                            <li><a href="#software-licenses" className="transition-colors hover:text-white">SGW Bypass License</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Remote Diagnostics Column */}
-                    <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#4594E1] mb-4">Remote Diagnostics</h4>
-                        <ul className="space-y-2 text-sm text-[#D9DEE8]">
-                            <li><a href="#remote-diagnostics" className="transition-colors hover:text-white">How It Works</a></li>
-                            <li><a href="#remote-diagnostics" className="transition-colors hover:text-white">Partner Workshops</a></li>
-                            <li><a href="#remote-diagnostics" className="transition-colors hover:text-white">Request Support</a></li>
-                            <li><a href="#remote-diagnostics" className="transition-colors hover:text-white">Hardware Requirements</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Company Column */}
-                    <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#4594E1] mb-4">Company</h4>
-                        <ul className="space-y-2 text-sm text-[#D9DEE8]">
-                            <li><NavigationLink locale={locale} href="/support" className="transition-colors hover:text-white">About Us</NavigationLink></li>
-                            <li><a href="#elite" className="transition-colors hover:text-white">Enterprise Elite</a></li>
-                            <li><NavigationLink locale={locale} href="/partners" className="transition-colors hover:text-white">Partnerships</NavigationLink></li>
-                            <li><NavigationLink locale={locale} href="/contact" className="transition-colors hover:text-white">Careers</NavigationLink></li>
-                        </ul>
-                    </div>
-
-                    {/* Legal Column */}
-                    <div>
-                        <h4 className="text-sm font-bold uppercase tracking-wider text-[#4594E1] mb-4">Legal</h4>
-                        <ul className="space-y-2 text-sm text-[#D9DEE8]">
-                            <li><NavigationLink locale={locale} href="/contact" className="transition-colors hover:text-white">Privacy Policy</NavigationLink></li>
-                            <li><NavigationLink locale={locale} href="/contact" className="transition-colors hover:text-white">Terms of Service</NavigationLink></li>
-                            <li><NavigationLink locale={locale} href="/contact" className="transition-colors hover:text-white">Refund Policy</NavigationLink></li>
-                            <li><NavigationLink locale={locale} href="/contact" className="transition-colors hover:text-white">Impressum</NavigationLink></li>
-                        </ul>
+                        <h4 className={headingClassName}>{t('contact')}</h4>
+                        <address className="space-y-1 text-sm not-italic text-secondary-foreground/80">
+                            <p className="font-semibold text-secondary-foreground">{name}</p>
+                            <p>{address.street}</p>
+                            <p>
+                                {address.postalCode} {address.city}
+                            </p>
+                            <p>{address.country}</p>
+                            <p>
+                                <a href={`mailto:${email}`} className={linkClassName}>
+                                    {email}
+                                </a>
+                            </p>
+                        </address>
                     </div>
                 </div>
 
-                <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div className="space-y-2 text-sm text-[#D9DCE5]">
-                        <div className="flex items-center gap-3">
-                            <NavigationLink locale={locale} href="/">
-                                <GlobeguardBrand className="brightness-0 invert h-7" />
-                            </NavigationLink>
-                            <span className="text-xs border border-slate-700 rounded px-2 py-0.5 font-mono text-[#D9DEE8]">CH-Cham</span>
-                        </div>
-                        <p>{content.contact.title} &bull; {content.contact.address.join(', ')}</p>
-                        <p className="text-xs text-slate-400">VAT: {content.contact.vat} &bull; Tel: {content.contact.phone}</p>
-                    </div>
-
-                    <div className="text-xs text-slate-400 flex flex-col md:flex-row gap-4 md:items-center">
-                        <p>&copy; {COPYRIGHT_YEAR} GlobeGuard GmbH. All rights reserved.</p>
-                        <div className="flex items-center gap-2 text-emerald-400">
-                            <span className="status-dot-green scale-75" />
-                            <span>Dealer-Level Infrastructure Active</span>
-                        </div>
-                    </div>
+                <div className="flex flex-col items-start justify-between gap-6 border-t border-secondary-foreground/10 pt-8 md:flex-row md:items-center">
+                    <NavigationLink locale={locale} href="/">
+                        <GlobeguardBrand compact className="brightness-0 invert" />
+                    </NavigationLink>
+                    <p className="text-xs text-secondary-foreground/70">{t('copyright', {year})}</p>
                 </div>
             </div>
         </footer>

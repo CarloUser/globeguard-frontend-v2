@@ -1,5 +1,4 @@
 import type {Metadata} from 'next';
-import {getActiveCurrencyCode} from '@/lib/currency-server';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
 import {query} from '@/lib/vendure/api';
@@ -12,7 +11,7 @@ import {
 import {redirect} from '@/i18n/navigation';
 import CheckoutFlow from './checkout-flow';
 import {CheckoutProvider} from './checkout-provider';
-import {noIndexRobots} from '@/lib/metadata';
+import {buildAlternates, noIndexRobots} from '@/lib/metadata';
 import {getActiveCustomer} from '@/lib/vendure/actions';
 import {getAvailableCountriesCached} from '@/lib/vendure/cached';
 
@@ -22,25 +21,29 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         title: t('pageTitle'),
         robots: noIndexRobots(),
+        alternates: buildAlternates(locale, '/checkout'),
     };
 }
 
 export default async function CheckoutPage() {
     const locale = await getRouteLocale();
-    const currencyCode = await getActiveCurrencyCode();
     const t = await getTranslations({locale, namespace: 'Checkout'});
-    const customer = await getActiveCustomer();
-    const isGuest = !customer;
 
+    // Accounts are mandatory at checkout (guest checkout is disabled in the backend).
+    const customer = await getActiveCustomer();
+    if (!customer) {
+        return redirect({href: `/sign-in?redirectTo=${encodeURIComponent('/checkout')}`, locale});
+    }
+
+    // Orders are always in the channel currency (CHF); no currencyCode override.
+    // Shipping/payment method names are localised via the request languageCode.
     const [orderRes, addressesRes, countries, shippingMethodsRes, paymentMethodsRes] =
         await Promise.all([
-            query(GetActiveOrderForCheckoutQuery, {}, {useAuthToken: true, currencyCode}),
-            isGuest
-                ? Promise.resolve({ data: { activeCustomer: null } })
-                : query(GetCustomerAddressesQuery, {}, {useAuthToken: true}),
+            query(GetActiveOrderForCheckoutQuery, {}, {useAuthToken: true}),
+            query(GetCustomerAddressesQuery, {}, {useAuthToken: true}),
             getAvailableCountriesCached(locale),
-            query(GetEligibleShippingMethodsQuery, {}, {useAuthToken: true, currencyCode}),
-            query(GetEligiblePaymentMethodsQuery, {}, {useAuthToken: true, currencyCode}),
+            query(GetEligibleShippingMethodsQuery, {}, {useAuthToken: true, languageCode: locale}),
+            query(GetEligiblePaymentMethodsQuery, {}, {useAuthToken: true, languageCode: locale}),
         ]);
 
     const activeOrder = orderRes.data.activeOrder;
@@ -67,7 +70,6 @@ export default async function CheckoutPage() {
                 countries={countries}
                 shippingMethods={shippingMethods}
                 paymentMethods={paymentMethods}
-                isGuest={isGuest}
             >
                 <CheckoutFlow/>
             </CheckoutProvider>

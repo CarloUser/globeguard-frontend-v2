@@ -1,7 +1,19 @@
 import type { Metadata } from 'next';
+import { getPathname } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 
-export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Globeguard';
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001').replace(/\/$/, '');
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'GlobeGuard';
+
+/**
+ * Public origin of the storefront (no trailing slash), resolved at call time.
+ * Request-time consumers (sitemap.xml, robots.txt) call this directly so they
+ * pick up the runtime NEXT_PUBLIC_SITE_URL instead of the value present at build.
+ */
+export function getSiteUrl(): string {
+  return (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001').replace(/\/$/, '');
+}
+
+export const SITE_URL = getSiteUrl();
 
 /**
  * Truncate text to a maximum length, preserving word boundaries.
@@ -34,6 +46,29 @@ export function buildCanonicalUrl(path: string): string {
   const baseUrl = SITE_URL.replace(/\/$/, ''); // Remove trailing slash
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;
+}
+
+export interface RouteAlternates {
+  canonical: string;
+  languages: Record<string, string>;
+}
+
+/**
+ * Canonical URL plus hreflang alternates for a locale-agnostic route.
+ * Under `localePrefix: 'as-needed'` German is unprefixed and English lives under /en;
+ * x-default points at the default locale (de). Use this in every page's generateMetadata
+ * instead of building locale-prefixed paths by hand.
+ */
+export function buildAlternates(locale: string, href: string): RouteAlternates {
+  const languages: Record<string, string> = Object.fromEntries(
+    routing.locales.map((l) => [l, buildCanonicalUrl(getPathname({ locale: l, href }))])
+  );
+  languages['x-default'] = languages[routing.defaultLocale];
+
+  return {
+    canonical: buildCanonicalUrl(getPathname({ locale, href })),
+    languages,
+  };
 }
 
 /**

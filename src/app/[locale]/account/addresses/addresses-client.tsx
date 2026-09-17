@@ -232,7 +232,7 @@ export function AddressesClient({ addresses, countries }: AddressesClientProps) 
                                         {address.streetLine2 && `, ${address.streetLine2}`}
                                     </p>
                                     <p>
-                                        {address.city}, {address.province} {address.postalCode}
+                                        {address.postalCode} {address.city}{address.province ? `, ${address.province}` : ''}
                                     </p>
                                     <p>{address.country.name}</p>
                                     <p>{address.phoneNumber}</p>

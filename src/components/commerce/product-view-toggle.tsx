@@ -45,9 +45,9 @@ export function ProductViewToggle({ value, labels }: ProductViewToggleProps) {
         title={labels.grid}
         onClick={() => setView("grid")}
         className={cn(
-          "flex size-9 items-center justify-center rounded-[3px] text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#101820] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+          "flex size-9 items-center justify-center rounded-[3px] text-slate-500 transition-colors hover:bg-slate-100 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
           value === "grid" &&
-            "bg-[#101820] text-white hover:bg-[#101820] hover:text-white",
+            "bg-foreground text-white hover:bg-foreground hover:text-white",
         )}
       >
         <Grid2X2 className="size-4" />
@@ -59,9 +59,9 @@ export function ProductViewToggle({ value, labels }: ProductViewToggleProps) {
         title={labels.list}
         onClick={() => setView("list")}
         className={cn(
-          "flex size-9 items-center justify-center rounded-[3px] text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#101820] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+          "flex size-9 items-center justify-center rounded-[3px] text-slate-500 transition-colors hover:bg-slate-100 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
           value === "list" &&
-            "bg-[#101820] text-white hover:bg-[#101820] hover:text-white",
+            "bg-foreground text-white hover:bg-foreground hover:text-white",
         )}
       >
         <List className="size-4" />

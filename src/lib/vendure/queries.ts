@@ -3,7 +3,7 @@ import { ActiveCustomerFragment, ProductCardFragment } from './fragments';
 
 export const GetTopCollectionsQuery = graphql(`
     query GetTopCollections {
-        collections(options: { filter: { parentId: { isNull: false } } }) {
+        collections(options: { topLevelOnly: true }) {
             items {
                 id
                 name
@@ -59,7 +59,7 @@ export const GetProductDetailQuery = graphql(`
                 id
                 name
                 sku
-                priceWithTax
+                price
                 stockLevel
                 options {
                     id
@@ -110,8 +110,15 @@ export const GetActiveOrderQuery = graphql(`
             totalWithTax
             currencyCode
             couponCodes
+            taxSummary {
+                description
+                taxRate
+                taxBase
+                taxTotal
+            }
             discounts {
                 description
+                amount
                 amountWithTax
             }
             lines {
@@ -130,8 +137,10 @@ export const GetActiveOrderQuery = graphql(`
                         }
                     }
                 }
+                unitPrice
                 unitPriceWithTax
                 quantity
+                linePrice
                 linePriceWithTax
             }
         }
@@ -153,6 +162,12 @@ export const GetActiveOrderForCheckoutQuery = graphql(`
             totalWithTax
             currencyCode
             couponCodes
+            taxSummary {
+                description
+                taxRate
+                taxBase
+                taxTotal
+            }
             customer {
                 id
                 firstName
@@ -188,10 +203,12 @@ export const GetActiveOrderForCheckoutQuery = graphql(`
                     name
                     description
                 }
+                price
                 priceWithTax
             }
             discounts {
                 description
+                amount
                 amountWithTax
             }
             lines {
@@ -210,8 +227,10 @@ export const GetActiveOrderForCheckoutQuery = graphql(`
                         }
                     }
                 }
+                unitPrice
                 unitPriceWithTax
                 quantity
+                linePrice
                 linePriceWithTax
             }
         }
@@ -251,6 +270,7 @@ export const GetEligibleShippingMethodsQuery = graphql(`
             name
             code
             description
+            price
             priceWithTax
         }
     }
@@ -331,6 +351,12 @@ export const GetOrderDetailQuery = graphql(`
             total
             totalWithTax
             currencyCode
+            taxSummary {
+                description
+                taxRate
+                taxBase
+                taxTotal
+            }
             customer {
                 id
                 firstName
@@ -365,6 +391,7 @@ export const GetOrderDetailQuery = graphql(`
                     name
                     description
                 }
+                price
                 priceWithTax
             }
             payments {
@@ -391,12 +418,15 @@ export const GetOrderDetailQuery = graphql(`
                         }
                     }
                 }
+                unitPrice
                 unitPriceWithTax
                 quantity
+                linePrice
                 linePriceWithTax
             }
             discounts {
                 description
+                amount
                 amountWithTax
             }
         }

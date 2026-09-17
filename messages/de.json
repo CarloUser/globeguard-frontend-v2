@@ -1,10 +1,9 @@
 {
   "Navigation": {
+    "trackOrder": "Bestellung verfolgen",
     "openMenu": "Menü öffnen",
     "menu": "Menü",
     "searchProducts": "Produkte suchen...",
-    "shopAll": "Alle Produkte",
-    "collections": "Kategorien",
     "account": "Konto",
     "profile": "Profil",
     "orders": "Bestellungen",
@@ -14,34 +13,31 @@
     "greeting": "Hallo, {name}",
     "shoppingCart": "Warenkorb",
     "switchLanguage": "Sprache wechseln",
-    "switchCurrency": "Währung wechseln"
-  },
-  "Hero": {
-    "title": "Fahrzeuge diagnostizieren",
-    "titleHighlight": "?berall",
-    "subtitle": "OBD-Diagnose-Sets, Software-Updates, Adapter-Support und Remote-Hilfe f?r Reisemobile, Fernreisende, Flotten und Werkst?tten.",
-    "shopNow": "Diagnose-Sets ansehen",
-    "viewCollections": "Support ?ffnen"
-  },
-  "Home": {
-    "pageTitle": "OBD-Diagnoseger?te",
-    "description": "GlobeGuard Diagnose-Sets, Ferndiagnose, Software-Updates und Adapterkabel f?r Fahrzeugdiagnose unterwegs und in der Werkstatt.",
-    "ogDescription": "OBD-Diagnoseger?te, Software-Updates, Ferndiagnose und Adapter-Support von GlobeGuard.",
-    "whyShopWithUs": "Warum GlobeGuard",
-    "features": {
-      "highQuality": {
-        "title": "Werkstattf?hige Tools",
-        "description": "Diagnose-Interfaces f?r echte Fehlersuche am Fahrzeug"
-      },
-      "bestPrices": {
-        "title": "Klare Produktpfade",
-        "description": "BASIC, PRO, Updates, Services und Adapter f?r unterschiedliche Aufgaben"
-      },
-      "fastDelivery": {
-        "title": "Support nach dem Kauf",
-        "description": "Updates, Ferndiagnose, Handb?cher, Software und Partnerwerkst?tten"
-      }
-    }
+    "geraetFinden": "Gerät finden",
+    "produkte": "Produkte",
+    "warumGlobeguard": "Warum GlobeGuard?",
+    "basic": "GlobeGuard BASIC",
+    "pro": "GlobeGuard PRO",
+    "womo": "GlobeGuard WoMo",
+    "elite": "GlobeGuard ELITE (B2B)",
+    "zubehoer": "Zubehör",
+    "services": "Services",
+    "updates": "Updates & Erweiterungen",
+    "unterstuetzteMarken": "Unterstützte Marken",
+    "support": "Support",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "kontakt": "Kontakt",
+    "partner": "Partnerwerkstätten",
+    "ueberUns": "Über uns",
+    "impressum": "Impressum",
+    "agb": "AGB",
+    "datenschutz": "Datenschutz",
+    "widerruf": "Widerrufsrecht",
+    "zahlungsarten": "Zahlungsarten",
+    "versand": "Versand & Lieferung",
+    "mainNavigation": "Hauptnavigation",
+    "closeMenu": "Menü schliessen"
   },
   "Product": {
     "inStock": "Auf Lager",
@@ -57,9 +53,7 @@
     "sku": "Art.-Nr.: {sku}",
     "from": "Ab",
     "noImage": "Kein Bild",
-    "featuredProducts": "Empfohlene Produkte",
     "relatedProducts": "Ähnliche Produkte",
-    "viewAllProducts": "Alle Produkte anzeigen",
     "notFound": "Produkt nicht gefunden",
     "home": "Startseite",
     "noProductsFound": "Keine Produkte gefunden",
@@ -71,64 +65,18 @@
     "listView": "Listenansicht",
     "quantity": "Menge",
     "variant": "Variante: {name}",
-    "placement": "Platzierung: Universal",
-    "stockLine": "Auf Lager. Versand aus der Schweiz, meist 1-2 Tage.",
-    "digitalStockLine": "Als Aktivierung oder Support-Ablauf verfuegbar.",
     "viewProduct": "Produkt ansehen",
-    "trustBadges": {
-      "fastShipping": "Schneller Versand",
-      "freeReturns": "Kostenlose Rücksendung",
-      "secureCheckout": "Sicherer Checkout",
-      "guarantee": "30-Tage-Garantie"
+    "tabs": {
+      "description": "Beschreibung",
+      "details": "Details"
     },
-    "faq": {
-      "title": "Häufig gestellte Fragen",
-      "shipping": {
-        "question": "Welche Versandoptionen bieten Sie an?",
-        "answer": "Wir bieten Standardversand (5–7 Werktage), Expressversand (2–3 Werktage) und Lieferung am nächsten Tag für ausgewählte Gebiete an. Kostenloser Standardversand ist ab einem Bestellwert von 50 € verfügbar."
-      },
-      "returns": {
-        "question": "Wie ist Ihre Rückgaberichtlinie?",
-        "answer": "Wir akzeptieren Rücksendungen innerhalb von 30 Tagen nach dem Kauf. Die Artikel müssen unbenutzt und in der Originalverpackung sein. Kontaktieren Sie einfach unser Support-Team, um eine Rücksendung einzuleiten und ein vorfrankiertes Versandetikett zu erhalten."
-      },
-      "tracking": {
-        "question": "Wie kann ich meine Bestellung verfolgen?",
-        "answer": "Sobald Ihre Bestellung versendet wurde, erhalten Sie eine E-Mail mit einer Sendungsverfolgungsnummer. Sie können den Status Ihrer Bestellung auch jederzeit einsehen, indem Sie sich in Ihr Konto einloggen und den Bestellverlauf aufrufen."
-      },
-      "international": {
-        "question": "Bieten Sie internationalen Versand an?",
-        "answer": "Ja! Wir versenden in über 50 Länder weltweit. Die internationalen Versandkosten und Lieferzeiten variieren je nach Standort. Die genauen Kosten sehen Sie an der Kasse, bevor Sie Ihren Einkauf abschließen."
-      }
-    },
-    "pricesExcludeVat": "Preise exkl. MwSt.",
-    "diagnosticProduct": "Diagnoseprodukt",
-    "securePayment": "Sicherer Checkout mit Karte oder Rechnung.",
-    "compatibilitySupport": "Kompatibilitaets-Support",
-    "adapterEcosystem": "Adapter-Oekosystem",
-    "brandLevelCoverage": "Markenabdeckung",
-    "brandLevelCoverageBody": "Nennen Sie dem Support die Marke vor der Aktivierung, damit der passende Abdeckungspfad bestaetigt werden kann.",
-    "remoteSetup": "Setup-Hilfe verfuegbar",
-    "remoteSetupBody": "Update-Hilfe, Adapterauswahl und Ferndiagnose koennen nach dem Kauf weiterlaufen.",
-    "detailBenefits": {
-      "fastShipping": {
-        "title": "Schnelle Abwicklung",
-        "description": "Hardware wird bei Lagerbestand aus der Schweiz versendet."
-      },
-      "updateReady": {
-        "title": "Updatebereit",
-        "description": "Software- und Aktivierungspfade bleiben Teil des Produktzyklus."
-      },
-      "compatibility": {
-        "title": "Abdeckung nach Marke",
-        "description": "Abdeckung wird nach Fahrzeuggruppe und Marke geprueft, nicht per VIN gesperrt."
-      },
-      "support": {
-        "title": "Remote-Support",
-        "description": "GlobeGuard hilft bei Setup, Adaptern und Diagnosefragen."
-      }
-    },
-    "addToWishlist": "Zur Wunschliste hinzufuegen",
-    "starRating": "5-Sterne-Bewertung"
+    "noDescription": "Keine Beschreibung vorhanden.",
+    "tabsLabel": "Produktdetails",
+    "previousImage": "Vorheriges Produktbild",
+    "nextImage": "Nächstes Produktbild",
+    "showImage": "Bild {index} von {name} anzeigen",
+    "imageAlt": "{name} – Bild {index}",
+    "thumbnailAlt": "{name} – Vorschaubild {index}"
   },
   "Sort": {
     "nameAsc": "Name: A bis Z",
@@ -140,9 +88,13 @@
   "Filters": {
     "title": "Filter",
     "clearAll": "Alle löschen",
-    "filtersButton": "Filter"
+    "filtersButton": "Filter",
+    "close": "Filter schliessen"
   },
   "Cart": {
+    "subtotalNet": "Zwischensumme (netto)",
+    "vat": "MwSt.",
+    "vatNote": "MwSt. wird an der Kasse nach Lieferland berechnet",
     "title": "Warenkorb",
     "empty": "Ihr Warenkorb ist leer",
     "emptyMessage": "Fügen Sie Artikel zu Ihrem Warenkorb hinzu, um loszulegen",
@@ -170,57 +122,33 @@
     "removeItem": "Artikel entfernen",
     "decreaseQuantity": "Menge verringern",
     "increaseQuantity": "Menge erhöhen",
-    "shippingLine": "Auf Lager. Versand aus der Schweiz.",
-    "activationLine": "Aktivierung nach dem Checkout.",
     "reviewBeforeCheckout": "Bereit für den Checkout",
     "cartLineCount": "{count, plural, one {# Artikel im Warenkorb} other {# Artikel im Warenkorb}}",
-    "summarySubtitle": "Hardware, Lizenzen und Services in dieser Bestellung.",
     "items": "Artikel",
     "itemCount": "{count, plural, one {# Artikel} other {# Artikel}}",
     "orderCode": "Bestellcode",
-    "taxNote": "MwSt. und finaler Versand werden im Checkout bestätigt.",
-    "deliveryNote": "Lagernde Hardware wird normalerweise in 1-2 Werktagen aus der Schweiz versendet.",
-    "supportNote": "Die markenbasierte Kompatibilität kann vor Aktivierung oder Versand geprüft werden.",
-    "paymentOptions": "Zahlungsarten",
-    "paymentCard": "Karte",
-    "paymentInvoice": "Rechnung",
-    "paymentOptionsBody": "Verfügbare Zahlungsarten werden im Checkout ausgewählt.",
     "couponApplied": "Gutschein angewendet"
   },
   "Checkout": {
+    "placeOrderFailed": "Die Bestellung konnte nicht aufgegeben werden. ({reason})",
+    "paymentMethodUnavailable": "Diese Zahlungsmethode ist derzeit nicht verfügbar. Bitte wählen Sie eine andere Zahlungsmethode.",
+    "addressError": "Die Adresse konnte nicht gespeichert werden. Bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut.",
     "pageTitle": "Kasse",
     "steps": {
-      "contact": "Kontakt",
       "address": "Adresse",
       "delivery": "Lieferung",
       "payment": "Zahlung",
       "review": "Prüfung"
     },
-    "contactInformation": "Kontaktinformationen",
     "shippingAddress": "Lieferadresse",
     "deliveryMethod": "Liefermethode",
     "paymentMethod": "Zahlungsmethode",
     "reviewAndPlaceOrder": "Überprüfen & Bestellen",
-    "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
-    "signInLink": "Anmelden",
-    "emailAddress": "E-Mail-Adresse *",
-    "firstName": "Vorname *",
-    "lastName": "Nachname *",
-    "emailRequired": "E-Mail ist erforderlich",
-    "invalidEmail": "Ungültige E-Mail-Adresse",
-    "firstNameRequired": "Vorname ist erforderlich",
-    "lastNameRequired": "Nachname ist erforderlich",
     "continue": "Weiter",
-    "emailConflict": "Ein Konto mit dieser E-Mail-Adresse existiert bereits.",
-    "emailConflictSignIn": "Anmelden",
-    "emailConflictSuffix": "um fortzufahren.",
-    "guestCheckoutDisabled": "Gastkauf ist nicht aktiviert. Bitte melden Sie sich an oder erstellen Sie ein Konto.",
-    "cartEmpty": "Ihr Warenkorb ist leer.",
-    "cartEmptyShop": "Weiter einkaufen",
     "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
     "fullName": "Vollständiger Name *",
     "company": "Firma",
-    "streetAddress": "Straße *",
+    "streetAddress": "Strasse *",
     "apartment": "Wohnung, Suite usw.",
     "city": "Stadt *",
     "stateProvince": "Bundesland/Kanton",
@@ -233,7 +161,7 @@
     "phoneNumberLabel": "Telefonnummer",
     "useSameForBilling": "Gleiche Adresse für Rechnungsstellung verwenden",
     "fullNameRequired": "Vollständiger Name ist erforderlich",
-    "streetRequired": "Straße ist erforderlich",
+    "streetRequired": "Strasse ist erforderlich",
     "cityRequired": "Stadt ist erforderlich",
     "postalCodeRequired": "Postleitzahl ist erforderlich",
     "countryRequired": "Land ist erforderlich",
@@ -254,21 +182,22 @@
     "noPaymentMethods": "Keine Zahlungsmethoden verfügbar.",
     "continueToReview": "Weiter zur Überprüfung",
     "reviewYourOrder": "Überprüfen Sie Ihre Bestellung",
-    "contact": "Kontakt",
     "edit": "Bearbeiten",
     "noShippingAddress": "Keine Lieferadresse festgelegt",
     "noDeliveryMethod": "Keine Liefermethode ausgewählt",
     "noPaymentMethod": "Keine Zahlungsmethode ausgewählt",
     "placeOrder": "Bestellung aufgeben",
-    "completeAllSteps": "Bitte schließen Sie alle vorherigen Schritte ab, bevor Sie Ihre Bestellung aufgeben",
+    "completeAllSteps": "Bitte schliessen Sie alle vorherigen Schritte ab, bevor Sie Ihre Bestellung aufgeben",
     "orderSummary": "Bestellübersicht",
     "qty": "Menge: {quantity}",
-    "subtotal": "Zwischensumme",
     "shipping": "Versand",
     "toBeCalculated": "Wird noch berechnet",
     "total": "Gesamt",
     "item": "Artikel",
-    "items": "Artikel"
+    "items": "Artikel",
+    "subtotalNet": "Zwischensumme (netto)",
+    "vat": "MwSt.",
+    "shippingMethodError": "Die Versandart konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
   },
   "OrderStatus": {
     "AddingItems": "Artikel hinzufügen",
@@ -306,14 +235,7 @@
     "signInLink": "Anmelden",
     "welcomeBack": "Willkommen zurück. Melden Sie sich an, um auf Ihre Bestellungen zuzugreifen, Ihr Konto zu verwalten und weiter einzukaufen.",
     "enterCredentials": "Geben Sie Ihre Zugangsdaten ein, um auf Ihr Konto zuzugreifen",
-    "joinUs": "Werden Sie noch heute Mitglied. Erstellen Sie Ihr Konto für schnelleren Checkout, Bestellverfolgung und exklusive Angebote.",
     "signUpMessage": "Registrieren Sie sich, um bei uns einzukaufen",
-    "featureFast": "Schnell",
-    "featureCheckout": "Checkout",
-    "featureSecure": "Sicher",
-    "featurePayments": "Zahlungen",
-    "featureEasy": "Einfach",
-    "featureReturns": "Retouren",
     "forgotPasswordTitle": "Passwort vergessen?",
     "forgotPasswordDescription": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
     "forgotPasswordPageTitle": "Passwort vergessen",
@@ -330,7 +252,8 @@
     "newPassword": "Neues Passwort",
     "confirmPassword": "Passwort bestätigen",
     "resetPassword": "Passwort zurücksetzen",
-    "resettingPassword": "Wird zurückgesetzt..."
+    "resettingPassword": "Wird zurückgesetzt...",
+    "phonePlaceholder": "+41 41 000 00 00"
   },
   "Search": {
     "title": "Suche",
@@ -338,12 +261,12 @@
     "resultsFor": "Suchergebnisse für \"{query}\"",
     "resultsTitle": "Suchergebnisse für \"{query}\"",
     "metaDescription": "Produkte für \"{query}\" bei {siteName} finden",
-    "metaCatalogDescription": "Durchsuchen Sie unseren Produktkatalog bei {siteName}",
-    "brandContext": "Suche nach {brand}",
-    "brandTitle": "Suche nach {brand}",
-    "brandMetaDescription": "GlobeGuard-Katalog durchsuchen und {brand}-Kompatibilitaet bei {siteName} pruefen"
+    "metaCatalogDescription": "Durchsuchen Sie unseren Produktkatalog bei {siteName}"
   },
   "Verify": {
+    "pageTitle": "E-Mail-Adresse bestätigen",
+    "verifying": "Konto wird bestätigt",
+    "verifyingMessage": "Bitte warten Sie, während wir Ihre E-Mail-Adresse bestätigen...",
     "invalidLink": "Ungültiger Bestätigungslink",
     "invalidLinkMessage": "Der Bestätigungslink ist ungültig oder es fehlt ein Token.",
     "createNewAccount": "Neues Konto erstellen",
@@ -353,6 +276,7 @@
     "verificationFailed": "Bestätigung fehlgeschlagen",
     "verificationFailedMessage": "Ihr Konto konnte nicht bestätigt werden. Der Bestätigungslink ist möglicherweise abgelaufen.",
     "pending": {
+      "pageTitle": "Bestätigung ausstehend",
       "title": "Überprüfen Sie Ihre E-Mails",
       "message": "Wir haben einen Bestätigungslink an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang und klicken Sie auf den Link, um Ihr Konto zu bestätigen.",
       "spamNote": "Keine E-Mail erhalten? Überprüfen Sie Ihren Spam-Ordner oder fordern Sie einen neuen Bestätigungslink an.",
@@ -361,6 +285,11 @@
     "loading": "Wird geladen..."
   },
   "OrderConfirmation": {
+    "paymentPending": "Zahlung ausstehend",
+    "paymentPendingMessage": "Ihre Bestellung wurde erfasst, die Zahlung ist jedoch noch nicht abgeschlossen. Bestellnummer:",
+    "orderCancelled": "Bestellung storniert",
+    "orderCancelledMessage": "Diese Bestellung wurde storniert und wird nicht bearbeitet. Bestellnummer:",
+    "completePayment": "Zahlung abschliessen",
     "pageTitle": "Bestellbestätigung",
     "orderConfirmed": "Bestellung bestätigt!",
     "thankYou": "Vielen Dank für Ihre Bestellung. Ihre Bestellnummer lautet",
@@ -370,7 +299,24 @@
     "total": "Gesamt",
     "shippingAddress": "Lieferadresse",
     "continueShopping": "Weiter einkaufen",
-    "viewOrders": "Bestellungen ansehen"
+    "viewOrders": "Bestellungen ansehen",
+    "subtotalNet": "Zwischensumme (netto)",
+    "vat": "MwSt.",
+    "shipping": "Versand"
+  },
+  "TrackOrder": {
+    "pageTitle": "Bestellung verfolgen",
+    "intro": "Geben Sie Ihre Bestellnummer und die E-Mail-Adresse Ihrer Bestellung ein.",
+    "orderCode": "Bestellnummer",
+    "emailAddress": "E-Mail-Adresse",
+    "orderCodeRequired": "Bestellnummer ist erforderlich",
+    "emailRequired": "E-Mail-Adresse ist erforderlich",
+    "emailInvalid": "Ungültige E-Mail-Adresse",
+    "submit": "Bestellung suchen",
+    "resultTitle": "Bestellung {orderCode}",
+    "resultPlaceholder": "Inhalt folgt",
+    "accountHint": "Sie haben ein Konto?",
+    "accountHintLink": "Bestellungen im Konto ansehen"
   },
   "Account": {
     "pageTitle": "Konto",
@@ -414,7 +360,6 @@
     "placedOn": "Bestellt am {date}",
     "orderItems": "Bestellte Artikel",
     "orderSummary": "Bestellübersicht",
-    "subtotal": "Zwischensumme",
     "shipping": "Versand",
     "total": "Gesamt",
     "shippingAddress": "Lieferadresse",
@@ -450,7 +395,7 @@
     "saveAddress": "Adresse speichern",
     "fullName": "Vollständiger Name *",
     "company": "Firma",
-    "streetAddress": "Straße *",
+    "streetAddress": "Strasse *",
     "apartment": "Wohnung, Suite usw.",
     "city": "Stadt *",
     "stateProvince": "Bundesland/Kanton *",
@@ -458,7 +403,7 @@
     "country": "Land *",
     "phoneNumberField": "Telefonnummer *",
     "fullNameRequired": "Vollständiger Name ist erforderlich",
-    "streetRequired": "Straße ist erforderlich",
+    "streetRequired": "Strasse ist erforderlich",
     "cityRequired": "Stadt ist erforderlich",
     "stateProvinceRequired": "Bundesland/Kanton ist erforderlich",
     "postalCodeRequired": "Postleitzahl ist erforderlich",
@@ -480,7 +425,9 @@
       "errorMessage": "Bitte versuchen Sie es später erneut oder kontaktieren Sie den Support, wenn das Problem weiterhin besteht.",
       "verifying": "E-Mail wird bestätigt...",
       "verifyingDesc": "Bitte warten Sie, während wir Ihre E-Mail-Adresse bestätigen."
-    }
+    },
+    "subtotalNet": "Zwischensumme (netto)",
+    "vat": "MwSt."
   },
   "NotFound": {
     "title": "Seite nicht gefunden",
@@ -490,24 +437,33 @@
     "popularCollections": "Beliebte Kategorien"
   },
   "Footer": {
-    "description": "OBD-Diagnose-Interfaces, Remote-Support, Software-Updates und Adapter-Hilfe f?r echte Fahrzeugdiagnose.",
-    "categories": "Produktpfade",
-    "customer": "Kunde",
-    "shopAll": "Shop",
+    "description": "OBD-Diagnose-Interfaces, Remote-Support, Software-Updates und Adapter-Hilfe für echte Fahrzeugdiagnose.",
     "orders": "Bestellungen",
     "account": "Konto",
-    "vendure": "GlobeGuard",
-    "github": "Support",
-    "documentation": "Partner",
-    "sourceCode": "Kontakt",
-    "copyright": "GlobeGuard GmbH. Alle Rechte vorbehalten.",
-    "poweredBy": "Powered by"
+    "copyright": "© {year} GlobeGuard GmbH. Alle Rechte vorbehalten.",
+    "products": "Produkte",
+    "information": "Informationen",
+    "legal": "Rechtliches",
+    "contact": "Kontakt"
   },
   "Common": {
+    "exclVat": "zzgl. MwSt.",
+    "currencyChf": "CHF",
+    "currencyEur": "EUR",
+    "displayCurrency": "Anzeigewährung",
+    "eurDisplayOnly": "EUR-Preise sind Richtwerte (CHF × 1.1); die Bestellung erfolgt in CHF.",
     "loading": "Wird geladen...",
     "sending": "Wird gesendet...",
     "sku": "Art.-Nr.",
-    "siteDescription": "GlobeGuard Diagnose-Sets, Software-Updates, Ferndiagnose und Adapter-Support f?r Reisemobile, Reisende, Flotten und Werkst?tten."
+    "siteDescription": "GlobeGuard Diagnose-Sets, Software-Updates, Ferndiagnose und Adapter-Support für Reisemobile, Reisende, Flotten und Werkstätten.",
+    "contentComingSoon": "Inhalt folgt in Kürze.",
+    "brandName": "GlobeGuard",
+    "selectCountry": "Land auswählen...",
+    "searchCountry": "Land suchen...",
+    "noCountryFound": "Kein Land gefunden.",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorBody": "Die Seite konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+    "retry": "Erneut versuchen"
   },
   "Errors": {
     "fieldsRequired": "Alle Felder sind erforderlich",
@@ -525,5 +481,39 @@
     "failedPasswordReset": "Passwort-Zurücksetzung konnte nicht angefordert werden",
     "verificationTokenRequired": "Bestätigungs-Token ist erforderlich",
     "failedAddToCart": "Artikel konnte nicht zum Warenkorb hinzugefügt werden"
+  },
+  "Partners": {
+    "title": "Partner",
+    "comingSoon": "Die Partnerliste wird in Kürze veröffentlicht."
+  },
+  "Support": {
+    "title": "Support",
+    "intro": "Hilfe und Informationen rund um GlobeGuard Produkte.",
+    "topics": {
+      "sgw": {
+        "title": "Security Gateway (SGW)",
+        "description": "Informationen zum Security Gateway."
+      },
+      "faq": {
+        "title": "FAQ",
+        "description": "Antworten auf häufige Fragen."
+      },
+      "kontakt": {
+        "title": "Kontakt",
+        "description": "Nehmen Sie Kontakt mit GlobeGuard auf."
+      }
+    },
+    "open": "Öffnen"
+  },
+  "Contact": {
+    "title": "Kontakt",
+    "intro": "Wir freuen uns auf Ihre Nachricht.",
+    "address": "Adresse",
+    "email": "E-Mail",
+    "vat": "MwSt.-Nr.",
+    "writeEmail": "E-Mail schreiben"
+  },
+  "Home": {
+    "tagline": "Lösungen für Reisemobile, Fernreisende und Werkstätten"
   }
 }

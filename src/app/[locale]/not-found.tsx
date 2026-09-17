@@ -47,6 +47,8 @@ export default async function NotFound() {
                     <div className="pt-4 border-t">
                         <p className="text-sm font-medium text-muted-foreground mb-3">{t('popularCollections')}</p>
                         <div className="flex flex-wrap gap-2 justify-center">
+                            {/* TODO(Phase 2c): repoint to /produkte/kategorie/[slug] once that route exists
+                                (or add a permanent redirect from /collection/*). */}
                             {collections.slice(0, 6).map((collection) => (
                                 <Button
                                     key={collection.id}

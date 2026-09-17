@@ -117,7 +117,6 @@ export function RegistrationForm({ redirectTo }: RegistrationFormProps) {
                                         <FormControl>
                                             <Input
                                                 type="text"
-                                                placeholder="John"
                                                 disabled={isPending}
                                                 {...field}
                                             />
@@ -136,7 +135,6 @@ export function RegistrationForm({ redirectTo }: RegistrationFormProps) {
                                         <FormControl>
                                             <Input
                                                 type="text"
-                                                placeholder="Doe"
                                                 disabled={isPending}
                                                 {...field}
                                             />
@@ -156,7 +154,7 @@ export function RegistrationForm({ redirectTo }: RegistrationFormProps) {
                                     <FormControl>
                                         <Input
                                             type="tel"
-                                            placeholder="+1 (555) 000-0000"
+                                            placeholder={t('phonePlaceholder')}
                                             disabled={isPending}
                                             {...field}
                                         />

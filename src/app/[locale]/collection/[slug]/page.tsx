@@ -15,27 +15,25 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import {routing} from '@/i18n/routing';
 import {
     SITE_NAME,
     SITE_URL,
     truncateDescription,
-    buildCanonicalUrl,
+    buildAlternates,
     buildOgImages,
 } from '@/lib/metadata';
 import {toOgLocale} from '@/i18n/locale-utils';
-import {getActiveCurrencyCode} from '@/lib/currency-server';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
 
-async function getCollectionProducts(slug: string, searchParams: { [key: string]: string | string[] | undefined }, currencyCode: string) {
+async function getCollectionProducts(slug: string, searchParams: { [key: string]: string | string[] | undefined }) {
     const locale = await getRouteLocale();
     return query(SearchProductsQuery, {
         input: buildSearchInput({
             searchParams,
             collectionSlug: slug
         })
-    }, {languageCode: locale, currencyCode});
+    }, {languageCode: locale});
 }
 
 async function getCollectionMetadata(slug: string) {
@@ -66,24 +64,20 @@ export async function generateMetadata({
         truncateDescription(collection.description) ||
         t('browseCollectionAt', {name: collection.name, siteName: SITE_NAME});
     const ogLocale = toOgLocale(locale);
-    const collectionPath = `/collection/${collection.slug}`;
+    // TODO(Phase 2c): this route moves to /produkte/kategorie/[slug]; keep the alternates in sync then.
+    const alternates = buildAlternates(locale, `/collection/${collection.slug}`);
 
     return {
         metadataBase: new URL(SITE_URL),
         title: collection.name,
         description,
-        alternates: {
-            canonical: buildCanonicalUrl(`/${locale}${collectionPath}`),
-            languages: Object.fromEntries(
-                routing.locales.map((l) => [l, buildCanonicalUrl(`/${l}${collectionPath}`)])
-            ),
-        },
+        alternates,
         openGraph: {
             title: collection.name,
             description,
             type: 'website',
             locale: ogLocale,
-            url: buildCanonicalUrl(`/${locale}${collectionPath}`),
+            url: alternates.canonical,
             images: buildOgImages(collection.featuredAsset?.preview, collection.name),
         },
         twitter: {
@@ -101,11 +95,10 @@ export default async function CollectionPage({params, searchParams}: PageProps<'
     const {slug} = await params;
     const searchParamsResolved = await searchParams;
     const locale = await getRouteLocale();
-    const currencyCode = await getActiveCurrencyCode();
     const t = await getTranslations({locale, namespace: 'Product'});
     const page = getCurrentPage(searchParamsResolved);
 
-    const productDataPromise = getCollectionProducts(slug, searchParamsResolved, currencyCode);
+    const productDataPromise = getCollectionProducts(slug, searchParamsResolved);
     const collectionResult = await getCollectionMetadata(slug);
     const collectionName = collectionResult.data.collection?.name ?? slug;
 
@@ -124,17 +117,8 @@ export default async function CollectionPage({params, searchParams}: PageProps<'
                     </BreadcrumbList>
                 </Breadcrumb>
 
-                <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-                    <div>
-                        <h1 className="mb-4 text-4xl font-bold">{collectionName}</h1>
-                        <div className="flex flex-wrap gap-2">
-                            {['All', 'Hardware', 'Adapters', 'Software'].map((tab, index) => (
-                                <span key={tab} className={`rounded-full px-4 py-1.5 text-sm font-bold ${index === 0 ? 'bg-[#101820] text-white dark:bg-white dark:text-[#101820]' : 'border border-slate-200 bg-white text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300'}`}>
-                                    {tab}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
+                <div className="mb-12">
+                    <h1 className="text-4xl font-bold">{collectionName}</h1>
                 </div>
 
                 <div className="flex flex-col gap-8 lg:flex-row">

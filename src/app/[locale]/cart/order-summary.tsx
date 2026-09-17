@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { CircleCheck, CreditCard, FileText, Lock, Truck } from "lucide-react";
+import { Lock } from "lucide-react";
 import { Price } from "@/components/commerce/price";
 import { getTranslations } from "next-intl/server";
 
@@ -9,50 +9,65 @@ type ActiveOrder = {
   code: string;
   currencyCode: string;
   totalQuantity: number;
-  subTotalWithTax: number;
+  /** NET subtotal in minor units. */
+  subTotal: number;
   shippingWithTax: number;
   totalWithTax: number;
+  taxSummary: Array<{
+    description: string;
+    taxRate: number;
+    taxBase: number;
+    taxTotal: number;
+  }>;
   discounts?: Array<{
     description: string;
+    /** NET discount amount in minor units. */
+    amount: number;
     amountWithTax: number;
   }> | null;
 };
 
+/**
+ * Cart summary: Zwischensumme (netto) = subTotal, MwSt. = sum of taxSummary.taxTotal,
+ * Versand = shippingWithTax, Gesamt = totalWithTax. VAT depends on the delivery country
+ * chosen at checkout (Cart.vatNote).
+ */
 export async function OrderSummary({
   activeOrder,
 }: {
   activeOrder: ActiveOrder;
 }) {
   const t = await getTranslations("Cart");
+  const vatTotal = activeOrder.taxSummary.reduce(
+    (sum, entry) => sum + entry.taxTotal,
+    0,
+  );
 
   return (
-    <div className="sticky top-24 rounded-md border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="sticky top-24 rounded-md border border-border bg-card p-6 shadow-sm">
       <div className="mb-5 flex items-start justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-[#101820]">
-            {t("orderSummary")}
-          </h2>
-          <p className="mt-1 text-sm text-slate-500">{t("summarySubtitle")}</p>
-        </div>
-        <span className="rounded bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600">
+        <h2 className="text-xl font-bold text-foreground">
+          {t("orderSummary")}
+        </h2>
+        <span className="rounded bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">
           {activeOrder.code}
         </span>
       </div>
 
-      <div className="mb-5 grid grid-cols-2 gap-3 border-y border-slate-200 py-4 text-sm">
+      <div className="mb-5 grid grid-cols-2 gap-3 border-y border-border py-4 text-sm">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+          <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
             {t("items")}
           </p>
-          <p className="mt-1 font-semibold text-[#101820]">
+          <p className="mt-1 font-semibold text-foreground">
             {t("itemCount", { count: activeOrder.totalQuantity })}
           </p>
         </div>
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+          <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
             {t("orderCode")}
           </p>
-          <p className="mt-1 font-mono text-xs font-semibold text-[#101820]">
+          <p className="mt-1 font-mono text-xs font-semibold text-foreground">
             {activeOrder.code}
           </p>
         </div>
@@ -60,10 +75,10 @@ export async function OrderSummary({
 
       <div className="space-y-3 text-sm">
         <div className="flex justify-between gap-4">
-          <span className="text-slate-600">{t("subtotal")}</span>
-          <span className="font-medium text-[#101820]">
+          <span className="text-muted-foreground">{t("subtotalNet")}</span>
+          <span className="font-medium text-foreground">
             <Price
-              value={activeOrder.subTotalWithTax}
+              value={activeOrder.subTotal}
               currencyCode={activeOrder.currencyCode}
             />
           </span>
@@ -78,7 +93,7 @@ export async function OrderSummary({
                 <span>{discount.description}</span>
                 <span>
                   <Price
-                    value={discount.amountWithTax}
+                    value={discount.amount}
                     currencyCode={activeOrder.currencyCode}
                   />
                 </span>
@@ -86,9 +101,20 @@ export async function OrderSummary({
             ))}
           </>
         )}
+        {activeOrder.taxSummary.length > 0 && (
+          <div className="flex justify-between gap-4">
+            <span className="text-muted-foreground">{t("vat")}</span>
+            <span className="font-medium text-foreground">
+              <Price
+                value={vatTotal}
+                currencyCode={activeOrder.currencyCode}
+              />
+            </span>
+          </div>
+        )}
         <div className="flex justify-between gap-4">
-          <span className="text-slate-600">{t("shipping")}</span>
-          <span className="text-right font-medium text-[#101820]">
+          <span className="text-muted-foreground">{t("shipping")}</span>
+          <span className="text-right font-medium text-foreground">
             {activeOrder.shippingWithTax > 0 ? (
               <Price
                 value={activeOrder.shippingWithTax}
@@ -101,56 +127,30 @@ export async function OrderSummary({
         </div>
       </div>
 
-      <div className="my-5 border-t border-slate-200 pt-5">
+      <div className="my-5 border-t border-border pt-5">
         <div className="flex items-baseline justify-between gap-4 font-bold">
-          <span className="text-lg text-[#101820]">{t("total")}</span>
-          <span className="text-3xl text-[#101820]">
+          <span className="text-lg text-foreground">{t("total")}</span>
+          <span className="text-3xl text-foreground">
             <Price
               value={activeOrder.totalWithTax}
               currencyCode={activeOrder.currencyCode}
             />
           </span>
         </div>
-        <p className="mt-1 text-xs text-slate-500">{t("taxNote")}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{t("vatNote")}</p>
       </div>
 
       <Button
         render={<Link href="/checkout" />}
         nativeButton={false}
-        className="btn-primary h-12 w-full rounded-md text-base font-bold"
+        className="h-12 w-full rounded-md text-base font-bold"
       >
         {t("proceedToCheckout")}
       </Button>
 
-      <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-slate-500">
+      <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
         <Lock className="h-3 w-3" />
         <span>{t("secureCheckout")}</span>
-      </div>
-
-      <div className="mt-5 space-y-3 border-t border-slate-200 pt-5">
-        <div className="flex gap-3 text-sm text-slate-700">
-          <Truck className="mt-0.5 size-4 shrink-0 text-primary" />
-          <span>{t("deliveryNote")}</span>
-        </div>
-        <div className="flex gap-3 text-sm text-slate-700">
-          <CircleCheck className="mt-0.5 size-4 shrink-0 text-primary" />
-          <span>{t("supportNote")}</span>
-        </div>
-      </div>
-
-      <div className="mt-5 border-t border-slate-200 pt-5">
-        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
-          {t("paymentOptions")}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-700">
-            <CreditCard className="size-3.5" /> {t("paymentCard")}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-700">
-            <FileText className="size-3.5" /> {t("paymentInvoice")}
-          </span>
-        </div>
-        <p className="mt-2 text-xs text-slate-500">{t("paymentOptionsBody")}</p>
       </div>
 
       <Button

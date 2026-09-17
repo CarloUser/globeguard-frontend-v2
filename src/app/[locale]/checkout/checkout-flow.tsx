@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Check } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import ContactStep from './steps/contact-step';
 import ShippingAddressStep from './steps/shipping-address-step';
 import DeliveryStep from './steps/delivery-step';
 import PaymentStep from './steps/payment-step';
@@ -12,37 +11,22 @@ import OrderSummary from './order-summary';
 import { useCheckout } from './checkout-provider';
 import {useTranslations} from 'next-intl';
 
-type CheckoutStep = 'contact' | 'shipping' | 'delivery' | 'payment' | 'review';
+type CheckoutStep = 'shipping' | 'delivery' | 'payment' | 'review';
 
 export default function CheckoutFlow() {
   const t = useTranslations('Checkout');
-  const { order, isGuest } = useCheckout();
+  const { order } = useCheckout();
 
-  const getStepOrder = (): CheckoutStep[] => {
-    if (isGuest) {
-      return ['contact', 'shipping', 'delivery', 'payment', 'review'];
-    }
-    return ['shipping', 'delivery', 'payment', 'review'];
-  };
-
-  const stepOrder = getStepOrder();
+  // Accounts are mandatory: there is no guest "contact" step.
+  const stepOrder: CheckoutStep[] = ['shipping', 'delivery', 'payment', 'review'];
 
   const getInitialState = () => {
     const completed = new Set<CheckoutStep>();
     let current: CheckoutStep = stepOrder[0];
 
-    if (isGuest) {
-      if (order.customer?.emailAddress) {
-        completed.add('contact');
-        current = 'shipping';
-      }
-    }
-
     if (order.shippingAddress?.streetLine1 && order.shippingAddress?.country) {
-      if (!isGuest || completed.has('contact')) {
-        completed.add('shipping');
-        current = 'delivery';
-      }
+      completed.add('shipping');
+      current = 'delivery';
     }
 
     if (order.shippingLines && order.shippingLines.length > 0) {
@@ -82,7 +66,6 @@ export default function CheckoutFlow() {
   };
 
   const stepLabels: Record<CheckoutStep, string> = {
-    contact: t('steps.contact'),
     shipping: t('steps.address'),
     delivery: t('steps.delivery'),
     payment: t('steps.payment'),
@@ -143,30 +126,6 @@ export default function CheckoutFlow() {
           }}
           className="space-y-4"
         >
-          {isGuest && (
-            <AccordionItem value="contact" className="border rounded-lg px-6">
-              <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-3">
-                  <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold ${
-                    completedSteps.has('contact')
-                      ? 'bg-green-500 text-white'
-                      : currentStep === 'contact'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-muted-foreground'
-                  }`}>
-                    {completedSteps.has('contact') ? '✓' : getStepNumber('contact')}
-                  </div>
-                  <span className="text-lg font-semibold">{t('contactInformation')}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="pt-4">
-                <ContactStep
-                  onComplete={() => handleStepComplete('contact')}
-                />
-              </AccordionContent>
-            </AccordionItem>
-          )}
-
           <AccordionItem
             value="shipping"
             className="border rounded-lg px-6"

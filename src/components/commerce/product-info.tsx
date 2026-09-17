@@ -1,17 +1,17 @@
 'use client';
 
-import {useState, useMemo, useTransition} from 'react';
+import {useMemo, useState, useTransition} from 'react';
 import {useSearchParams} from 'next/navigation';
 import {usePathname, useRouter} from '@/i18n/navigation';
 import {Button} from '@/components/ui/button';
 import {Label} from '@/components/ui/label';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
-import {ShoppingCart, CheckCircle2, Star, Heart, Package, ShieldCheck, Truck, CreditCard, Headphones, SearchCheck} from 'lucide-react';
-import {addToCart} from '@/app/[locale]/product/[slug]/actions';
+import {CheckCircle2, ShoppingCart} from 'lucide-react';
+import {addToCart} from '@/app/[locale]/products/[slug]/actions';
 import {toast} from 'sonner';
-import {Price} from '@/components/commerce/price';
+import {Price, VatNote} from '@/components/commerce/price';
+import {ORDER_CURRENCY} from '@/lib/display-currency';
 import {useTranslations} from 'next-intl';
-import {getProductVisualKind, getProductVisualLabel} from '@/components/commerce/product-visual';
 
 interface ProductInfoProps {
     product: {
@@ -22,7 +22,8 @@ interface ProductInfoProps {
             id: string;
             name: string;
             sku: string;
-            priceWithTax: number;
+            /** NET price in minor units (CHF). */
+            price: number;
             stockLevel: string;
             options: Array<{
                 id: string;
@@ -48,10 +49,15 @@ interface ProductInfoProps {
         }>;
     };
     searchParams: { [key: string]: string | string[] | undefined };
-    currencyCode: string;
+    /** Currency of the variant prices. Orders are CHF-only; optional for call-site compatibility. */
+    currencyCode?: string;
 }
 
-export function ProductInfo({product, searchParams, currencyCode}: ProductInfoProps) {
+/**
+ * Product purchase panel: NET price + VAT note, variant option radios, quantity and add-to-cart.
+ * The device configurator (tier / brand group / year) replaces the plain option radios in Phase 2c.
+ */
+export function ProductInfo({product, searchParams, currencyCode = ORDER_CURRENCY}: ProductInfoProps) {
     const t = useTranslations('Product');
     const pathname = usePathname();
     const router = useRouter();
@@ -59,7 +65,6 @@ export function ProductInfo({product, searchParams, currencyCode}: ProductInfoPr
     const [isPending, startTransition] = useTransition();
     const [isAdded, setIsAdded] = useState(false);
     const [quantity, setQuantity] = useState(1);
-    const visualKind = getProductVisualKind(product.name);
 
     const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() => {
         const initialOptions: Record<string, string> = {};
@@ -132,43 +137,34 @@ export function ProductInfo({product, searchParams, currencyCode}: ProductInfoPr
 
     const isInStock = Boolean(selectedVariant && selectedVariant.stockLevel !== 'OUT_OF_STOCK');
     const canAddToCart = Boolean(selectedVariant && isInStock);
-    const isDigitalProduct = /(software|update|license|lizenz|sgw|gateway|remote|support)/i.test(product.name);
     const plainDescription = product.description.replace(/<[^>]+>/g, '').trim();
-    const shouldShowDescription = Boolean(plainDescription && plainDescription.toLowerCase() !== t('pricesExcludeVat').toLowerCase());
 
     return (
         <div className="flex flex-col">
-            <div className="text-mono-label mb-2 text-primary">GlobeGuard / {getProductVisualLabel(visualKind)}</div>
-            <h1 className="mb-3 text-3xl font-bold leading-tight text-[#101820] dark:text-white lg:text-4xl">{product.name}</h1>
+            <h1 className="mb-3 text-3xl font-bold leading-tight text-foreground lg:text-4xl">{product.name}</h1>
 
-            <div className="mb-5 flex flex-wrap items-center gap-3">
-                <div className="flex text-amber-500" aria-label={t('starRating')}>
-                    {[1, 2, 3, 4, 5].map((item) => <Star key={item} className="size-4 fill-current" />)}
-                </div>
-                <span className="text-sm font-medium text-slate-500">{t('diagnosticProduct')}</span>
-                {selectedVariant && (
+            {selectedVariant && (
+                <div className="mb-5 flex flex-wrap items-center gap-3">
                     <span className={`flex items-center rounded-full px-2 py-0.5 text-sm font-bold ${isInStock ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-destructive'}`}>
                         <CheckCircle2 className="mr-1 size-3.5" /> {isInStock ? t('inStock') : t('outOfStock')}
                     </span>
-                )}
-            </div>
+                    <span className="rounded bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">{t('sku', {sku: selectedVariant.sku})}</span>
+                </div>
+            )}
 
-            {shouldShowDescription && (
-                <div className="mb-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300" dangerouslySetInnerHTML={{__html: product.description}} />
+            {plainDescription && (
+                <div className="mb-5 max-w-2xl text-base leading-7 text-muted-foreground" dangerouslySetInnerHTML={{__html: product.description}} />
             )}
 
             <div className="space-y-5">
-                <div className="flex flex-wrap items-start justify-between gap-3">
+                {selectedVariant && (
                     <div>
-                        <p className="text-sm text-slate-500">{t('pricesExcludeVat')}</p>
-                        {selectedVariant && (
-                            <div className="mt-1 text-4xl font-bold leading-none text-[#101820] dark:text-white">
-                                <Price value={selectedVariant.priceWithTax} currencyCode={currencyCode}/>
-                            </div>
-                        )}
+                        <div className="text-4xl font-bold leading-none text-foreground">
+                            <Price value={selectedVariant.price} currencyCode={currencyCode}/>
+                        </div>
+                        <VatNote className="mt-2 block text-sm text-muted-foreground" />
                     </div>
-                    {selectedVariant && <span className="rounded bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600 dark:bg-white/10 dark:text-slate-300">{t('sku', {sku: selectedVariant.sku})}</span>}
-                </div>
+                )}
 
                 {product.optionGroups.length > 0 && (
                     <div className="space-y-5">
@@ -187,9 +183,9 @@ export function ProductInfo({product, searchParams, currencyCode}: ProductInfoPr
                                                 <RadioGroupItem value={option.id} id={option.id} className="peer sr-only" />
                                                 <Label
                                                     htmlFor={option.id}
-                                                    className="block cursor-pointer rounded-md border border-slate-200 p-3 text-left transition-all hover:border-primary/50 peer-data-[checked]:border-primary peer-data-[checked]:bg-primary/5 peer-data-[checked]:ring-1 peer-data-[checked]:ring-primary dark:border-white/10"
+                                                    className="block cursor-pointer rounded-md border border-border p-3 text-left transition-all hover:border-primary/50 peer-data-[checked]:border-primary peer-data-[checked]:bg-primary/5 peer-data-[checked]:ring-1 peer-data-[checked]:ring-primary"
                                                 >
-                                                    <div className="text-sm font-bold text-[#101820] dark:text-white">{option.name}</div>
+                                                    <div className="text-sm font-bold text-foreground">{option.name}</div>
                                                 </Label>
                                             </div>
                                         ))}
@@ -201,7 +197,7 @@ export function ProductInfo({product, searchParams, currencyCode}: ProductInfoPr
                 )}
 
                 <div className="flex flex-col gap-3 sm:flex-row">
-                    <label className="flex h-12 shrink-0 items-center rounded-md border border-slate-200 bg-white px-3 text-sm font-bold text-[#101820] dark:border-white/10 dark:bg-white/5 dark:text-white">
+                    <label className="flex h-12 shrink-0 items-center rounded-md border border-border bg-background px-3 text-sm font-bold text-foreground">
                         <span className="sr-only">{t('quantity')}</span>
                         <select
                             value={quantity}
@@ -216,7 +212,7 @@ export function ProductInfo({product, searchParams, currencyCode}: ProductInfoPr
                     </label>
                     <Button
                         size="lg"
-                        className="btn-primary h-12 flex-1 rounded-md text-base font-bold"
+                        className="h-12 flex-1 rounded-md text-base font-bold"
                         disabled={!canAddToCart || isPending}
                         onClick={handleAddToCart}
                     >
@@ -238,43 +234,7 @@ export function ProductInfo({product, searchParams, currencyCode}: ProductInfoPr
                             </>
                         )}
                     </Button>
-                    <Button variant="outline" size="icon" className="h-12 w-14 rounded-md border-slate-200 bg-white dark:border-white/10 dark:bg-white/5" aria-label={t('addToWishlist')}>
-                        <Heart className="size-5 text-slate-400 transition-colors" />
-                    </Button>
                 </div>
-
-                <div className="grid gap-3 text-sm text-slate-600 dark:text-slate-300 sm:grid-cols-2">
-                    <div className="flex gap-2">
-                        <Truck className="mt-0.5 size-4 shrink-0 text-primary" />
-                        <span>{isDigitalProduct ? t('digitalStockLine') : t('stockLine')}</span>
-                    </div>
-                    <div className="flex gap-2">
-                        <CreditCard className="mt-0.5 size-4 shrink-0 text-primary" />
-                        <span>{t('securePayment')}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-slate-950">
-                    <div className="mb-2 flex items-center gap-2 font-bold text-[#101820] dark:text-white">
-                        <SearchCheck className="size-4 text-primary" />
-                        {t('brandLevelCoverage')}
-                    </div>
-                    <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{t('brandLevelCoverageBody')}</p>
-                </div>
-                <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-slate-950">
-                    <div className="mb-2 flex items-center gap-2 font-bold text-[#101820] dark:text-white">
-                        <Headphones className="size-4 text-primary" />
-                        {t('remoteSetup')}
-                    </div>
-                    <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">{t('remoteSetupBody')}</p>
-                </div>
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-black/5 pt-4 text-sm font-medium text-slate-500 dark:border-white/10">
-                <span className="flex items-center"><ShieldCheck className="mr-2 size-4" /> {t('compatibilitySupport')}</span>
-                <span className="flex items-center"><Package className="mr-2 size-4" /> {t('adapterEcosystem')}</span>
             </div>
         </div>
     );

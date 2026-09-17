@@ -20,12 +20,14 @@ import {
 import { Link } from '@/i18n/navigation';
 import {useTranslations} from 'next-intl';
 
-const loginSchema = z.object({
-    username: z.email('Please enter a valid email address'),
-    password: z.string().min(1, 'Password is required'),
-});
+function createLoginSchema(t: ReturnType<typeof useTranslations<'Auth'>>) {
+    return z.object({
+        username: z.email(t('emailValidation')),
+        password: z.string().min(1, t('passwordRequired')),
+    });
+}
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 
 interface LoginFormProps {
     redirectTo?: string;
@@ -36,6 +38,7 @@ export function LoginForm({redirectTo}: LoginFormProps) {
     const [isPending, startTransition] = useTransition();
     const [serverError, setServerError] = useState<string | null>(null);
 
+    const loginSchema = createLoginSchema(t);
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
         defaultValues: {

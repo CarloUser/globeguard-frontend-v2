@@ -29,6 +29,8 @@ interface ShippingMethod {
   name: string;
   code: string;
   description?: string | null;
+  /** NET price in minor units. */
+  price: number;
   priceWithTax: number;
 }
 
@@ -49,7 +51,6 @@ interface CheckoutContextType {
   paymentMethods: PaymentMethod[];
   selectedPaymentMethodCode: string | null;
   setSelectedPaymentMethodCode: (code: string | null) => void;
-  isGuest: boolean;
 }
 
 const CheckoutContext = createContext<CheckoutContextType | null>(null);
@@ -61,7 +62,6 @@ interface CheckoutProviderProps {
   countries: Country[];
   shippingMethods: ShippingMethod[];
   paymentMethods: PaymentMethod[];
-  isGuest: boolean;
 }
 
 export function CheckoutProvider({
@@ -71,7 +71,6 @@ export function CheckoutProvider({
   countries,
   shippingMethods,
   paymentMethods,
-  isGuest,
 }: CheckoutProviderProps) {
   const [selectedPaymentMethodCode, setSelectedPaymentMethodCode] = useState<string | null>(
     paymentMethods.length === 1 ? paymentMethods[0].code : null
@@ -87,7 +86,6 @@ export function CheckoutProvider({
         paymentMethods,
         selectedPaymentMethodCode,
         setSelectedPaymentMethodCode,
-        isGuest,
       }}
     >
       {children}

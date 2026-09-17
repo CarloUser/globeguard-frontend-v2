@@ -6,17 +6,26 @@ import { Link } from '@/i18n/navigation';
 import { CheckCircle } from 'lucide-react';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
+import {isSafeRedirectPath} from '@/lib/auth';
+import {buildAlternates, noIndexRobots} from '@/lib/metadata';
 
-export const metadata: Metadata = {
-    title: 'Verification Pending',
-    description: 'Check your email to verify your account.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getRouteLocale();
+    const t = await getTranslations({locale, namespace: 'Verify'});
+    return {
+        title: t('pending.pageTitle'),
+        robots: noIndexRobots(),
+        alternates: buildAlternates(locale, '/verify-pending'),
+    };
+}
 
 async function VerifyPendingContent({searchParams}: {searchParams: Promise<Record<string, string | string[] | undefined>>}) {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Verify'});
     const resolvedParams = await searchParams;
-    const redirectTo = resolvedParams?.redirectTo as string | undefined;
+    const rawRedirectTo = resolvedParams?.redirectTo;
+    const candidate = Array.isArray(rawRedirectTo) ? rawRedirectTo[0] : rawRedirectTo;
+    const redirectTo = isSafeRedirectPath(candidate) ? candidate : undefined;
 
     const signInHref = redirectTo
         ? `/sign-in?redirectTo=${encodeURIComponent(redirectTo)}`

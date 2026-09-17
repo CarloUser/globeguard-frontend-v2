@@ -23,7 +23,7 @@ export async function PromotionCode({
           <Tag className="h-4 w-4" />
         </span>
         <div>
-          <h2 className="text-lg font-bold text-[#101820]">
+          <h2 className="text-lg font-bold text-foreground">
             {t("promotionCode")}
           </h2>
           <p className="mt-1 text-sm text-slate-600">

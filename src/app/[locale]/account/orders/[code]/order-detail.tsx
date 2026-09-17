@@ -8,7 +8,7 @@ import {Separator} from '@/components/ui/separator';
 import {Badge} from '@/components/ui/badge';
 import Image from 'next/image';
 import {Link} from '@/i18n/navigation';
-import {Price} from '@/components/commerce/price';
+import {Price, VatNote} from '@/components/commerce/price';
 import {OrderStatusBadge} from '@/components/commerce/order-status-badge';
 import {formatDate} from '@/lib/format';
 import {useLocale, useTranslations} from 'next-intl';
@@ -34,6 +34,9 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
     if (!order) {
         return null;
     }
+
+    // Same rows as the cart/checkout summaries: NET subtotal, VAT, gross shipping and total.
+    const vatTotal = order.taxSummary.reduce((sum, entry) => sum + entry.taxTotal, 0);
 
     return (
         <div>
@@ -75,7 +78,7 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
                                         </div>
                                         <div className="flex-1">
                                             <Link
-                                                href={`/product/${line.productVariant.product.slug}`}
+                                                href={`/products/${line.productVariant.product.slug}`}
                                                 className="font-medium hover:underline"
                                             >
                                                 {line.productVariant.product.name}
@@ -89,11 +92,12 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
                                         </div>
                                         <div className="text-right">
                                             <p className="font-medium">
-                                                <Price value={line.linePriceWithTax} currencyCode={order.currencyCode}/>
+                                                <Price value={line.linePrice} currencyCode={order.currencyCode}/>
                                             </p>
                                             <p className="text-sm text-muted-foreground">
-                                                {t('qty', {quantity: line.quantity})} × <Price value={line.unitPriceWithTax} currencyCode={order.currencyCode}/>
+                                                {t('qty', {quantity: line.quantity})} × <Price value={line.unitPrice} currencyCode={order.currencyCode}/>
                                             </p>
+                                            <VatNote className="text-xs text-muted-foreground" />
                                         </div>
                                     </div>
                                 ))}
@@ -108,21 +112,27 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
                         <CardContent>
                             <div className="space-y-2">
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-muted-foreground">{t('subtotal')}</span>
-                                    <span><Price value={order.subTotalWithTax} currencyCode={order.currencyCode}/></span>
-                                </div>
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-muted-foreground">{t('shipping')}</span>
-                                    <span><Price value={order.shippingWithTax} currencyCode={order.currencyCode}/></span>
+                                    <span className="text-muted-foreground">{t('subtotalNet')}</span>
+                                    <span><Price value={order.subTotal} currencyCode={order.currencyCode}/></span>
                                 </div>
                                 {order.discounts?.length > 0 && order.discounts.map((discount: OrderDiscount, idx: number) => (
                                     <div key={idx} className="flex justify-between text-sm">
                                         <span className="text-muted-foreground">{discount.description}</span>
                                         <span className="text-green-600">
-                                            -<Price value={discount.amountWithTax} currencyCode={order.currencyCode}/>
+                                            -<Price value={discount.amount} currencyCode={order.currencyCode}/>
                                         </span>
                                     </div>
                                 ))}
+                                {order.taxSummary.length > 0 && (
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-muted-foreground">{t('vat')}</span>
+                                        <span><Price value={vatTotal} currencyCode={order.currencyCode}/></span>
+                                    </div>
+                                )}
+                                <div className="flex justify-between text-sm">
+                                    <span className="text-muted-foreground">{t('shipping')}</span>
+                                    <span><Price value={order.shippingWithTax} currencyCode={order.currencyCode}/></span>
+                                </div>
                                 <Separator className="my-2"/>
                                 <div className="flex justify-between font-bold text-lg">
                                     <span>{t('total')}</span>
@@ -142,7 +152,7 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
                                 {order.shippingAddress.company && <p>{order.shippingAddress.company}</p>}
                                 <p>{order.shippingAddress.streetLine1}</p>
                                 {order.shippingAddress.streetLine2 && <p>{order.shippingAddress.streetLine2}</p>}
-                                <p>{order.shippingAddress.city}, {order.shippingAddress.province} {order.shippingAddress.postalCode}</p>
+                                <p>{order.shippingAddress.postalCode} {order.shippingAddress.city}{order.shippingAddress.province ? `, ${order.shippingAddress.province}` : ''}</p>
                                 <p>{order.shippingAddress.country}</p>
                                 {order.shippingAddress.phoneNumber && <p className="mt-2">{order.shippingAddress.phoneNumber}</p>}
                             </CardContent>
@@ -157,7 +167,7 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
                                 {order.billingAddress.company && <p>{order.billingAddress.company}</p>}
                                 <p>{order.billingAddress.streetLine1}</p>
                                 {order.billingAddress.streetLine2 && <p>{order.billingAddress.streetLine2}</p>}
-                                <p>{order.billingAddress.city}, {order.billingAddress.province} {order.billingAddress.postalCode}</p>
+                                <p>{order.billingAddress.postalCode} {order.billingAddress.city}{order.billingAddress.province ? `, ${order.billingAddress.province}` : ''}</p>
                                 <p>{order.billingAddress.country}</p>
                                 {order.billingAddress.phoneNumber && <p className="mt-2">{order.billingAddress.phoneNumber}</p>}
                             </CardContent>

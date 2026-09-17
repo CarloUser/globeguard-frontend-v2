@@ -5,7 +5,7 @@ import {getRouteLocale} from '@/i18n/server';
 import {SearchResults} from '@/app/[locale]/search/search-results';
 import {SearchTerm, SearchTermSkeleton} from '@/app/[locale]/search/search-term';
 import {SearchResultsSkeleton} from '@/components/shared/skeletons/search-results-skeleton';
-import {SITE_NAME, noIndexRobots} from '@/lib/metadata';
+import {SITE_NAME, buildAlternates, noIndexRobots} from '@/lib/metadata';
 
 export async function generateMetadata({
     searchParams,
@@ -14,22 +14,15 @@ export async function generateMetadata({
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Search'});
     const searchQuery = resolvedParams.q as string | undefined;
-    const searchBrand = resolvedParams.brand as string | undefined;
-
-    const title = searchQuery
-        ? t('resultsTitle', {query: searchQuery})
-        : searchBrand
-            ? t('brandTitle', {brand: searchBrand})
-            : t('pageTitle');
 
     return {
-        title,
+        title: searchQuery ? t('resultsTitle', {query: searchQuery}) : t('pageTitle'),
         description: searchQuery
             ? t('metaDescription', {query: searchQuery, siteName: SITE_NAME})
-            : searchBrand
-                ? t('brandMetaDescription', {brand: searchBrand, siteName: SITE_NAME})
-                : t('metaCatalogDescription', {siteName: SITE_NAME}),
+            : t('metaCatalogDescription', {siteName: SITE_NAME}),
         robots: noIndexRobots(),
+        // Canonical without the query string; the page is noindex anyway.
+        alternates: buildAlternates(locale, '/search'),
     };
 }
 

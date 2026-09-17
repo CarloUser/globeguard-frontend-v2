@@ -1,0 +1,820 @@
+{
+  "proFromYear": 1991,
+  "basicFromYear": 2008,
+  "source": "GlobeGuard Markenverwendung.xlsx",
+  "generatedAt": "2026-09-17T13:12:30.488Z",
+  "brandGroups": [
+    {
+      "id": "cars-vans-bentley",
+      "displayName": "Bentley",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2020,
+          "toYear": null,
+          "licenseGroup": "vag"
+        }
+      }
+    },
+    {
+      "id": "cars-vans-bmw-mini",
+      "displayName": "BMW, Mini",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-bugatti",
+      "displayName": "Bugatti",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2020,
+          "toYear": null,
+          "licenseGroup": "vag"
+        }
+      }
+    },
+    {
+      "id": "cars-vans-buick",
+      "displayName": "Buick",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-cadillac",
+      "displayName": "Cadillac",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-chevrolet",
+      "displayName": "Chevrolet",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-chrysler",
+      "displayName": "Chrysler",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-daihatsu",
+      "displayName": "Daihatsu",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-dodge",
+      "displayName": "Dodge",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-ds-automobiles",
+      "displayName": "DS Automobiles",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-fiat-alfa-romeo-lancia",
+      "displayName": "Fiat, Alfa Romeo, Lancia",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "bypass": {
+          "fromYear": 2018,
+          "toYear": 2020
+        },
+        "license": {
+          "fromYear": 2020,
+          "toYear": null,
+          "licenseGroup": "stellantis"
+        }
+      }
+    },
+    {
+      "id": "cars-vans-ford",
+      "displayName": "Ford",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-gmc",
+      "displayName": "GMC",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-honda",
+      "displayName": "Honda",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-hummer",
+      "displayName": "Hummer",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-hyundai",
+      "displayName": "Hyundai",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-ineos",
+      "displayName": "INEOS",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2022
+    },
+    {
+      "id": "cars-vans-infinity",
+      "displayName": "Infinity",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-isuzu",
+      "displayName": "Isuzu",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-iveco-daily",
+      "displayName": "Iveco Daily",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "bypass": {
+          "fromYear": 2018,
+          "toYear": null
+        }
+      }
+    },
+    {
+      "id": "cars-vans-jeep",
+      "displayName": "Jeep",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-kia",
+      "displayName": "KIA",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-lada",
+      "displayName": "Lada",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-lamborghini",
+      "displayName": "Lamborghini",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-land-rover",
+      "displayName": "Land Rover",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-lexus",
+      "displayName": "Lexus",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-lincoln",
+      "displayName": "Lincoln",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-man-tg-e",
+      "displayName": "MAN TG-E",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-maserati",
+      "displayName": "Maserati",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2020,
+          "toYear": null,
+          "licenseGroup": "stellantis"
+        }
+      }
+    },
+    {
+      "id": "cars-vans-mazda",
+      "displayName": "Mazda",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-mercedes-benz-pkw-van",
+      "displayName": "Mercedes-Benz PKW & VAN",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2021,
+          "toYear": null,
+          "licenseGroup": "mercedes"
+        }
+      }
+    },
+    {
+      "id": "cars-vans-mg-saic",
+      "displayName": "MG (SAIC)",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-mg-rover",
+      "displayName": "MG-Rover",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-mitsubishi",
+      "displayName": "Mitsubishi",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-nissan",
+      "displayName": "Nissan",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-opel",
+      "displayName": "Opel",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-peugeot-citroen",
+      "displayName": "Peugeot, Citroen",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-polestar",
+      "displayName": "Polestar",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-porsche",
+      "displayName": "Porsche",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-renault-dacia",
+      "displayName": "Renault, Dacia",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-saab",
+      "displayName": "Saab",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-smart",
+      "displayName": "Smart",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-ssangyong",
+      "displayName": "Ssangyong",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-subaru",
+      "displayName": "Subaru",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-suzuki",
+      "displayName": "Suzuki",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-tesla",
+      "displayName": "Tesla",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008,
+      "evOnly": true
+    },
+    {
+      "id": "cars-vans-toyota",
+      "displayName": "Toyota",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-volvo",
+      "displayName": "Volvo",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "cars-vans-vw-gruppe-audi-cupra-seat-skoda-volkswagen",
+      "displayName": "VW Gruppe (Audi; Cupra, Seat, Skoda, Volkswagen)",
+      "vehicleGroup": "CARS&VANS",
+      "tiers": [
+        "BASIC",
+        "PRO",
+        "WOMO"
+      ],
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2020,
+          "toYear": null,
+          "licenseGroup": "vag"
+        }
+      }
+    },
+    {
+      "id": "truck-bus-daf",
+      "displayName": "DAF",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-iveco",
+      "displayName": "Iveco",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-man",
+      "displayName": "MAN",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-mercedes-benz-truck",
+      "displayName": "Mercedes-Benz Truck",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ],
+      "sgw": {
+        "license": {
+          "fromYear": 2022,
+          "toYear": null,
+          "licenseGroup": "mercedes"
+        }
+      }
+    },
+    {
+      "id": "truck-bus-renault-lkw",
+      "displayName": "Renault LKW",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-scania",
+      "displayName": "Scania",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-tatra",
+      "displayName": "Tatra",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-volkswagen",
+      "displayName": "Volkswagen",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "truck-bus-volvo-lkw",
+      "displayName": "Volvo LKW",
+      "vehicleGroup": "TRUCK&BUS",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "trailer-haldex",
+      "displayName": "Haldex",
+      "vehicleGroup": "TRAILER",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "trailer-knorr-bremse",
+      "displayName": "Knorr Bremse",
+      "vehicleGroup": "TRAILER",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "trailer-wabco",
+      "displayName": "Wabco",
+      "vehicleGroup": "TRAILER",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "bike-beta",
+      "displayName": "Beta",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-bmw-motorrad",
+      "displayName": "BMW Motorrad",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-can-am",
+      "displayName": "Can-Am",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-gasgas",
+      "displayName": "Gasgas",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-ducati",
+      "displayName": "Ducati",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-harley-davidson",
+      "displayName": "Harley-Davidson",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-honda",
+      "displayName": "Honda",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-husqvarna",
+      "displayName": "Husqvarna",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-kawasaki",
+      "displayName": "Kawasaki",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-ktm",
+      "displayName": "KTM",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-moto-guzzi",
+      "displayName": "Moto Guzzi",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-suzuki",
+      "displayName": "Suzuki",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "bike-triumph",
+      "displayName": "Triumph",
+      "vehicleGroup": "BIKE",
+      "tiers": [
+        "BASIC",
+        "PRO"
+      ],
+      "basicFromYear": 2008
+    },
+    {
+      "id": "agrar-krone",
+      "displayName": "Krone",
+      "vehicleGroup": "AGRAR",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "industrial-volvo-penta",
+      "displayName": "Volvo Penta",
+      "vehicleGroup": "INDUSTRIAL",
+      "tiers": [
+        "PRO"
+      ]
+    },
+    {
+      "id": "accessories-truma",
+      "displayName": "Truma",
+      "vehicleGroup": "ACCESSORIES",
+      "tiers": [],
+      "proAddOnSku": "GG-PRO-TRUMA",
+      "requiresCableSku": "GG-CABLE-TRUMA",
+      "note": "Nur mit installiertem Truma-Softwarepaket – bei BASIC nur die WoMo-Edition; siehe Hinweis unten."
+    }
+  ]
+}

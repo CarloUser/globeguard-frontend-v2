@@ -1,6 +1,7 @@
 'use server';
 
-import {mutate} from '@/lib/vendure/api';
+import {graphql} from '@/graphql';
+import {mutate, query} from '@/lib/vendure/api';
 import {
     SetOrderShippingAddressMutation,
     SetOrderBillingAddressMutation,
@@ -8,11 +9,26 @@ import {
     AddPaymentToOrderMutation,
     CreateCustomerAddressMutation,
     TransitionOrderToStateMutation,
-    SetCustomerForOrderMutation,
 } from '@/lib/vendure/mutations';
 import {revalidatePath, updateTag} from 'next/cache';
 import {redirect} from '@/i18n/navigation';
 import {getLocale} from 'next-intl/server';
+
+/**
+ * Payment method codes starting with this prefix are handled by the Mollie
+ * plugin (Phase 2e). Until then they are rejected at placeOrder time.
+ */
+const MOLLIE_PAYMENT_METHOD_CODE_PREFIX = 'mollie';
+
+const GetActiveOrderStateQuery = graphql(`
+    query GetActiveOrderState {
+        activeOrder {
+            id
+            code
+            state
+        }
+    }
+`);
 
 interface AddressInput {
     fullName: string;
@@ -26,10 +42,44 @@ interface AddressInput {
     company?: string;
 }
 
+/**
+ * Vendure only accepts address and shipping-method changes while the order is in
+ * AddingItems. The checkout page also admits orders in ArrangingPayment (after a
+ * declined or abandoned payment attempt), so such orders are moved back first;
+ * ArrangingPayment -> AddingItems is a permitted transition.
+ */
+async function ensureOrderIsAddingItems() {
+    const current = await query(GetActiveOrderStateQuery, {}, {useAuthToken: true});
+    const activeOrder = current.data.activeOrder;
+
+    if (!activeOrder) {
+        throw new Error('No active order');
+    }
+
+    if (activeOrder.state !== 'ArrangingPayment') {
+        return;
+    }
+
+    const result = await mutate(
+        TransitionOrderToStateMutation,
+        {state: 'AddingItems'},
+        {useAuthToken: true}
+    );
+
+    if (result.data.transitionOrderToState?.__typename === 'OrderStateTransitionError') {
+        const errorResult = result.data.transitionOrderToState;
+        throw new Error(
+            `Failed to reopen order for editing: ${errorResult.errorCode} - ${errorResult.message}`
+        );
+    }
+}
+
 export async function setShippingAddress(
     shippingAddress: AddressInput,
     useSameForBilling: boolean
 ) {
+    await ensureOrderIsAddingItems();
+
     const shippingResult = await mutate(
         SetOrderShippingAddressMutation,
         {input: shippingAddress},
@@ -53,6 +103,8 @@ export async function setShippingAddress(
 }
 
 export async function setShippingMethod(shippingMethodId: string) {
+    await ensureOrderIsAddingItems();
+
     const result = await mutate(
         SetOrderShippingMethodMutation,
         {shippingMethodId: [shippingMethodId]},
@@ -83,7 +135,22 @@ export async function createCustomerAddress(address: AddressInput) {
     return result.data.createCustomerAddress;
 }
 
+/**
+ * Transition the active order to ArrangingPayment. Idempotent: if the order is
+ * already in that state (e.g. after a failed or abandoned payment attempt) this is a no-op.
+ */
 export async function transitionToArrangingPayment() {
+    const current = await query(GetActiveOrderStateQuery, {}, {useAuthToken: true});
+    const activeOrder = current.data.activeOrder;
+
+    if (!activeOrder) {
+        throw new Error('No active order');
+    }
+
+    if (activeOrder.state === 'ArrangingPayment') {
+        return;
+    }
+
     const result = await mutate(
         TransitionOrderToStateMutation,
         {state: 'ArrangingPayment'},
@@ -101,27 +168,42 @@ export async function transitionToArrangingPayment() {
     revalidatePath(`/${locale}/checkout`);
 }
 
-export async function placeOrder(paymentMethodCode: string) {
-    // First, transition the order to ArrangingPayment state
-    await transitionToArrangingPayment();
+export type PlaceOrderResult = { success: false; error: string };
 
-    // Prepare metadata based on payment method
-    const metadata: Record<string, unknown> = {};
-
-    // For standard payment, include the required fields
-    if (paymentMethodCode === 'standard-payment') {
-        metadata.shouldDecline = false;
-        metadata.shouldError = false;
-        metadata.shouldErrorOnSettle = false;
+/**
+ * Places the order with the selected payment method.
+ *
+ * - Offline payment methods (e.g. invoice / bank transfer handlers configured in the
+ *   backend) are added directly via addPaymentToOrder with empty metadata.
+ * - Mollie (online) payment is NOT wired yet. See the TODO below.
+ *
+ * On success this redirects to the order confirmation page; on failure it returns
+ * an error object so the caller can surface it.
+ */
+export async function placeOrder(paymentMethodCode: string): Promise<PlaceOrderResult | undefined> {
+    if (paymentMethodCode.toLowerCase().startsWith(MOLLIE_PAYMENT_METHOD_CODE_PREFIX)) {
+        // TODO(Phase 2e, Mollie): create the Mollie payment intent via the
+        // `createMolliePaymentIntent` mutation, redirect the customer to the
+        // returned Mollie checkout URL and let the backend webhook settle the
+        // payment. Do NOT call addPaymentToOrder for Mollie methods.
+        return {success: false, error: 'PAYMENT_METHOD_NOT_AVAILABLE'};
     }
 
-    // Add payment to the order
+    try {
+        await transitionToArrangingPayment();
+    } catch (error) {
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'ORDER_STATE_TRANSITION_ERROR',
+        };
+    }
+
     const result = await mutate(
         AddPaymentToOrderMutation,
         {
             input: {
                 method: paymentMethodCode,
-                metadata,
+                metadata: {},
             },
         },
         {useAuthToken: true}
@@ -129,9 +211,7 @@ export async function placeOrder(paymentMethodCode: string) {
 
     if (result.data.addPaymentToOrder.__typename !== 'Order') {
         const errorResult = result.data.addPaymentToOrder;
-        throw new Error(
-            `Failed to place order: ${errorResult.errorCode} - ${errorResult.message}`
-        );
+        return {success: false, error: `${errorResult.errorCode} - ${errorResult.message}`};
     }
 
     const orderCode = result.data.addPaymentToOrder.code;
@@ -142,48 +222,6 @@ export async function placeOrder(paymentMethodCode: string) {
 
     const locale = await getLocale();
     redirect({href: `/order-confirmation/${orderCode}`, locale});
-}
-
-interface GuestCustomerInput {
-    emailAddress: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber?: string;
-}
-
-export type SetCustomerForOrderResult =
-    | { success: true }
-    | { success: false; errorCode: 'EMAIL_CONFLICT'; message: string }
-    | { success: false; errorCode: 'GUEST_CHECKOUT_DISABLED'; message: string }
-    | { success: false; errorCode: 'NO_ACTIVE_ORDER'; message: string }
-    | { success: false; errorCode: 'UNKNOWN'; message: string };
-
-export async function setCustomerForOrder(
-    input: GuestCustomerInput
-): Promise<SetCustomerForOrderResult> {
-    const result = await mutate(
-        SetCustomerForOrderMutation,
-        { input },
-        { useAuthToken: true }
-    );
-
-    const response = result.data.setCustomerForOrder;
-
-    switch (response.__typename) {
-        case 'Order': {
-            const locale = await getLocale();
-            revalidatePath(`/${locale}/checkout`);
-            return { success: true };
-        }
-        case 'AlreadyLoggedInError':
-            return { success: true };
-        case 'EmailAddressConflictError':
-            return { success: false, errorCode: 'EMAIL_CONFLICT', message: response.message };
-        case 'GuestCheckoutError':
-            return { success: false, errorCode: 'GUEST_CHECKOUT_DISABLED', message: response.message };
-        case 'NoActiveOrderError':
-            return { success: false, errorCode: 'NO_ACTIVE_ORDER', message: response.message };
-        default:
-            return { success: false, errorCode: 'UNKNOWN', message: 'Unknown error' };
-    }
+    // redirect() throws; this is only here to satisfy the return type.
+    return undefined;
 }

@@ -2,13 +2,21 @@ import type {TadaDocumentNode} from 'gql.tada';
 import {print} from 'graphql';
 import {getAuthToken} from '@/lib/auth';
 
-const VENDURE_API_URL = process.env.VENDURE_SHOP_API_URL || process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL;
 const VENDURE_CHANNEL_TOKEN = process.env.VENDURE_CHANNEL_TOKEN || process.env.NEXT_PUBLIC_VENDURE_CHANNEL_TOKEN || '__default_channel__';
 const VENDURE_AUTH_TOKEN_HEADER = process.env.VENDURE_AUTH_TOKEN_HEADER || 'vendure-auth-token';
 const VENDURE_CHANNEL_TOKEN_HEADER = process.env.VENDURE_CHANNEL_TOKEN_HEADER || 'vendure-token';
 
-if (!VENDURE_API_URL) {
-    throw new Error('VENDURE_SHOP_API_URL or NEXT_PUBLIC_VENDURE_SHOP_API_URL environment variable is not set');
+/**
+ * Resolved per request (not at module load) so that importing a route module or running
+ * `next build` without a configured backend does not throw; a real request without the
+ * variable still fails with a clear error.
+ */
+function resolveApiUrl(): string {
+    const url = process.env.VENDURE_SHOP_API_URL || process.env.NEXT_PUBLIC_VENDURE_SHOP_API_URL;
+    if (!url) {
+        throw new Error('VENDURE_SHOP_API_URL or NEXT_PUBLIC_VENDURE_SHOP_API_URL environment variable is not set');
+    }
+    return url;
 }
 
 export interface VendureRequestOptions {
@@ -16,7 +24,6 @@ export interface VendureRequestOptions {
     useAuthToken?: boolean;
     channelToken?: string;
     languageCode?: string;
-    currencyCode?: string;
     fetch?: RequestInit;
     tags?: string[];
 }
@@ -43,7 +50,6 @@ async function executeVendureGraphql<TResult, TVariables>(
         useAuthToken,
         channelToken,
         languageCode,
-        currencyCode,
         fetch: fetchOptions,
         tags,
     } = options || {};
@@ -64,12 +70,9 @@ async function executeVendureGraphql<TResult, TVariables>(
 
     headers[VENDURE_CHANNEL_TOKEN_HEADER] = channelToken || VENDURE_CHANNEL_TOKEN;
 
-    const url = new URL(VENDURE_API_URL!);
+    const url = new URL(resolveApiUrl());
     if (languageCode) {
         url.searchParams.set('languageCode', languageCode);
-    }
-    if (currencyCode) {
-        url.searchParams.set('currencyCode', currencyCode);
     }
 
     const response = await fetch(url.toString(), {

@@ -5,12 +5,14 @@ import { EditProfileForm } from './edit-profile-form';
 import { EditEmailForm } from './edit-email-form';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
+import {buildAlternates} from '@/lib/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Account'});
     return {
         title: t('profilePageTitle'),
+        alternates: buildAlternates(locale, '/account/profile'),
     };
 }
 

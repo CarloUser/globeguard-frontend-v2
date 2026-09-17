@@ -4,12 +4,14 @@ import { query } from '@/lib/vendure/api';
 import { GetCustomerAddressesQuery, GetAvailableCountriesQuery } from '@/lib/vendure/queries';
 import { AddressesClient } from './addresses-client';
 import {getTranslations} from 'next-intl/server';
+import {buildAlternates} from '@/lib/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Account'});
     return {
         title: t('addressesPageTitle'),
+        alternates: buildAlternates(locale, '/account/addresses'),
     };
 }
 

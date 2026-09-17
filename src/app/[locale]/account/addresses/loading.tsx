@@ -1,13 +1,18 @@
+import {getTranslations} from 'next-intl/server';
+import {getRouteLocale} from '@/i18n/server';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function AddressesLoading() {
+export default async function AddressesLoading() {
+    const locale = await getRouteLocale();
+    const t = await getTranslations({locale, namespace: 'Account'});
+
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold">Addresses</h1>
+                <h1 className="text-3xl font-bold">{t('addresses')}</h1>
                 <p className="text-muted-foreground mt-2">
-                    Manage your saved shipping and billing addresses
+                    {t('manageAddresses')}
                 </p>
             </div>
 

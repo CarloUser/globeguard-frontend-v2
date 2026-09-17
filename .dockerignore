@@ -1,0 +1,26 @@
+# Build context exclusions for the GlobeGuard storefront image.
+# Mirrors .gitignore plus repo files the image never needs.
+node_modules
+.next
+out
+build
+coverage
+.git
+.github
+.vscode
+.idea
+.DS_Store
+*.pem
+*.tsbuildinfo
+npm-debug.log*
+bun-debug.log*
+
+# Secrets/env: runtime env is passed with --env-file / compose, never baked in.
+.env*
+!.env.example
+
+# Repo metadata not needed inside the image
+README.md
+LICENSE
+Dockerfile
+.dockerignore

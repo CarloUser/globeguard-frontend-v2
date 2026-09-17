@@ -1,6 +1,6 @@
 'use client';
 
-import {useLocale} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 import {useRouter, usePathname} from '@/i18n/navigation';
 import {routing, localeNames} from '@/i18n/routing';
 import {Check, Globe} from 'lucide-react';
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function LanguagePicker() {
+    const t = useTranslations('Navigation');
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
@@ -23,7 +24,7 @@ export function LanguagePicker() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger render={<Button variant="ghost" size="sm" className="gap-1.5" />}>
+            <DropdownMenuTrigger render={<Button variant="ghost" size="sm" className="gap-1.5" aria-label={t('switchLanguage')} />}>
                 <Globe className="size-4" />
                 <span>{localeNames[locale as keyof typeof localeNames] ?? locale.toUpperCase()}</span>
             </DropdownMenuTrigger>

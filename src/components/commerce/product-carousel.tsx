@@ -15,13 +15,10 @@ export function ProductCarousel({title, products}: ProductCarouselClientProps) {
     const id = useId();
 
     return (
-        <section className="bg-[#f6fafc] py-12 dark:bg-[#0b1218] md:py-16">
+        <section className="bg-muted/40 py-12 md:py-16">
             <div className="container mx-auto px-4">
                 <div className="mb-8 flex items-end justify-between gap-4">
-                    <div>
-                        <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-[#006f8f] dark:text-cyan-200">Also fits</p>
-                        <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">{title}</h2>
-                    </div>
+                    <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{title}</h2>
                 </div>
                 <Carousel
                     opts={{

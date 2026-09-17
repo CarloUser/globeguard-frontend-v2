@@ -1,8 +1,9 @@
 import type {Metadata, Viewport} from "next";
 import {Suspense} from "react";
 import {hasLocale, NextIntlClientProvider} from "next-intl";
-import {Geist, Geist_Mono} from "next/font/google";
-import {getMessages, setRequestLocale} from "next-intl/server";
+import {Inter, JetBrains_Mono} from "next/font/google";
+import {getMessages, getTranslations, setRequestLocale} from "next-intl/server";
+import {cookies} from "next/headers";
 import {notFound} from "next/navigation";
 import {routing} from "@/i18n/routing";
 import {toOgLocale} from "@/i18n/locale-utils";
@@ -10,19 +11,25 @@ import {getRouteLocale} from "@/i18n/server";
 import {Toaster} from "@/components/ui/sonner";
 import {Navbar} from "@/components/layout/navbar";
 import {Footer} from "@/components/layout/footer";
-import {ThemeProvider} from "@/components/providers/theme-provider";
+import {DisplayCurrencyProvider} from "@/components/providers/display-currency-provider";
+import {DISPLAY_CURRENCY_COOKIE, isDisplayCurrency} from "@/lib/display-currency";
 import {SITE_NAME, SITE_URL} from "@/lib/metadata";
-import {getGlobeguardContent} from "@/content/globeguard";
 import "./globals.css";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
+// Light-only design, Inter as the single sans-serif face (DECISIONS.md A9).
+const inter = Inter({
+    variable: "--font-inter",
+    subsets: ["latin", "latin-ext"],
+    weight: ["400", "500", "600", "700"],
+    display: "swap",
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+// Mono face for SKU / order-code / transaction-id labels (`font-mono` utility).
+const jetbrainsMono = JetBrains_Mono({
+    variable: "--font-jetbrains-mono",
     subsets: ["latin"],
+    weight: ["400", "500", "700"],
+    display: "swap",
 });
 
 export function generateStaticParams() {
@@ -32,14 +39,18 @@ export function generateStaticParams() {
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRouteLocale();
     const ogLocale = toOgLocale(locale);
-    const content = getGlobeguardContent(locale);
+    const t = await getTranslations({locale, namespace: "Common"});
+
+    // Canonical + hreflang are page-specific: every page sets them via buildAlternates()
+    // (src/lib/metadata.ts). A layout-level alternates.languages would advertise the
+    // homepage as the alternate of every page and be replaced by any page-level canonical.
     return {
         metadataBase: new URL(SITE_URL),
         title: {
             default: SITE_NAME,
             template: `%s | ${SITE_NAME}`,
         },
-        description: content.homeMeta.description,
+        description: t("siteDescription"),
         openGraph: {
             type: "website",
             siteName: SITE_NAME,
@@ -59,11 +70,6 @@ export async function generateMetadata(): Promise<Metadata> {
                 "max-snippet": -1,
             },
         },
-        alternates: {
-            languages: Object.fromEntries(
-                routing.locales.map((l) => [l, `/${l}`])
-            ),
-        },
     };
 }
 
@@ -71,10 +77,9 @@ export const viewport: Viewport = {
     width: "device-width",
     initialScale: 1,
     maximumScale: 5,
-    themeColor: [
-        {media: "(prefers-color-scheme: light)", color: "#f8fafc"},
-        {media: "(prefers-color-scheme: dark)", color: "#0b1220"},
-    ],
+    // Light background token (--background: 0 0% 100%).
+    themeColor: "#ffffff",
+    colorScheme: "light",
 };
 
 export default async function LocaleLayout({children, params}: {children: React.ReactNode; params: Promise<{locale: string}>}) {
@@ -87,25 +92,26 @@ export default async function LocaleLayout({children, params}: {children: React.
     setRequestLocale(locale);
     const messages = await getMessages({locale});
 
+    // Display currency (CHF | EUR, display-only) from the visitor's cookie so the first paint
+    // already matches the chosen currency instead of switching after hydration. The layout is
+    // dynamic anyway (the navbar reads the auth cookie), so this costs no static rendering.
+    const displayCurrencyCookie = (await cookies()).get(DISPLAY_CURRENCY_COOKIE)?.value;
+    const initialCurrency = isDisplayCurrency(displayCurrencyCookie) ? displayCurrencyCookie : undefined;
+
     return (
-        <html lang={locale} data-scroll-behavior="smooth" suppressHydrationWarning>
-            <body
-                suppressHydrationWarning
-                className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
-            >
+        <html lang={locale} data-scroll-behavior="smooth">
+            <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <Suspense>
-                        <ThemeProvider>
+                        <DisplayCurrencyProvider initialCurrency={initialCurrency}>
                             <Navbar />
                             {children}
                             <Footer locale={locale}/>
                             <Toaster/>
-                        </ThemeProvider>
+                        </DisplayCurrencyProvider>
                     </Suspense>
                 </NextIntlClientProvider>
             </body>
         </html>
     );
 }
-
-

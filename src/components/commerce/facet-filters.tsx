@@ -36,7 +36,7 @@ function FilterContent({
     const t = useTranslations('Filters');
     return (
         <div className="glass-panel p-6 lg:sticky lg:top-32">
-            <div className="mb-6 flex items-center justify-between gap-3 border-b border-black/5 pb-4 dark:border-white/10">
+            <div className="mb-6 flex items-center justify-between gap-3 border-b border-black/5 pb-4">
                 <div className="flex items-center gap-2 font-bold">
                     <Filter className="size-4" />
                     {t('title')}
@@ -70,7 +70,7 @@ function FilterContent({
                                                 />
                                                 <Label
                                                     htmlFor={`filter-${value.id}`}
-                                                    className="flex cursor-pointer items-center gap-2 text-sm text-slate-600 group-hover:text-[#101820] dark:text-slate-300"
+                                                    className="flex cursor-pointer items-center gap-2 text-sm text-slate-600 group-hover:text-foreground"
                                                 >
                                                     {value.name}
                                                     <span className="font-mono text-xs text-slate-400">{value.count}</span>
@@ -177,7 +177,7 @@ export function FacetFilters({productDataPromise}: FacetFiltersProps) {
                             </Button>
                         }
                     />
-                    <SheetContent side="left" className="overflow-y-auto p-6">
+                    <SheetContent side="left" className="overflow-y-auto p-6" closeLabel={t('close')}>
                         <SheetHeader>
                             <SheetTitle>{t('title')}</SheetTitle>
                         </SheetHeader>

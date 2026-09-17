@@ -2,20 +2,22 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Loader2, MapPin, Truck, CreditCard, Edit, Mail } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Loader2, MapPin, Truck, CreditCard, Edit, AlertCircle } from 'lucide-react';
 import { useCheckout } from '../checkout-provider';
 import { placeOrder as placeOrderAction } from '../actions';
 import { Price } from '@/components/commerce/price';
 import {useTranslations} from 'next-intl';
 
 interface ReviewStepProps {
-  onEditStep: (step: 'contact' | 'shipping' | 'delivery' | 'payment') => void;
+  onEditStep: (step: 'shipping' | 'delivery' | 'payment') => void;
 }
 
 export default function ReviewStep({ onEditStep }: ReviewStepProps) {
   const t = useTranslations('Checkout');
-  const { order, paymentMethods, selectedPaymentMethodCode, isGuest } = useCheckout();
+  const { order, paymentMethods, selectedPaymentMethodCode } = useCheckout();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const selectedPaymentMethod = paymentMethods.find(
     (method) => method.code === selectedPaymentMethodCode
@@ -25,13 +27,25 @@ export default function ReviewStep({ onEditStep }: ReviewStepProps) {
     if (!selectedPaymentMethodCode) return;
 
     setLoading(true);
+    setError(null);
     try {
-      await placeOrderAction(selectedPaymentMethodCode);
-    } catch (error) {
-      if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
-        throw error;
+      // On success the server action redirects to the order confirmation page
+      // (the redirect is thrown by Next.js and must not be swallowed here).
+      const result = await placeOrderAction(selectedPaymentMethodCode);
+      if (result && !result.success) {
+        setError(
+          result.error === 'PAYMENT_METHOD_NOT_AVAILABLE'
+            ? t('paymentMethodUnavailable')
+            : t('placeOrderFailed', {reason: result.error})
+        );
+        setLoading(false);
       }
-      console.error('Error placing order:', error);
+    } catch (err) {
+      if (err instanceof Error && err.message.includes('NEXT_REDIRECT')) {
+        throw err;
+      }
+      console.error('Error placing order:', err);
+      setError(t('placeOrderFailed', {reason: err instanceof Error ? err.message : t('unexpectedError')}));
       setLoading(false);
     }
   };
@@ -40,32 +54,7 @@ export default function ReviewStep({ onEditStep }: ReviewStepProps) {
     <div className="space-y-6">
       <h3 className="font-semibold text-lg">{t('reviewYourOrder')}</h3>
 
-      <div className={`grid grid-cols-1 gap-6 ${isGuest ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'}`}>
-        {isGuest && order.customer && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-muted-foreground" />
-              <h4 className="font-medium">{t('contact')}</h4>
-            </div>
-            <div className="text-sm space-y-3">
-              <div>
-                <p className="font-medium">
-                  {order.customer.firstName} {order.customer.lastName}
-                </p>
-                <p className="text-muted-foreground">{order.customer.emailAddress}</p>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => onEditStep('contact')}
-              >
-                <Edit className="h-4 w-4 mr-1" />
-                {t('edit')}
-              </Button>
-            </div>
-          </div>
-        )}
-
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Shipping Address */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
@@ -81,7 +70,8 @@ export default function ReviewStep({ onEditStep }: ReviewStepProps) {
                   {order.shippingAddress.streetLine2 && `, ${order.shippingAddress.streetLine2}`}
                 </p>
                 <p className="text-muted-foreground">
-                  {order.shippingAddress.city}, {order.shippingAddress.province} {order.shippingAddress.postalCode}
+                  {order.shippingAddress.postalCode} {order.shippingAddress.city}
+                  {order.shippingAddress.province && `, ${order.shippingAddress.province}`}
                 </p>
                 <p className="text-muted-foreground">{order.shippingAddress.country}</p>
                 <p className="text-muted-foreground">{order.shippingAddress.phoneNumber}</p>
@@ -160,6 +150,13 @@ export default function ReviewStep({ onEditStep }: ReviewStepProps) {
           )}
         </div>
       </div>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       <Button
         onClick={handlePlaceOrder}

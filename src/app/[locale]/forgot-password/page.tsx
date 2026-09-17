@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {getTranslations} from 'next-intl/server';
 import {getRouteLocale} from '@/i18n/server';
+import {buildAlternates} from '@/lib/metadata';
 import { ForgotPasswordForm } from './forgot-password-form';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -8,6 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const t = await getTranslations({locale, namespace: 'Auth'});
     return {
         title: t('forgotPasswordPageTitle'),
+        alternates: buildAlternates(locale, '/forgot-password'),
     };
 }
 

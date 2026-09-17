@@ -9,14 +9,16 @@ interface LoginButtonProps extends ComponentProps<'button'> {
     isLoggedIn: boolean;
 }
 
-export function LoginButton({isLoggedIn, ...props}: LoginButtonProps) {
+export function LoginButton({isLoggedIn, children, onClick, ...props}: LoginButtonProps) {
     const t = useTranslations('Navigation');
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
 
     return (
         <button {...props} aria-disabled={isPending}
-                onClick={() => {
+                onClick={(event) => {
+                    // Chain a handler merged in by a wrapper (e.g. SheetClose) before acting.
+                    onClick?.(event);
                     if (isLoggedIn) {
                         startTransition(async () => {
                             await logoutAction()
@@ -25,6 +27,7 @@ export function LoginButton({isLoggedIn, ...props}: LoginButtonProps) {
                         router.push('/sign-in')
                     }
                 }}>
+            {children}
             {isLoggedIn ? t('signOut') : t('signIn')}
         </button>
     )

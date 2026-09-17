@@ -17,7 +17,7 @@ export const ProductCardFragment = graphql(`
       id
       preview
     }
-    priceWithTax {
+    price {
       __typename
       ... on PriceRange {
         min

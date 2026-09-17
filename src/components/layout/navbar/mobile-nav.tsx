@@ -1,8 +1,21 @@
-﻿'use client';
+'use client';
 
 import {useState} from 'react';
 import {Link, useRouter} from '@/i18n/navigation';
-import {BookOpen, LifeBuoy, Menu, Package, Phone, Search, ShoppingBag, User, Users, MapPin} from 'lucide-react';
+import {
+    BookOpen,
+    Cable,
+    HelpCircle,
+    LifeBuoy,
+    MapPin,
+    Menu,
+    Package,
+    RefreshCw,
+    Search,
+    ShoppingCart,
+    User,
+    Wrench,
+} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {
@@ -15,31 +28,33 @@ import {
 } from '@/components/ui/sheet';
 import {useTranslations} from 'next-intl';
 import {GlobeguardBrand} from '@/components/layout/globeguard-brand';
+import {ACCOUNT_NAV_ITEMS, MAIN_NAV_ITEMS, MOBILE_NAV_ITEM_CLASS} from '@/components/layout/navbar/site-navigation';
 
-interface Collection {
-    id: string;
-    name: string;
-    slug: string;
-}
+// TODO(F3): the Vendure top-collections list was dropped here because `GetTopCollectionsQuery`
+// returns every non-root collection flat (28 entries). Re-add only if limited to root-level collections.
 
-interface NavLink {
-    href: string;
-    label: string;
-}
-
-interface MobileNavProps {
-    collections: Collection[];
-    navLinks: readonly NavLink[];
-}
-
-const navIcons: Record<string, typeof ShoppingBag> = {
-    '/search': ShoppingBag,
-    '/support': LifeBuoy,
-    '/partners': Users,
-    '/contact': Phone,
+const navIcons: Record<string, typeof Package> = {
+    warumGlobeguard: HelpCircle,
+    basic: Package,
+    pro: Package,
+    elite: Package,
+    zubehoer: Cable,
+    services: Wrench,
+    updates: RefreshCw,
+    support: LifeBuoy,
+    profile: User,
+    orders: Package,
+    addresses: MapPin,
 };
 
-export function MobileNav({collections, navLinks}: MobileNavProps) {
+const itemClassName = MOBILE_NAV_ITEM_CLASS;
+
+interface MobileNavProps {
+    /** Sign-in / sign-out entry rendered by the server (see MobileNavAuth). */
+    authItem?: React.ReactNode;
+}
+
+export function MobileNav({authItem}: MobileNavProps) {
     const t = useTranslations('Navigation');
     const [open, setOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -58,22 +73,23 @@ export function MobileNav({collections, navLinks}: MobileNavProps) {
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden" />}>
+            <SheetTrigger render={<Button variant="ghost" size="icon" />}>
                 <Menu className="size-5" />
                 <span className="sr-only">{t('openMenu')}</span>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full overflow-y-auto sm:max-w-sm">
+            <SheetContent side="left" className="w-full overflow-y-auto sm:max-w-sm" closeLabel={t('closeMenu')}>
                 <SheetHeader>
                     <SheetTitle>
-                        <GlobeguardBrand />
+                        <GlobeguardBrand compact />
                     </SheetTitle>
                 </SheetHeader>
 
                 <div className="flex flex-col gap-6 px-4 pb-6">
-                    <form onSubmit={handleSearch} className="relative">
+                    <form onSubmit={handleSearch} className="relative" role="search">
                         <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             type="search"
+                            name="q"
                             placeholder={t('searchProducts')}
                             className="w-full pl-9"
                             value={searchValue}
@@ -83,101 +99,54 @@ export function MobileNav({collections, navLinks}: MobileNavProps) {
 
                     <div>
                         <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                            GlobeGuard
+                            {t('menu')}
                         </p>
-                        <nav className="flex flex-col gap-0.5">
-                            {navLinks.map((item) => {
-                                const Icon = navIcons[item.href] ?? BookOpen;
+                        <nav className="flex flex-col gap-0.5" aria-label={t('mainNavigation')}>
+                            {MAIN_NAV_ITEMS.map((item) => {
+                                const Icon = navIcons[item.key] ?? BookOpen;
                                 return (
                                     <SheetClose
                                         key={item.href}
-                                        render={
-                                            <Link
-                                                href={item.href}
-                                                className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-                                            />
-                                        }
+                                        render={<Link href={item.href} className={itemClassName} />}
                                         nativeButton={false}
                                         onClick={handleLinkClick}
                                     >
                                         <Icon className="size-5" />
-                                        {item.label}
+                                        {t(item.key)}
                                     </SheetClose>
                                 );
                             })}
                         </nav>
                     </div>
 
-                    {collections.length > 0 && (
-                        <div>
-                            <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                {t('collections')}
-                            </p>
-                            <nav className="flex flex-col gap-0.5">
-                                {collections.map((collection) => (
-                                    <SheetClose
-                                        key={collection.slug}
-                                        render={
-                                            <Link
-                                                href={`/collection/${collection.slug}`}
-                                                className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-                                            />
-                                        }
-                                        nativeButton={false}
-                                        onClick={handleLinkClick}
-                                    >
-                                        <Package className="size-5" />
-                                        {collection.name}
-                                    </SheetClose>
-                                ))}
-                            </nav>
-                        </div>
-                    )}
-
                     <div>
                         <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                             {t('account')}
                         </p>
                         <nav className="flex flex-col gap-0.5">
+                            {ACCOUNT_NAV_ITEMS.map((item) => {
+                                const Icon = navIcons[item.key] ?? User;
+                                return (
+                                    <SheetClose
+                                        key={item.href}
+                                        render={<Link href={item.href} className={itemClassName} />}
+                                        nativeButton={false}
+                                        onClick={handleLinkClick}
+                                    >
+                                        <Icon className="size-5" />
+                                        {t(item.key)}
+                                    </SheetClose>
+                                );
+                            })}
                             <SheetClose
-                                render={
-                                    <Link
-                                        href="/account/profile"
-                                        className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-                                    />
-                                }
+                                render={<Link href="/cart" className={itemClassName} />}
                                 nativeButton={false}
                                 onClick={handleLinkClick}
                             >
-                                <User className="size-5" />
-                                {t('profile')}
+                                <ShoppingCart className="size-5" />
+                                {t('shoppingCart')}
                             </SheetClose>
-                            <SheetClose
-                                render={
-                                    <Link
-                                        href="/account/orders"
-                                        className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-                                    />
-                                }
-                                nativeButton={false}
-                                onClick={handleLinkClick}
-                            >
-                                <Package className="size-5" />
-                                {t('orders')}
-                            </SheetClose>
-                            <SheetClose
-                                render={
-                                    <Link
-                                        href="/account/addresses"
-                                        className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-                                    />
-                                }
-                                nativeButton={false}
-                                onClick={handleLinkClick}
-                            >
-                                <MapPin className="size-5" />
-                                {t('addresses')}
-                            </SheetClose>
+                            {authItem}
                         </nav>
                     </div>
                 </div>

@@ -42,7 +42,6 @@ export function EditProfileForm({ customer }: EditProfileFormProps) {
                             id="firstName"
                             name="firstName"
                             type="text"
-                            placeholder="John"
                             defaultValue={customer?.firstName || ''}
                             required
                             disabled={isPending}
@@ -54,7 +53,6 @@ export function EditProfileForm({ customer }: EditProfileFormProps) {
                             id="lastName"
                             name="lastName"
                             type="text"
-                            placeholder="Doe"
                             defaultValue={customer?.lastName || ''}
                             required
                             disabled={isPending}

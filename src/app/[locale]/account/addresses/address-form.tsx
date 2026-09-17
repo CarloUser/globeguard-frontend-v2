@@ -63,7 +63,7 @@ export function AddressForm({ countries, address, onSubmit, onCancel, isSubmitti
       countryCode: address.country.code,
       phoneNumber: address.phoneNumber || '',
     } : {
-      countryCode: countries[0]?.code || 'US',
+      countryCode: 'CH',
     }
   });
 

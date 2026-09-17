@@ -5,13 +5,15 @@ import {getTranslations} from 'next-intl/server';
 import {LoginForm} from "./login-form";
 import {Card, CardContent, CardFooter} from "@/components/ui/card";
 import {Skeleton} from "@/components/ui/skeleton";
-import {SITE_NAME} from "@/lib/metadata";
+import {buildAlternates, SITE_NAME} from "@/lib/metadata";
+import {isSafeRedirectPath} from "@/lib/auth";
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Auth'});
     return {
         title: t('pageTitle'),
+        alternates: buildAlternates(locale, '/sign-in'),
     };
 }
 
@@ -41,7 +43,10 @@ function LoginFormSkeleton() {
 
 async function SignInContent({searchParams}: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
     const resolvedParams = await searchParams;
-    const redirectTo = resolvedParams?.redirectTo as string | undefined;
+    const rawRedirectTo = resolvedParams?.redirectTo;
+    const candidate = Array.isArray(rawRedirectTo) ? rawRedirectTo[0] : rawRedirectTo;
+    // Only same-site relative paths are accepted as redirect targets
+    const redirectTo = isSafeRedirectPath(candidate) ? candidate : undefined;
 
     return <LoginForm redirectTo={redirectTo}/>;
 }
@@ -59,20 +64,6 @@ export default async function SignInPage({searchParams}: PageProps<'/[locale]/si
                     <p className="text-xl text-primary-foreground/80 leading-relaxed">
                         {t('welcomeBack')}
                     </p>
-                    <div className="flex gap-8 pt-4">
-                        <div>
-                            <p className="text-3xl font-bold">{t('featureFast')}</p>
-                            <p className="text-sm text-primary-foreground/70">{t('featureCheckout')}</p>
-                        </div>
-                        <div>
-                            <p className="text-3xl font-bold">{t('featureSecure')}</p>
-                            <p className="text-sm text-primary-foreground/70">{t('featurePayments')}</p>
-                        </div>
-                        <div>
-                            <p className="text-3xl font-bold">{t('featureEasy')}</p>
-                            <p className="text-sm text-primary-foreground/70">{t('featureReturns')}</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 

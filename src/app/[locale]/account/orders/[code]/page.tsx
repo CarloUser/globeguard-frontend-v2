@@ -4,6 +4,7 @@ import {query} from '@/lib/vendure/api';
 import {GetOrderDetailQuery} from '@/lib/vendure/queries';
 import {getTranslations} from 'next-intl/server';
 import {getRouteLocale} from '@/i18n/server';
+import {buildAlternates} from '@/lib/metadata';
 import {OrderDetail} from './order-detail';
 
 type OrderDetailPageProps = PageProps<'/[locale]/account/orders/[code]'>;
@@ -14,6 +15,7 @@ export async function generateMetadata({params}: OrderDetailPageProps): Promise<
     const t = await getTranslations({locale, namespace: 'Account'});
     return {
         title: t('order', {code}),
+        alternates: buildAlternates(locale, `/account/orders/${code}`),
     };
 }
 
