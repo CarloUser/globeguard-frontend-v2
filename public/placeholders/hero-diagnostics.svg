@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Diagnostic bench</title>
+  <desc id="desc">Replace with real GlobeGuard product photo</desc>
+  <rect width="1200" height="520" fill="#f5f8fa"/>
+  <rect x="1" y="1" width="1198" height="518" fill="none" stroke="#d8e3e8" stroke-width="2"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#007c9a"/>
+  <rect x="100" y="305" width="1000" height="34" rx="4" fill="#263238"/><rect x="190" y="200" width="230" height="100" rx="10" fill="#101820"/><rect x="215" y="225" width="70" height="18" fill="#5bd3ea"/><rect x="215" y="255" width="140" height="18" fill="#f6c445"/><rect x="640" y="170" width="250" height="130" rx="12" fill="#101820"/><rect x="670" y="205" width="120" height="18" fill="#5bd3ea"/><rect x="670" y="240" width="170" height="18" fill="#f6c445"/><path d="M480 295 C520 245, 570 245, 610 295" fill="none" stroke="#101820" stroke-width="16" stroke-linecap="round"/><path d="M920 295 C960 240, 1010 240, 1050 295" fill="none" stroke="#101820" stroke-width="16" stroke-linecap="round"/>
+  <text x="72" y="78" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#101820">Diagnostic bench</text>
+  <text x="72" y="118" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#546a76">Replace with real GlobeGuard product photo</text>
+  <text x="72" y="472" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#7a8a94">Placeholder image - replace later</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Adapters and cables</title>
+  <desc id="desc">OBD, SGW, Truma, Iveco</desc>
+  <rect width="1200" height="520" fill="#f5f8fa"/>
+  <rect x="1" y="1" width="1198" height="518" fill="none" stroke="#d8e3e8" stroke-width="2"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#455a64"/>
+  <path d="M210 300 C330 160, 470 160, 590 300" fill="none" stroke="#101820" stroke-width="28" stroke-linecap="round"/><path d="M420 300 C540 170, 685 170, 805 300" fill="none" stroke="#263238" stroke-width="24" stroke-linecap="round"/><rect x="165" y="270" width="110" height="70" rx="8" fill="#101820"/><rect x="760" y="265" width="130" height="80" rx="8" fill="#101820"/><rect x="185" y="292" width="55" height="16" fill="#5bd3ea"/><rect x="790" y="292" width="70" height="16" fill="#f6c445"/>
+  <text x="72" y="78" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#101820">Adapters and cables</text>
+  <text x="72" y="118" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#546a76">OBD, SGW, Truma, Iveco</text>
+  <text x="72" y="472" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#7a8a94">Placeholder image - replace later</text>
+</svg>

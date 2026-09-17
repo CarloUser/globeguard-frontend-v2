@@ -1,0 +1,92 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: frontend-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_PORT: ${{ secrets.SSH_PORT || '222' }}
+      SSH_USER: ${{ secrets.SSH_USER || 'register' }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      APP_DIR: apps/globeguard-frontend
+      FRONTEND_PORT: ${{ secrets.FRONTEND_PORT || '8000' }}
+
+    steps:
+      - name: Validate secrets
+        run: |
+          test -n "$SSH_HOST" || (echo "Missing SSH_HOST secret" && exit 1)
+          test -n "$SSH_PRIVATE_KEY" || (echo "Missing SSH_PRIVATE_KEY secret" && exit 1)
+
+      - name: Prepare SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy frontend from server repo
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "APP_DIR='$APP_DIR' FRONTEND_PORT='$FRONTEND_PORT' bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          cd "$HOME/$APP_DIR"
+
+          if [ ! -f .env.local ]; then
+            echo "Missing frontend .env.local at $HOME/$APP_DIR/.env.local"
+            exit 1
+          fi
+
+          ENV_LOCAL_BACKUP="$(mktemp)"
+          cp .env.local "$ENV_LOCAL_BACKUP"
+          restore_env_local() {
+            cp "$ENV_LOCAL_BACKUP" .env.local
+            rm -f "$ENV_LOCAL_BACKUP"
+          }
+          trap restore_env_local EXIT
+
+          rm -f .env.local
+          git fetch origin main
+          git reset --hard FETCH_HEAD
+
+          restore_env_local
+          trap - EXIT
+          npm ci
+
+          for attempt in $(seq 1 30); do
+            if curl -fsS -X POST http://127.0.0.1:3000/shop-api \
+              -H 'Content-Type: application/json' \
+              --data '{"query":"{ activeChannel { code } }"}' >/dev/null; then
+              break
+            fi
+
+            if [ "$attempt" -eq 30 ]; then
+              echo "Backend API is not reachable on http://127.0.0.1:3000/shop-api"
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+          npm run build
+
+          if pm2 describe globeguard-frontend >/dev/null; then
+            pm2 restart globeguard-frontend --update-env
+          else
+            pm2 start node_modules/next/dist/bin/next --name globeguard-frontend -- start -p "$FRONTEND_PORT"
+          fi
+
+          pm2 save
+          pm2 list
+          REMOTE

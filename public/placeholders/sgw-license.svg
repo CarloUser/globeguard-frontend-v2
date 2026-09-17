@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">SGW licenses</title>
+  <desc id="desc">Security gateway access</desc>
+  <rect width="1200" height="520" fill="#f5f8fa"/>
+  <rect x="1" y="1" width="1198" height="518" fill="none" stroke="#d8e3e8" stroke-width="2"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#37474f"/>
+  <path d="M600 120 L850 220 V330 C850 395 760 450 600 500 C440 450 350 395 350 330 V220 Z" fill="#101820"/><path d="M520 310 L585 370 L700 245" fill="none" stroke="#5bd3ea" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/><rect x="155" y="220" width="170" height="95" rx="12" fill="#263238"/><rect x="875" y="220" width="170" height="95" rx="12" fill="#263238"/>
+  <text x="72" y="78" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#101820">SGW licenses</text>
+  <text x="72" y="118" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#546a76">Security gateway access</text>
+  <text x="72" y="472" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#7a8a94">Placeholder image - replace later</text>
+</svg>

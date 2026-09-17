@@ -1,0 +1,256 @@
+import type {Locale} from '@/i18n/routing';
+
+const content = {
+    en: {
+        nav: [
+            {href: '/search', label: 'Shop'},
+            {href: '/support', label: 'Support'},
+            {href: '/partners', label: 'Partners'},
+            {href: '/contact', label: 'Contact'},
+        ],
+        hero: {
+            eyebrow: 'OBD diagnostics for the road and the workshop',
+            title: 'Vehicle diagnostics that travel with the vehicle.',
+            subtitle: 'GlobeGuard brings workshop-grade OBD interfaces, remote diagnostic help, software updates, and adapter support into one storefront for motorhomes, overland travelers, fleets, and repair teams.',
+            primaryCta: 'Shop diagnostic sets',
+            secondaryCta: 'Open support hub',
+            status: ['Online remote help', 'Offline vehicle scan', 'CAN-bus vehicles 2008+', 'Software updates'],
+            metrics: [
+                {value: 'BASIC', label: 'One brand'},
+                {value: 'PRO', label: 'Expandable brand coverage'},
+                {value: '24/7', label: 'Roadside-ready workflow'},
+            ],
+        },
+        homeMeta: {
+            pageTitle: 'OBD diagnostic tools for motorhomes and workshops',
+            description: 'Shop GlobeGuard diagnostic sets, software updates, remote diagnostics, and adapter cables for vehicle troubleshooting on the road and in the workshop.',
+        },
+        productIntro: {
+            eyebrow: 'Product map',
+            title: 'A clearer shop structure for every diagnostic job.',
+            body: 'The old site already has the right ingredients. The new storefront groups them by buyer intent: choose a diagnostic interface, keep it updated, add the right adapter, or get expert support when the vehicle is far from home.',
+        },
+        productFamilies: [
+            {
+                key: 'basic',
+                label: 'GlobeGuard BASIC',
+                title: 'Focused diagnostic sets for one brand',
+                body: 'For owners and workshops that know the brand they need to support. BASIC keeps the choice simple and includes the update path customers expect after purchase.',
+                bullets: ['Cars, campers, INEOS, and motorcycle use cases', 'Built for selected brand coverage', 'Good fit for single-brand ownership or focused workshop service'],
+                cta: 'Browse BASIC sets',
+            },
+            {
+                key: 'pro',
+                label: 'GlobeGuard PRO',
+                title: 'Expandable coverage for mixed vehicle work',
+                body: 'For workshops, fleets, and travelers who need broader diagnostic reach. PRO is framed around growth: start with the right coverage and expand as the vehicle mix changes.',
+                bullets: ['Cars, motorbike, truck, bus, and trailer directions', 'Designed for broader manufacturer coverage', 'Better fit when one tool must serve many jobs'],
+                cta: 'Compare PRO options',
+            },
+            {
+                key: 'updates',
+                label: 'Software updates',
+                title: 'Keep compatibility current after purchase',
+                body: 'Software updates and brand extensions turn the storefront into a lifecycle product, not a one-time device sale.',
+                bullets: ['Compatibility updates for newer models', 'Brand coverage extensions', 'DiagCenter and update guidance through support'],
+                cta: 'View update options',
+            },
+            {
+                key: 'adapters',
+                label: 'Adapters and services',
+                title: 'The missing cable or remote help when it matters',
+                body: 'Adapter cables and remote diagnostics make the shop practical for real roadside and workshop scenarios.',
+                bullets: ['Sprinter, truck, Iveco SGW, KTM, and TRUMA adapter directions', 'Remote diagnostics service path', 'Security Gateway Stellantis support'],
+                cta: 'Find support gear',
+            },
+        ],
+        comparison: {
+            title: 'Basic, Pro, or update?',
+            rows: [
+                {feature: 'Best for', basic: 'Known brand', pro: 'Mixed vehicle work', update: 'Existing device owners'},
+                {feature: 'Coverage mindset', basic: 'Focused', pro: 'Expandable', update: 'Current compatibility'},
+                {feature: 'Buyer question', basic: 'Which brand do I need?', pro: 'How wide should my coverage be?', update: 'What changed since I bought my device?'},
+            ],
+        },
+        support: {
+            eyebrow: 'Support ecosystem',
+            title: 'The support story is part of the product.',
+            body: 'GlobeGuard customers are not just buying a scanner. They need updates, configuration help, adapter instructions, partner workshops, and remote diagnostic confidence when a vehicle is not behaving.',
+            resources: [
+                {title: 'Update software', body: 'A clear place for update wizard guidance and compatibility maintenance.'},
+                {title: 'Remote diagnostics mode', body: 'Configuration help for stationary diagnostics and remote maintenance workflows.'},
+                {title: 'Manuals and adapters', body: 'Quick-start guides, TRUMA cable instructions, Iveco bypass material, and technical FAQ content.'},
+                {title: 'DiagCenter and mobile apps', body: 'Software setup, diagnostic suite guidance, and mobile-device diagnostics.'},
+            ],
+        },
+        partners: {
+            eyebrow: 'Workshop network',
+            title: 'Help should be findable before the warning light gets worse.',
+            situations: ['Warning light or limp mode', 'Cold heating or water system', 'Breakdown far from home', 'Remote support in another language'],
+            partners: [
+                {country: 'Switzerland', name: 'Bolliger Nutzfahrzeuge AG', detail: 'Root'},
+                {country: 'Switzerland', name: 'Black Sheep Innovations GmbH', detail: 'Reichenburg'},
+                {country: 'Switzerland', name: 'Campingservice Lüthi', detail: 'Interlaken'},
+                {country: 'Switzerland', name: '4Wheel-Store GmbH', detail: 'Schenkon'},
+                {country: 'Germany', name: 'Riess Gruppe (Autohaus RIESS)', detail: 'Weißensberg'},
+                {country: 'Germany', name: 'VANUFAKTUR GmbH & Co.KG', detail: 'Hagen'},
+                {country: 'Germany', name: 'Bosch Car Service Bauer', detail: 'Lindau am Bodensee'},
+                {country: 'Germany', name: 'Alientech Germany GmbH', detail: 'Karlsruhe'},
+                {country: 'France', name: 'Objectif Endurance', detail: 'Ste Eulalie en Born'},
+                {country: 'Ireland', name: 'Orangeworks', detail: 'Dublin'},
+                {country: 'United States', name: 'JC’s British & 4x4', detail: 'Englewood, CO'},
+                {country: 'Australia', name: 'GrenX', detail: 'Mordialloc, VIC'},
+                {country: 'Australia', name: 'Euro Flo Australia', detail: 'Brendale, QLD'},
+                {country: 'Australia', name: 'Mount Auto Equip Services Pty Ltd', detail: 'Brookvale, NSW'},
+                {country: 'Chile', name: 'Scanner Y Reprogramacion', detail: 'Arica'},
+            ],
+        },
+        events: {
+            eyebrow: '2026 field presence',
+            title: 'Built for customers who want to see the tool in use.',
+            items: [
+                {name: 'OCA St. Gallen', date: '15-19 April 2026', place: 'St. Gallen, Switzerland'},
+                {name: 'Sprintervan Festival Germany', date: '30 April-3 May 2026', place: 'Viechtach, Germany'},
+                {name: 'Abenteuer Allrad', date: '4-7 June 2026', place: 'Bad Kissingen, Germany'},
+                {name: 'Adventure Southside', date: '10-12 July 2026', place: 'Friedrichshafen, Germany'},
+            ],
+        },
+        contact: {
+            title: 'GlobeGuard GmbH',
+            subtitle: 'Product questions, remote diagnostic support, workshop partnerships, and software-update guidance.',
+            address: ['Untermühlestrasse 12', '6330 Cham', 'Switzerland'],
+            phone: '+41 78 303 30 11',
+            email: 'info@globeguard.ch',
+            vat: 'CHE-184.027.784',
+        },
+    },
+    de: {
+        nav: [
+            {href: '/search', label: 'Shop'},
+            {href: '/support', label: 'Support'},
+            {href: '/partners', label: 'Partner'},
+            {href: '/contact', label: 'Kontakt'},
+        ],
+        hero: {
+            eyebrow: 'OBD-Diagnose für Reise, Werkstatt und Flotte',
+            title: 'Fahrzeugdiagnose, die mit dem Fahrzeug unterwegs ist.',
+            subtitle: 'GlobeGuard bündelt OBD-Interfaces, Ferndiagnose, Software-Updates und Adapter-Support in einem klaren Shop für Reisemobile, Fernreisende, Flotten und Werkstätten.',
+            primaryCta: 'Diagnose-Sets ansehen',
+            secondaryCta: 'Support öffnen',
+            status: ['Online-Ferndiagnose', 'Offline-Fahrzeugscan', 'CAN-Bus ab 2008', 'Software-Updates'],
+            metrics: [
+                {value: 'BASIC', label: 'Eine Marke'},
+                {value: 'PRO', label: 'Erweiterbare Markenabdeckung'},
+                {value: '24/7', label: 'Bereit für unterwegs'},
+            ],
+        },
+        homeMeta: {
+            pageTitle: 'OBD-Diagnosegeräte für Reisemobile und Werkstätten',
+            description: 'GlobeGuard Diagnose-Sets, Software-Updates, Ferndiagnose und Adapterkabel für Fahrzeugdiagnose unterwegs und in der Werkstatt.',
+        },
+        productIntro: {
+            eyebrow: 'Produktstruktur',
+            title: 'Ein klarer Shop für jede Diagnoseaufgabe.',
+            body: 'Die bestehende Website zeigt bereits die richtigen Bausteine. Der neue Store ordnet sie nach Kaufabsicht: Diagnose-Interface wählen, aktuell halten, Adapter ergänzen oder Unterstützung im Einsatz bekommen.',
+        },
+        productFamilies: [
+            {
+                key: 'basic',
+                label: 'GlobeGuard BASIC',
+                title: 'Fokussierte Diagnose-Sets fuer eine Marke',
+                body: 'Fuer Besitzer und Werkstaetten, die genau wissen, welche Marke sie betreuen. BASIC haelt die Auswahl einfach und bietet einen klaren Update-Pfad.',
+                bullets: ['Cars, Camper, INEOS und Motorrad-Anwendungen', 'Fuer ausgewaehlte Markenabdeckung gedacht', 'Passend für Ein-Marken-Besitz oder spezialisierte Werkstätten'],
+                cta: 'BASIC Sets ansehen',
+            },
+            {
+                key: 'pro',
+                label: 'GlobeGuard PRO',
+                title: 'Erweiterbare Abdeckung für gemischte Fahrzeugarbeit',
+                body: 'Für Werkstätten, Flotten und Reisende mit breiterem Diagnosebedarf. PRO ist auf Wachstum ausgelegt: passend starten und später erweitern.',
+                bullets: ['Cars, Motorrad, Truck, Bus und Trailer Richtungen', 'Für breitere Herstellerabdeckung ausgelegt', 'Stärker, wenn ein Tool viele Jobs bedienen muss'],
+                cta: 'PRO Optionen vergleichen',
+            },
+            {
+                key: 'updates',
+                label: 'Software-Updates',
+                title: 'Kompatibilität nach dem Kauf aktuell halten',
+                body: 'Updates und Marken-Erweiterungen machen den Store zu einem Lifecycle-Produkt statt zu einem einmaligen Gerätekauf.',
+                bullets: ['Kompatibilität für neuere Modelle', 'Marken-Erweiterungen', 'DiagCenter und Update-Hilfe über Support'],
+                cta: 'Update-Optionen ansehen',
+            },
+            {
+                key: 'adapters',
+                label: 'Adapter und Services',
+                title: 'Das richtige Kabel oder Remote-Hilfe im entscheidenden Moment',
+                body: 'Adapterkabel und Ferndiagnose machen den Shop praktisch für echte Pannen- und Werkstattsituationen.',
+                bullets: ['Sprinter, Truck, Iveco SGW, KTM und TRUMA Adapter', 'Ferndiagnose als Servicepfad', 'Security Gateway Stellantis Unterstützung'],
+                cta: 'Support-Zubehör finden',
+            },
+        ],
+        comparison: {
+            title: 'Basic, Pro oder Update?',
+            rows: [
+                {feature: 'Am besten für', basic: 'Bekannte Marke', pro: 'Gemischte Fahrzeugarbeit', update: 'Bestehende Geräte'},
+                {feature: 'Abdeckung', basic: 'Fokussiert', pro: 'Erweiterbar', update: 'Aktuelle Kompatibilität'},
+                {feature: 'Kauffrage', basic: 'Welche Marke brauche ich?', pro: 'Wie breit soll die Abdeckung sein?', update: 'Was hat sich seit dem Kauf geändert?'},
+            ],
+        },
+        support: {
+            eyebrow: 'Support-System',
+            title: 'Support gehört zum Produkt.',
+            body: 'GlobeGuard-Kunden kaufen nicht nur einen Scanner. Sie brauchen Updates, Konfigurationshilfe, Adapter-Anleitungen, Partnerwerkstätten und Ferndiagnose-Sicherheit, wenn ein Fahrzeug Probleme macht.',
+            resources: [
+                {title: 'Update-Software', body: 'Ein klarer Ort für Update-Wizard-Hilfe und Kompatibilitätspflege.'},
+                {title: 'Ferndiagnose-Modus', body: 'Konfiguration für stationäre Diagnose und Remote-Wartung.'},
+                {title: 'Handbücher und Adapter', body: 'Quick-Start, TRUMA-Kabel, Iveco-Bypass und technische FAQ-Inhalte.'},
+                {title: 'DiagCenter und Apps', body: 'Software-Setup, Diagnose-Suite und mobile Fahrzeugdiagnose.'},
+            ],
+        },
+        partners: {
+            eyebrow: 'Werkstattnetzwerk',
+            title: 'Hilfe muss auffindbar sein, bevor die Warnleuchte schlimmer wird.',
+            situations: ['Warnleuchte oder Notlauf', 'Heizung oder Wasser bleibt kalt', 'Panne weit weg von zuhause', 'Remote-Hilfe in anderer Sprache'],
+            partners: [
+                {country: 'Schweiz', name: 'Bolliger Nutzfahrzeuge AG', detail: 'Root'},
+                {country: 'Schweiz', name: 'Black Sheep Innovations GmbH', detail: 'Reichenburg'},
+                {country: 'Schweiz', name: 'Campingservice Lüthi', detail: 'Interlaken'},
+                {country: 'Schweiz', name: '4Wheel-Store GmbH', detail: 'Schenkon'},
+                {country: 'Deutschland', name: 'Riess Gruppe (Autohaus RIESS)', detail: 'Weißensberg'},
+                {country: 'Deutschland', name: 'VANUFAKTUR GmbH & Co.KG', detail: 'Hagen'},
+                {country: 'Deutschland', name: 'Bosch Car Service Bauer', detail: 'Lindau am Bodensee'},
+                {country: 'Deutschland', name: 'Alientech Germany GmbH', detail: 'Karlsruhe'},
+                {country: 'Frankreich', name: 'Objectif Endurance', detail: 'Ste Eulalie en Born'},
+                {country: 'Irland', name: 'Orangeworks', detail: 'Dublin'},
+                {country: 'USA', name: 'JC’s British & 4x4', detail: 'Englewood, CO'},
+                {country: 'Australien', name: 'GrenX', detail: 'Mordialloc, VIC'},
+                {country: 'Australien', name: 'Euro Flo Australia', detail: 'Brendale, QLD'},
+                {country: 'Australien', name: 'Mount Auto Equip Services Pty Ltd', detail: 'Brookvale, NSW'},
+                {country: 'Chile', name: 'Scanner Y Reprogramacion', detail: 'Arica'},
+            ],
+        },
+        events: {
+            eyebrow: '2026 live erleben',
+            title: 'Für Kunden, die das Tool im Einsatz sehen möchten.',
+            items: [
+                {name: 'OCA St. Gallen', date: '15.-19. April 2026', place: 'St. Gallen, Schweiz'},
+                {name: 'Sprintervan Festival Germany', date: '30. April-3. Mai 2026', place: 'Viechtach, Deutschland'},
+                {name: 'Abenteuer Allrad', date: '4.-7. Juni 2026', place: 'Bad Kissingen, Deutschland'},
+                {name: 'Adventure Southside', date: '10.-12. Juli 2026', place: 'Friedrichshafen, Deutschland'},
+            ],
+        },
+        contact: {
+            title: 'GlobeGuard GmbH',
+            subtitle: 'Produktfragen, Ferndiagnose, Werkstattpartnerschaften und Hilfe zu Software-Updates.',
+            address: ['Untermühlestrasse 12', '6330 Cham', 'Schweiz'],
+            phone: '+41 78 303 30 11',
+            email: 'info@globeguard.ch',
+            vat: 'CHE-184.027.784',
+        },
+    },
+} satisfies Record<Locale, Record<string, unknown>>;
+
+export function getGlobeguardContent(locale: string) {
+    return content[locale === 'de' ? 'de' : 'en'];
+}
+
+export type GlobeguardContent = ReturnType<typeof getGlobeguardContent>;
