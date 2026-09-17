@@ -1,0 +1,29 @@
+{
+    "SupportedBrands": {
+        "seoTitle": "Supported Brands – all brand groups at a glance",
+        "seoDescription": "All brand groups supported by GlobeGuard: cars & vans, motorcycles, trucks & buses, trailers, agricultural, industrial and Truma auxiliary equipment – with BASIC/PRO availability and SGW notes.",
+        "title": "Supported Brands",
+        "subtitle": "{count} brand groups across all vehicle classes – each with the full diagnostic feature set. BASIC covers cars/vans and motorcycles from model year {basicFromYear}; PRO and ELITE cover all classes from approx. {proFromYear}.",
+        "sgwNote": "Brands with an SGW note require a Security Gateway unlock or bypass cable from certain model years – ",
+        "sgwLink": "see the SGW overview for details",
+        "ctaFinder": "Find the device for your brand",
+        "tierBasic": "BASIC from {year}",
+        "tierPro": "PRO from {year}",
+        "tierWomo": "WoMo",
+        "sgw": "SGW note",
+        "groupCount": "{count, plural, =1 {# brand group} other {# brand groups}}",
+        "logoAlt": "{brand} logo",
+        "sections": {
+            "carsVans": "Cars & Vans",
+            "bike": "Motorcycles",
+            "truckBus": "Trucks & Buses",
+            "trailer": "Trailers",
+            "agrar": "Agricultural machinery",
+            "industrial": "Industrial vehicles",
+            "accessories": "Auxiliary equipment"
+        },
+        "pdfHint": "Prefer a document?",
+        "pdfLink": "Download the brand list as PDF",
+        "trademark": "All logos and brand names are the property of their respective owners and are used solely to indicate device compatibility."
+    }
+}

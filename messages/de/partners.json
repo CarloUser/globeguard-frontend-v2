@@ -1,0 +1,29 @@
+{
+    "PartnerLocator": {
+        "seoTitle": "Partnerwerkstätten",
+        "seoDescription": "Autowerkstätten und Verkaufsstellen in unserem Partnernetzwerk, die mit GlobeGuard Geräten arbeiten.",
+        "title": "Partnerwerkstätten",
+        "intro": "Autowerkstätten in unserem Partnernetzwerk, die mit GlobeGuard Geräten arbeiten.",
+        "empty": "Die Partnerliste wird in Kürze veröffentlicht.",
+        "total": "{count, plural, =1 {# Standort} other {# Standorte}}",
+        "groups": {
+            "workshop": "Werkstätten",
+            "store": "Verkaufsstellen"
+        },
+        "types": {
+            "workshop": "Werkstatt",
+            "store": "Verkaufsstelle"
+        },
+        "address": "Adresse",
+        "hours": "Öffnungszeiten",
+        "phone": "Telefon",
+        "booking": "Termin buchen",
+        "details": "Details",
+        "backToSupport": "Zurück zum Support",
+        "contact": {
+            "title": "Fragen zu unserem Partnernetzwerk?",
+            "text": "Nehmen Sie Kontakt mit GlobeGuard auf.",
+            "button": "Kontakt aufnehmen"
+        }
+    }
+}

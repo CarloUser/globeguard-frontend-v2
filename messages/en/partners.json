@@ -1,0 +1,29 @@
+{
+    "PartnerLocator": {
+        "seoTitle": "Partner Workshops",
+        "seoDescription": "Car workshops and points of sale in our partner network that work with GlobeGuard devices.",
+        "title": "Partner Workshops",
+        "intro": "Car workshops in our partner network that work with GlobeGuard devices.",
+        "empty": "The partner list will be published shortly.",
+        "total": "{count, plural, =1 {# location} other {# locations}}",
+        "groups": {
+            "workshop": "Workshops",
+            "store": "Points of sale"
+        },
+        "types": {
+            "workshop": "Workshop",
+            "store": "Point of sale"
+        },
+        "address": "Address",
+        "hours": "Opening hours",
+        "phone": "Phone",
+        "booking": "Book an appointment",
+        "details": "Details",
+        "backToSupport": "Back to support",
+        "contact": {
+            "title": "Questions about our partner network?",
+            "text": "Get in touch with GlobeGuard.",
+            "button": "Contact us"
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+  "Legal": {
+    "common": {
+      "lastUpdated": "Stand: {date}",
+      "onThisPage": "Auf dieser Seite",
+      "pendingTitle": "Inhalt in Vorbereitung",
+      "pendingBody": "Dieser Inhalt wird derzeit erstellt.",
+      "pendingHint": "Bei Fragen erreichen Sie uns jederzeit per E-Mail.",
+      "contactHeading": "Kontakt",
+      "address": "Adresse",
+      "email": "E-Mail",
+      "vat": "MwSt.-Nr.",
+      "writeEmail": "E-Mail schreiben"
+    },
+    "impressum": {
+      "title": "Impressum",
+      "description": "Angaben zur GlobeGuard GmbH als Betreiberin des Onlineshops globeguard.ch.",
+      "operator": "Betreiberin des Onlineshops globeguard.ch",
+      "sections": {
+        "company": "Unternehmen",
+        "contact": "Kontakt",
+        "management": "Geschäftsführung",
+        "register": "Handelsregister",
+        "vat": "Mehrwertsteuer"
+      },
+      "website": "Website",
+      "email": "E-Mail",
+      "vatLabel": "MwSt.-Nr.",
+      "managementPlaceholder": "Geschäftsführung: wird ergänzt",
+      "registerPlaceholder": "Handelsregister-Eintrag: wird ergänzt"
+    },
+    "agb": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "description": "Allgemeine Geschäftsbedingungen der GlobeGuard GmbH für Bestellungen im Onlineshop globeguard.ch."
+    },
+    "datenschutz": {
+      "title": "Datenschutzerklärung",
+      "description": "Informationen zum Umgang mit personenbezogenen Daten bei der GlobeGuard GmbH."
+    },
+    "widerruf": {
+      "title": "Widerrufsrecht",
+      "description": "Informationen zum Widerrufsrecht bei Bestellungen im Onlineshop globeguard.ch."
+    },
+    "zahlungsarten": {
+      "title": "Zahlungsarten",
+      "description": "Übersicht der Zahlungsarten im Onlineshop globeguard.ch.",
+      "factsHeading": "Verfügbare Zahlungsarten",
+      "facts": {
+        "online": {
+          "title": "Online-Zahlung",
+          "text": "TWINT, Karte, PostFinance, Apple Pay und PayPal – abgewickelt über Mollie."
+        },
+        "invoice": {
+          "title": "Kauf auf Rechnung",
+          "text": "Für freigeschaltete Geschäftskunden."
+        }
+      }
+    },
+    "versand": {
+      "title": "Versand & Lieferung",
+      "description": "Informationen zu Versand und Lieferung im Onlineshop globeguard.ch.",
+      "factsHeading": "Versand",
+      "facts": {
+        "switzerland": {
+          "title": "Versand aus der Schweiz",
+          "text": "Versand in die Schweiz und nach Liechtenstein direkt aus Cham – versandkostenfrei und ohne Zollgebühren."
+        },
+        "eu": {
+          "title": "Versand aus unserem deutschen Lager",
+          "text": "Lieferungen in die EU und ins weltweite Ausland erfolgen direkt aus Deutschland. Bitte beachten Sie: Bei Lieferungen ausserhalb der EU können zoll- und länderspezifische Gebühren anfallen."
+        }
+      }
+    },
+    "ueberUns": {
+      "title": "Über uns",
+      "description": "GlobeGuard GmbH, Cham (Schweiz).",
+      "contentComing": "Inhalt folgt."
+    }
+  }
+}

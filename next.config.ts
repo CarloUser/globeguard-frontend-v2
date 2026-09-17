@@ -27,6 +27,11 @@ if (assetHost && assetHost !== 'localhost' && assetHost !== '127.0.0.1') {
 
 const nextConfig: NextConfig = {
     output: 'standalone',
+    // messages/<locale>/*.json are read with fs at request time (src/i18n/request.ts), so they
+    // are not discovered by the file tracer and must be added to the standalone output explicitly.
+    outputFileTracingIncludes: {
+        '/*': ['./messages/**/*'],
+    },
     turbopack: {
         root: process.cwd(),
     },

@@ -1,0 +1,89 @@
+{
+    "SupportHub": {
+        "seoTitle": "Support – Kompatibilität, Handbücher & Software",
+        "seoDescription": "GlobeGuard Support: SGW-Kompatibilitätsübersicht, Handbücher und Software-Downloads, Partnerwerkstätten und häufige Fragen.",
+        "title": "Support",
+        "intro": "Alles rund um Ihr GlobeGuard Gerät – Kompatibilität, Downloads und Hilfe.",
+        "topics": {
+            "sgw": {
+                "title": "SGW-Kompatibilität",
+                "text": "Welche Marken ab welchem Modelljahr ein Security-Gateway haben – und ob Sie ein Bypass-Kabel oder eine Lizenz benötigen.",
+                "button": "Zur Übersicht"
+            },
+            "manuals": {
+                "title": "Handbücher & Software",
+                "text": "Bedienungsanleitungen, Kompatibilitätsdokumente und Software-Downloads für Ihr Gerät.",
+                "button": "Unterstützte Marken (PDF)",
+                "hint": "Weitere Handbücher & Software-Downloads folgen."
+            },
+            "workshops": {
+                "title": "Partnerwerkstätten",
+                "text": "Autowerkstätten in unserem Partnernetzwerk, die mit GlobeGuard Geräten arbeiten.",
+                "button": "Zu den Partnerwerkstätten"
+            },
+            "faq": {
+                "title": "FAQ",
+                "text": "Antworten auf häufige Fragen zu Bestellung, Geräten, Updates und Lizenzen.",
+                "button": "Zu den FAQ"
+            },
+            "brands": {
+                "title": "Unterstützte Marken",
+                "text": "Alle Markengruppen über alle Fahrzeugklassen – mit BASIC/PRO-Verfügbarkeit und SGW-Hinweisen.",
+                "button": "Markenliste ansehen"
+            }
+        },
+        "contact": {
+            "title": "Noch Fragen?",
+            "text": "Nehmen Sie Kontakt mit GlobeGuard auf – wir helfen Ihnen weiter.",
+            "button": "Kontakt aufnehmen"
+        },
+        "sgw": {
+            "seoTitle": "SGW-Kompatibilität – Security Gateway Übersicht",
+            "seoDescription": "Welche Fahrzeugmarken ab welchem Modelljahr ein Security Gateway (SGW) haben und ob ein Bypass-Kabel oder eine SGW-Lizenz erforderlich ist – die komplette GlobeGuard Übersicht.",
+            "title": "SGW-Kompatibilität",
+            "subtitle": "Neuere Fahrzeuge schützen ihre Diagnose-Schnittstelle mit einem Security Gateway (SGW). Ohne Freischaltung sind dort nur lesende Zugriffe möglich – keine Aktuatortests, Codierungen oder Service-Rückstellungen. Diese Übersicht zeigt, welche Marken ab welchem Modelljahr betroffen sind und was Sie benötigen.",
+            "backToSupport": "Zurück zum Support",
+            "tableCaption": "Markengruppen mit Security Gateway",
+            "thBrandGroup": "Markengruppe",
+            "thVehicleClass": "Fahrzeugklasse",
+            "thBypass": "SGW-Bypass-Kabel",
+            "thLicense": "SGW-Lizenz",
+            "modelYears": "Modelljahre",
+            "yearFrom": "ab {year}",
+            "yearRange": "{from}–{to}",
+            "notRequired": "—",
+            "licenseGroups": {
+                "stellantis": "SGW-Lizenz Fiat/Stellantis",
+                "mercedes": "SGW-Lizenz Mercedes-Benz",
+                "vag": "SGW-Lizenz VW-Gruppe"
+            },
+            "licenseFallback": "SGW-Lizenz",
+            "note": "Alle anderen Markengruppen benötigen derzeit keine SGW-Freischaltung. PRO-Geräte unterstützen Fahrzeuge ab Modelljahr {proFromYear}, BASIC ab {basicFromYear}.",
+            "licensesTitle": "SGW-Lizenzen (Tag / Woche / Monat / Jahr)",
+            "licensesText": "Lizenzen für Fiat/Stellantis, Mercedes-Benz und die VW-Gruppe – flexibel ab 1 Tag. Sie können eine Lizenz jederzeit nachkaufen, wenn Sie sie brauchen.",
+            "durationsLabel": "Laufzeiten",
+            "licenseProducts": {
+                "stellantis": "Lizenz Fiat/Stellantis",
+                "mercedes": "Lizenz Mercedes-Benz",
+                "vag": "Lizenz VW-Gruppe"
+            },
+            "licensesAll": "Alle SGW-Lizenzen",
+            "cablesTitle": "SGW-Bypass-Kabel",
+            "cablesText": "Physische Adapter für die Fiat-Gruppe (2018–2020) und den Iveco Daily (ab 2018).",
+            "cableProducts": {
+                "fcca": "Bypass-Kabel Fiat-Gruppe (2018–2020)",
+                "ive": "Bypass-Kabel Iveco Daily (ab 2018)"
+            },
+            "cablesAll": "Alle SGW-Bypass-Kabel",
+            "vehicleGroups": {
+                "carsVans": "PKW & Van",
+                "truckBus": "LKW & Bus",
+                "trailer": "Trailer",
+                "bike": "Motorrad",
+                "agrar": "Agrar",
+                "industrial": "Industrie",
+                "accessories": "Zusatzausstattung"
+            }
+        }
+    }
+}

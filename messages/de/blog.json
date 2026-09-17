@@ -1,0 +1,29 @@
+{
+  "Blog": {
+    "title": "Blog",
+    "metaTitle": "Blog über Fahrzeugdiagnose, OBD-Diagnosegeräte und Werkstatt-Ratgeber",
+    "description": "Lesen Sie Ratgeber, Neuigkeiten und Tipps rund um OBD-Diagnose, SGW-Freischaltung, Software-Updates und Werkstattpraxis von GlobeGuard.",
+    "aboutTitle": "Über den Blog",
+    "home": "Startseite",
+    "empty": "Noch keine Beiträge",
+    "emptyHint": "Hier finden Sie in Kürze die neuesten Beiträge und Ratgeber von GlobeGuard.",
+    "readMore": "Weiterlesen",
+    "minRead": "{minutes} Min. Lesezeit",
+    "byAuthor": "Von {author}",
+    "latestPosts": "Neueste Beiträge",
+    "readTime": "Lesezeit",
+    "tags": "Tags",
+    "faqHeading": "Häufig gestellte Fragen",
+    "paginationLabel": "Seitennavigation",
+    "previousPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite",
+    "goToPage": "Seite {page}",
+    "pageOf": "Seite {page} von {total}",
+    "pageTitleSuffix": "Seite {page}",
+    "newerPost": "Neuerer Beitrag",
+    "olderPost": "Älterer Beitrag",
+    "backToBlog": "Zurück zum Blog",
+    "notFound": "Beitrag nicht gefunden",
+    "updatedOn": "Aktualisiert am {date}"
+  }
+}

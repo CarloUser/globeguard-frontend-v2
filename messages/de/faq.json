@@ -1,0 +1,10 @@
+{
+  "Faq": {
+    "title": "Häufige Fragen",
+    "intro": "Antworten auf häufige Fragen zu GlobeGuard Produkten, Bestellung und Support.",
+    "emptyTitle": "Noch keine Fragen veröffentlicht",
+    "emptyBody": "Die FAQ werden derzeit zusammengestellt. Bei Fragen erreichen Sie uns jederzeit per E-Mail.",
+    "contact": "Kontakt aufnehmen",
+    "lastReviewed": "Zuletzt geprüft: {date}"
+  }
+}

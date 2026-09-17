@@ -1,0 +1,29 @@
+{
+    "SupportedBrands": {
+        "seoTitle": "Unterstützte Marken – alle Markengruppen im Überblick",
+        "seoDescription": "Alle von GlobeGuard unterstützten Markengruppen: PKW & Van, Motorrad, LKW & Bus, Trailer, Agrar, Industrie und Truma-Zusatzausstattung – mit BASIC/PRO-Verfügbarkeit und SGW-Hinweisen.",
+        "title": "Unterstützte Marken",
+        "subtitle": "{count} Markengruppen über alle Fahrzeugklassen – jede mit dem vollen Diagnose-Funktionsumfang. BASIC deckt PKW/Van und Motorrad ab Modelljahr {basicFromYear} ab, PRO und ELITE alle Klassen ab ca. {proFromYear}.",
+        "sgwNote": "Marken mit SGW-Hinweis benötigen ab bestimmten Modelljahren eine Security-Gateway-Freischaltung oder ein Bypass-Kabel – ",
+        "sgwLink": "Details in der SGW-Übersicht",
+        "ctaFinder": "Gerät für Ihre Marke finden",
+        "tierBasic": "BASIC ab {year}",
+        "tierPro": "PRO ab {year}",
+        "tierWomo": "WoMo",
+        "sgw": "SGW-Hinweis",
+        "groupCount": "{count, plural, =1 {# Markengruppe} other {# Markengruppen}}",
+        "logoAlt": "{brand} Logo",
+        "sections": {
+            "carsVans": "PKW & Van",
+            "bike": "Motorrad",
+            "truckBus": "LKW & Bus",
+            "trailer": "Trailer",
+            "agrar": "Landmaschinen (Agrar)",
+            "industrial": "Industriefahrzeuge",
+            "accessories": "Zusatzausstattung"
+        },
+        "pdfHint": "Lieber als Dokument?",
+        "pdfLink": "Markenliste als PDF herunterladen",
+        "trademark": "Alle Logos und Markennamen sind Eigentum der jeweiligen Inhaber und dienen ausschliesslich der Kennzeichnung der Gerätekompatibilität."
+    }
+}

@@ -10,7 +10,8 @@ import {NextRequest, NextResponse} from 'next/server';
  *
  * Tag vocabulary — must match the `tags` passed to `query()` / `cacheTag()` in the storefront
  * (see src/lib/vendure/cached.ts for the caching model):
- *   cart, active-order, products, collection, product-<slug>, collection-<slug>
+ *   cart, active-order, products, collection, product-<slug>, collection-<slug>,
+ *   blog, blog-<slug>
  *
  * Tags are revalidated verbatim. There is no locale or currency expansion: the shop API is
  * queried per request in the active locale, and orders are CHF-only (EUR is display-only).
@@ -22,6 +23,8 @@ const TAG_RULES: ReadonlyArray<string | RegExp> = [
     'collection',
     /^product-.+$/,
     /^collection-.+$/,
+    'blog',
+    /^blog-.+$/,
 ];
 
 const MAX_TAGS_PER_REQUEST = 100;

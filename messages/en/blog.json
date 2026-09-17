@@ -1,0 +1,29 @@
+{
+  "Blog": {
+    "title": "Blog",
+    "metaTitle": "Blog about vehicle diagnostics, OBD devices and workshop guides",
+    "description": "Read guides, news and advice about OBD diagnostics, SGW unlocking, software updates and workshop practice from GlobeGuard.",
+    "aboutTitle": "About the blog",
+    "home": "Home",
+    "empty": "No posts yet",
+    "emptyHint": "The latest posts and guides from GlobeGuard will appear here soon.",
+    "readMore": "Read more",
+    "minRead": "{minutes} min read",
+    "byAuthor": "By {author}",
+    "latestPosts": "Latest posts",
+    "readTime": "Read time",
+    "tags": "Tags",
+    "faqHeading": "Frequently asked questions",
+    "paginationLabel": "Pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "goToPage": "Page {page}",
+    "pageOf": "Page {page} of {total}",
+    "pageTitleSuffix": "Page {page}",
+    "newerPost": "Newer post",
+    "olderPost": "Older post",
+    "backToBlog": "Back to the blog",
+    "notFound": "Post not found",
+    "updatedOn": "Updated on {date}"
+  }
+}

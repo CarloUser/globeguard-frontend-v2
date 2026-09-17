@@ -1,0 +1,237 @@
+{
+    "Marketing": {
+        "common": {
+            "priceFrom": "ab",
+            "priceOnRequest": "Preis im Shop",
+            "badgeB2c": "Für Privatanwender",
+            "badgeB2b": "Für Werkstätten & Betriebe",
+            "tierBasic": "GlobeGuard BASIC",
+            "tierWomo": "GlobeGuard WoMo",
+            "tierPro": "GlobeGuard PRO",
+            "tierElite": "GlobeGuard ELITE",
+            "eliteB2b": "ELITE (B2B)"
+        },
+        "why": {
+            "seoTitle": "Warum GlobeGuard? – Diagnose auf dem Niveau des Marken-Testers",
+            "seoDescription": "GlobeGuard bietet bei den meisten unterstützten Fahrzeugen denselben Funktionsumfang wie der Original-Werkstatttester des Herstellers: Steuergeräte-Diagnose, DPF-Regeneration, AdBlue-Service, Codierungen, Aktuatortests und weltweite Ferndiagnose.",
+            "hero": {
+                "titleLine1": "Der Funktionsumfang des Marken-Testers.",
+                "titleLine2": "Ein Gerät für alle.",
+                "subtitle": "GlobeGuard bietet bei den meisten unterstützten Fahrzeugen denselben Funktionsumfang wie das Original-Diagnosegerät der Markenwerkstatt – aus einer Fahrzeugdatenbank mit über 85 Herstellern und mehr als 1'800 Modellen. Vom Fehlercode bis zur Injektor-Codierung.",
+                "ctaPrimary": "Gerät finden",
+                "ctaSecondary": "Unterstützte Marken",
+                "badges": {
+                    "remote": "1 Jahr Ferndiagnose inklusive",
+                    "updates": "Software-Updates im 1. Jahr inklusive",
+                    "license": "Lizenz lebenslang gültig",
+                    "shipping": "Weltweiter Versand aus CH & DE"
+                }
+            },
+            "pillars": {
+                "title": "Was GlobeGuard auszeichnet",
+                "subtitle": "Alle Funktionen eines professionellen Werkstatt-Diagnosegeräts – offline direkt am Fahrzeug oder online per Fernwartung.",
+                "cards": {
+                    "diagnostics": {
+                        "title": "Volle Steuergeräte-Diagnose",
+                        "text": "Fehler aller im Fahrzeug verbauten Steuergeräte auslesen und löschen – mit Klartext-Anzeige analog den Original-Herstellertexten. Dazu EOBD-II-Diagnose für alle Fahrzeughersteller.",
+                        "items": {
+                            "systems": "Motor, Getriebe, ABS, Airbag, Klima, Multimedia u. v. m.",
+                            "liveData": "Live-Daten mit Aufzeichnung, Panel- und Diagramm-Ansicht",
+                            "identification": "Steuergeräte-Identifikation inkl. Teilenummer & Softwareversion"
+                        }
+                    },
+                    "coding": {
+                        "title": "Codieren, Anlernen & Sonderfunktionen",
+                        "text": "Die Arbeiten, für die sonst nur der Herstellertester infrage kommt: Sonderfunktionen und Codierungen wie in der Markenwerkstatt.",
+                        "items": {
+                            "dpf": "DPF-/GPF-Regeneration und AdBlue-Wartung",
+                            "injector": "Injektor-Codierung, Sensor-Kalibrierung, ECU-Austausch",
+                            "resets": "Service-Resets, Aktuatortests, Testroutinen"
+                        }
+                    },
+                    "remote": {
+                        "title": "Ferndiagnose – weltweit",
+                        "text": "Über unseren Diagnoseserver führen wir oder Ihre Partnerwerkstatt eine vollständige Fahrzeugdiagnose durch – egal, wo Sie gerade stehen. Im ersten Jahr inklusive (Fair Use).",
+                        "items": {
+                            "setup": "Einrichtung in 2 Schritten über Hotspot oder WLAN",
+                            "onTheRoad": "Funktioniert auch unterwegs – bis hin zu Starlink",
+                            "audience": "Ideal für Camper, Fernreisen und Flottenbetreuung"
+                        }
+                    }
+                }
+            },
+            "jobs": {
+                "title": "Was der Marken-Tester kann – und GlobeGuard auch",
+                "subtitle": "Acht Beispiele aus dem Werkstattalltag, die Sie mit GlobeGuard selbst erledigen. Verfügbare Funktionen variieren je nach Fahrzeug, Baujahr und Steuergerät.",
+                "items": {
+                    "dpf": {
+                        "title": "DPF-/GPF-Regeneration",
+                        "text": "Diesel- und Benzin-Partikelfilter direkt am Fahrzeug regenerieren – inklusive Anzeige des Verschmutzungsgrads. Die Fahrt in die Markenwerkstatt entfällt."
+                    },
+                    "adblue": {
+                        "title": "AdBlue-System warten",
+                        "text": "Entlüften, Befüllen, Spülen und Prüfen des AdBlue-Systems sowie Kontrolle aller AdBlue-Parameter und Füllstände."
+                    },
+                    "injector": {
+                        "title": "Injektor-Codierung",
+                        "text": "Neue Einspritzinjektoren nach Austausch oder Reparatur codieren – mit Eingabe der Kalibriernummern wie am Herstellertester."
+                    },
+                    "epb": {
+                        "title": "Elektronische Parkbremse (EPB)",
+                        "text": "Bremsbeläge bei elektronischer Parkbremse wechseln: Stellmotoren gezielt öffnen und schliessen, ohne Spezialwerkzeug."
+                    },
+                    "service": {
+                        "title": "Service- & Ölintervall zurücksetzen",
+                        "text": "Ölwechsel- und Serviceintervalle nach der Wartung zurückstellen – eine der meistgenutzten Funktionen überhaupt."
+                    },
+                    "sensors": {
+                        "title": "Sensoren kalibrieren & anlernen",
+                        "text": "Lenkwinkelsensor, ESP-Beschleunigungssensoren und weitere Sensoren nach Austausch kalibrieren und einlernen."
+                    },
+                    "actuators": {
+                        "title": "Aktuatortests",
+                        "text": "Kraftstoffpumpe, Relais, Ventile, Zentralverriegelung oder Beleuchtung direkt ansteuern und den kompletten Weg vom Steuergerät bis zum Bauteil prüfen."
+                    },
+                    "ecu": {
+                        "title": "ECU-Austausch & Einlernen",
+                        "text": "Ersatzfunktionen beim Steuergeräte-Austausch, Einlernen intelligenter Komponenten und Auslesen von Teilenummer und Softwareversion."
+                    }
+                }
+            },
+            "compare": {
+                "title": "Gleiche Diagnosetiefe – vier Linien",
+                "subtitle": "Der Diagnose-Funktionsumfang ist bei allen GlobeGuard Geräten identisch. Die Linien unterscheiden sich in Markenanzahl, Baujahr-Abdeckung und Zielgruppe.",
+                "featureAria": "Merkmal",
+                "actionAria": "Aktion",
+                "rows": {
+                    "brands": {
+                        "label": "Markenumfang",
+                        "basic": "1 Markengruppe",
+                        "womo": "1 Markengruppe + Truma Diagnose",
+                        "pro": "1 Markengruppe, erweiterbar auf bis zu 3",
+                        "elite": "4 bis 10 Markengruppen oder ganze Klassen bis hin zu allen Markengruppen"
+                    },
+                    "classes": {
+                        "label": "Fahrzeugklassen",
+                        "basic": "Nur PKW/Van & Motorrad",
+                        "womo": "PKW/Van + Truma-Zusatzausstattung",
+                        "pro": "Alle Klassen: PKW/Van, Motorrad, LKW/Bus/Trailer, Agrar, Industrie",
+                        "elite": "Alle Klassen, als Multibrand pro Klasse oder ELITE Full"
+                    },
+                    "years": {
+                        "label": "Baujahr-Abdeckung",
+                        "basic": "ab ca. 2008 (CAN-Bus)",
+                        "womo": "ab ca. 2008 (CAN-Bus)",
+                        "pro": "ab ca. 1991 (seriell + CAN)",
+                        "elite": "ab ca. 1991 (seriell + CAN)"
+                    },
+                    "depth": {
+                        "label": "Diagnose-Funktionsumfang",
+                        "basic": "voll",
+                        "womo": "voll, inkl. Truma-Modul",
+                        "pro": "voll",
+                        "elite": "voll"
+                    },
+                    "users": {
+                        "label": "Typische Nutzer",
+                        "basic": "Privatanwender mit einem Fahrzeug",
+                        "womo": "Camper & Wohnmobil-Reisende",
+                        "pro": "Anspruchsvolle Privatanwender, Youngtimer-Besitzer",
+                        "elite": "Werkstätten, Flotten & Händler"
+                    }
+                },
+                "ctaBasic": "Zu BASIC",
+                "ctaWomo": "Zu WoMo",
+                "ctaPro": "Zu PRO",
+                "ctaElite": "Zu ELITE"
+            },
+            "steps": {
+                "title": "In drei Schritten startklar",
+                "subtitle": "Keine Werkstatt-Einweisung nötig: einstecken, verbinden, loslegen.",
+                "cards": {
+                    "plugIn": {
+                        "title": "Einstecken",
+                        "text": "Das 58 Gramm leichte Interface in die OBD2-Buchse stecken – versorgt mit 12 bis 24 Volt direkt vom Fahrzeug."
+                    },
+                    "install": {
+                        "title": "App installieren",
+                        "text": "Diagnose-Software für Windows oder die kostenlose App für iOS und Android installieren – Verbindung per USB, WLAN oder Bluetooth."
+                    },
+                    "start": {
+                        "title": "Diagnose starten",
+                        "text": "Fahrzeug wählen und loslegen – auf Wunsch mit automatischer Fahrzeugauswahl und in 8 Sprachen, darunter Deutsch, Englisch, Französisch und Italienisch."
+                    }
+                }
+            },
+            "honesty": {
+                "title": "Ehrliche Abdeckung",
+                "text": "Welche Funktionen an Ihrem Fahrzeug verfügbar sind, hängt von Marke, Modell, Baujahr und Steuergerät ab. Fahrzeuge mit Security Gateway (z. B. Stellantis-Marken ab Ende 2018, Iveco Daily) benötigen für die volle Kommunikation eine SGW-Freischaltung oder ein Bypass-Kabel – wir zeigen Ihnen im Shop automatisch, was Ihr Fahrzeug braucht.",
+                "cta": "SGW-Kompatibilität prüfen"
+            }
+        },
+        "finder": {
+            "seoTitle": "Gerät finden – Welches GlobeGuard passt zu mir?",
+            "seoDescription": "BASIC für PKW/Van und Motorrad, PRO für alle Fahrzeugklassen und Youngtimer, ELITE für Werkstätten. Finden Sie in einem Schritt die richtige Gerätelinie.",
+            "heading": "Welches Gerät passt zu mir?",
+            "subtitle": "Drei Linien, identische Diagnosetiefe – der Unterschied liegt in Fahrzeugklassen, Markenanzahl und Baujahr-Abdeckung. Wählen Sie Ihre Linie, danach führt Sie der passende Finder zu Fahrzeugtyp, Marke und Baujahr.",
+            "basic": {
+                "text": "Für <strong>PKW & Van oder Motorrad</strong> – eine Markengruppe Ihrer Wahl, Fahrzeuge ca. ab Modelljahr 2008.",
+                "checks": {
+                    "oneBrand": "1 Markengruppe, fest konfiguriert (Markentausch gegen Gebühr)",
+                    "classes": "Nur PKW/Van & Motorrad – LKW, Bus & Trailer gibt es ab PRO",
+                    "womo": "Camper? Das <link><strong>WoMo-Set</strong></link> ergänzt die Truma-Diagnose"
+                },
+                "guidance": "Ideal, wenn Sie ein Fahrzeug fahren und es selbst warten wollen.",
+                "cta": "Zum BASIC-Finder"
+            },
+            "pro": {
+                "text": "Für <strong>alle Fahrzeugklassen</strong>: PKW/Van, Motorrad, LKW/Bus/Trailer, Agrar & Industrie – Fahrzeuge ca. ab Modelljahr 1991.",
+                "checks": {
+                    "expandable": "1 Markengruppe, jederzeit erweiterbar auf bis zu 3",
+                    "youngtimer": "Auch Youngtimer: serielle Diagnose ab ca. 1991",
+                    "truma": "Truma-Diagnose als Modul-Option für einen Markenslot"
+                },
+                "guidance": "Ideal bei mehreren Fahrzeugen, älteren Baujahren oder Nutzfahrzeugen.",
+                "cta": "Zum PRO-Finder"
+            },
+            "elite": {
+                "text": "Die Werkstatt-Linie: <strong>4 bis 10 Markengruppen nach Wahl</strong> oder ganze Fahrzeugklassen als Multibrand – bis hin zu ELITE Full mit allen Klassen.",
+                "checks": {
+                    "mixed": "Cars Mixed 4–10 oder Multibrand pro Klasse",
+                    "truck": "LKW/Trailer- und Bus-Multibrand verfügbar",
+                    "depth": "Gleiche Diagnosetiefe wie BASIC & PRO – maximaler Markenumfang"
+                },
+                "guidance": "Ideal für Werkstätten, Flotten und Händler.",
+                "cta": "Zu den ELITE-Geräten"
+            },
+            "footer": {
+                "unsure": "Noch unsicher?",
+                "linkWhy": "Was alle GlobeGuard Geräte können",
+                "linkSgw": "SGW-Kompatibilität prüfen",
+                "linkSupport": "Support kontaktieren"
+            }
+        },
+        "hub": {
+            "seoTitle": "Produkte – Diagnosegeräte, Zubehör & Services",
+            "seoDescription": "GlobeGuard Diagnosegeräte in drei Stufen: BASIC und PRO für Privatanwender, ELITE Multibrand für Werkstätten. Dazu SGW-Lizenzen, Zubehör und Software-Updates.",
+            "pageTitle": "Produkte",
+            "pageSubtitle": "Wählen Sie Ihre Gerätestufe – oder stöbern Sie in Zubehör, Services und Software-Updates.",
+            "basicText": "1 Markengruppe, ab Modelljahr 2008. Nur PKW & Van, Motorrad oder WoMo – Nutzfahrzeuge gibt es ab PRO.",
+            "basicCta": "BASIC konfigurieren",
+            "womoText": "1 Markengruppe + Truma Diagnose. PKW/Van + Truma-Zusatzausstattung – für Camper & Wohnmobil-Reisende.",
+            "womoCta": "Zu WoMo",
+            "proText": "Bis zu 3 Markengruppen, ab Modelljahr 1991. Alle Fahrzeugklassen inkl. LKW/Bus/Trailer, Agrar und Industrie.",
+            "proCta": "PRO konfigurieren",
+            "eliteText": "Multibrand-Geräte für den professionellen Einsatz: alle Markengruppen einer Fahrzeugklasse – oder mit ELITE Full alle Klassen kombiniert.",
+            "eliteCta": "ELITE Geräte ansehen",
+            "listingsTitle": "Zubehör & Services",
+            "accessoriesName": "Zubehör",
+            "accessoriesText": "SGW-Bypass-Kabel, Adapterkabel und Basiskabel für Ihr Gerät.",
+            "servicesName": "Services",
+            "servicesText": "SGW-Lizenzen (Tag/Woche/Monat/Jahr) und Ferndiagnose.",
+            "updatesName": "Software-Updates & Erweiterungen",
+            "updatesText": "Jahres-Updates zum Vorzugspreis, Reaktivierungs-Updates und PRO Erweiterungen für zusätzliche Markengruppen.",
+            "viewCta": "Ansehen"
+        }
+    }
+}
