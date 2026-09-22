@@ -51,14 +51,15 @@ function isConfigurableProduct(
     extraBrands: IExtraBrandSelection[],
     addOnProducts: Record<string, CatalogProduct | undefined>,
 ): boolean {
+    // Without variants there is nothing to configure or buy, whatever the tier says.
+    if (product.variants.length === 0) {
+        return false;
+    }
+
     const tierKey = String(product.tierKey || '');
 
     if (CONFIGURABLE_TIER_KEYS.includes(tierKey) || tierKey.startsWith('ELITE') || isLicenseProduct(product)) {
         return true;
-    }
-
-    if (product.variants.length === 0) {
-        return false;
     }
 
     return buildAddOnPlan({

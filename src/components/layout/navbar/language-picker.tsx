@@ -1,6 +1,7 @@
 'use client';
 
 import {useLocale, useTranslations} from 'next-intl';
+import {useSearchParams} from 'next/navigation';
 import {useRouter, usePathname} from '@/i18n/navigation';
 import {routing, localeNames} from '@/i18n/routing';
 import {Check, Globe} from 'lucide-react';
@@ -17,9 +18,11 @@ export function LanguagePicker() {
     const locale = useLocale();
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const handleLocaleChange = (newLocale: string) => {
-        router.replace(pathname, {locale: newLocale});
+        // Keep the current query string (e.g. the picker's ?year=...&extraBrands=...) across the switch.
+        router.replace({pathname, query: Object.fromEntries(searchParams.entries())}, {locale: newLocale});
     };
 
     return (

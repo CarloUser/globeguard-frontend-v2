@@ -6,7 +6,7 @@ import {useCallback, useMemo, useState, useTransition} from 'react';
 import {toast} from 'sonner';
 
 import {addConfiguredItemsAction} from '@/app/[locale]/products/[slug]/actions';
-import {Price, VatNote} from '@/components/commerce/price';
+import {Price} from '@/components/commerce/price';
 import {useDisplayCurrency} from '@/components/providers/display-currency-provider';
 import {Button} from '@/components/ui/button';
 import {Label} from '@/components/ui/label';
@@ -31,7 +31,6 @@ import type {CatalogProduct, CatalogVariant} from '@/lib/globeguard/types';
 
 import {EliteNoSgwConfirmDialog} from './elite-no-sgw-confirm-dialog';
 import {ProductConfigurator} from './product-configurator';
-import {usePreservePickerParams} from './use-preserve-picker-params';
 
 /** Option group of a multi-variant product (licences: the "Dauer" duration group). */
 export interface VariantOptionGroup {
@@ -75,7 +74,26 @@ function findVariantByOptions(variants: CatalogVariant[], optionCodes: Record<st
  * real options, the ProductConfigurator, the live "device + options" NET price, quantity,
  * add-to-cart (blocking + confirm rules from the domain), shipping note and highlights.
  */
-export function ConfigurableProductPanel({
+export function ConfigurableProductPanel(props: ConfigurableProductPanelProps) {
+    const t = useTranslations('Configurator');
+    const {product} = props;
+
+    // Without a variant there is nothing to price or add to the cart (buildAddOnPlan needs a
+    // selected variant), so show a translated "unavailable" state instead of the panel.
+    if (!product.variants[0]) {
+        return (
+            <div className="flex flex-col">
+                <h1 className="mb-3 text-3xl font-bold leading-tight text-foreground lg:text-4xl">{product.name}</h1>
+                <p className="text-sm text-muted-foreground">{t('product.unavailable')}</p>
+            </div>
+        );
+    }
+
+    return <ConfigurableProductPanelContent {...props} />;
+}
+
+/** The hooks live here so the variant guard above can return early without breaking the rules of hooks. */
+function ConfigurableProductPanelContent({
     product,
     optionGroups,
     highlights,
@@ -91,8 +109,6 @@ export function ConfigurableProductPanel({
     const router = useRouter();
     const {displayCurrency} = useDisplayCurrency();
     const [isPending, startTransition] = useTransition();
-
-    usePreservePickerParams(product.slug);
 
     const [optionCodes, setOptionCodes] = useState<Record<string, string>>(() => initialOptionCodes(product.variants[0]));
     const selectedVariant = useMemo(
@@ -262,7 +278,7 @@ export function ConfigurableProductPanel({
                     <div className="text-4xl font-bold leading-none text-foreground">
                         <Price value={plan.liveTotalNet} />
                     </div>
-                    <VatNote className="mt-2 block text-sm text-muted-foreground" />
+                    <p className="mt-2 text-sm text-muted-foreground">{t('product.vatNote')}</p>
                     {hasAddOns && (
                         <p className="mt-1 text-sm text-muted-foreground">
                             {t('summary.liveTotal', {

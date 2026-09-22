@@ -25,7 +25,6 @@
             "trumaCable": "Adapter cable set Truma Combi"
         },
         "variant": {
-            "label": "Version",
             "price": "Price for this version:",
             "stockUpHint": "{duration, select, day {Day licenses} week {Week licenses} month {Month licenses} year {Year licenses} other {Licenses}} have no expiry date, so they are well suited to stocking up."
         },
@@ -125,7 +124,8 @@
             "shippingTitle": "Shipping from Cham, Switzerland",
             "shippingTime": "Delivery in 2–4 working days",
             "vatNote": "excl. VAT – calculated at checkout based on delivery country",
-            "noDescription": "No detailed information has been added for this product yet."
+            "noDescription": "No detailed information has been added for this product yet.",
+            "unavailable": "This product is currently not available."
         },
         "highlights": {
             "readClearAll": "Read & clear faults on ALL control units – plain-text like the OEM tester",

@@ -25,7 +25,6 @@
             "trumaCable": "Adapterkabel-Set Truma Combi"
         },
         "variant": {
-            "label": "Ausführung",
             "price": "Preis für diese Ausführung:",
             "stockUpHint": "{duration, select, day {Tageslizenzen} week {Wochenlizenzen} month {Monatslizenzen} year {Jahreslizenzen} other {Lizenzen}} haben kein Ablaufdatum und eignen sich daher für den Kauf auf Vorrat."
         },
@@ -125,7 +124,8 @@
             "shippingTitle": "Versand aus Cham, Schweiz",
             "shippingTime": "Lieferung in 2–4 Werktagen",
             "vatNote": "zzgl. MwSt. – wird an der Kasse nach Lieferland berechnet",
-            "noDescription": "Für dieses Produkt sind noch keine Detailinformationen hinterlegt."
+            "noDescription": "Für dieses Produkt sind noch keine Detailinformationen hinterlegt.",
+            "unavailable": "Dieses Produkt ist derzeit nicht verfügbar."
         },
         "highlights": {
             "readClearAll": "Fehler ALLER Steuergeräte lesen & löschen – Klartext wie am Marken-Tester",

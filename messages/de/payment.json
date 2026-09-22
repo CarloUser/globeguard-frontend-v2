@@ -2,13 +2,13 @@
     "Payment": {
         "online": {
             "title": "Online bezahlen",
-            "description": "Sofort bezahlen mit TWINT, Karte, PostFinance, Apple Pay oder PayPal.",
+            "description": "Sofort bezahlen mit TWINT, Karte, PostFinance Pay, Apple Pay oder PayPal.",
             "redirectNote": "Die Zahlungsseite öffnet sich bei unserem Zahlungsanbieter Mollie. Nach der Zahlung kehren Sie automatisch zu GlobeGuard zurück.",
             "methodsLabel": "Verfügbare Zahlungsarten"
         },
         "noMethods": {
             "title": "Zurzeit ist keine Zahlungsart verfügbar",
-            "text": "Privatkunden bezahlen online (TWINT, Karte, PostFinance, Apple Pay oder PayPal). Die Online-Zahlung ist noch nicht eingerichtet. Kauf auf Rechnung steht nur freigeschalteten Geschäftskunden zur Verfügung.",
+            "text": "Privatkunden bezahlen online (TWINT, Karte, PostFinance Pay, Apple Pay oder PayPal). Die Online-Zahlung ist noch nicht eingerichtet. Kauf auf Rechnung steht nur freigeschalteten Geschäftskunden zur Verfügung.",
             "contact": "Bitte kontaktieren Sie uns, wenn Sie Ihre Bestellung dennoch abschliessen möchten.",
             "contactLink": "Kontakt aufnehmen"
         },
