@@ -1,0 +1,39 @@
+{
+    "Payment": {
+        "online": {
+            "title": "Online bezahlen",
+            "description": "Sofort bezahlen mit TWINT, Karte, PostFinance, Apple Pay oder PayPal.",
+            "redirectNote": "Die Zahlungsseite öffnet sich bei unserem Zahlungsanbieter Mollie. Nach der Zahlung kehren Sie automatisch zu GlobeGuard zurück.",
+            "methodsLabel": "Verfügbare Zahlungsarten"
+        },
+        "noMethods": {
+            "title": "Zurzeit ist keine Zahlungsart verfügbar",
+            "text": "Privatkunden bezahlen online (TWINT, Karte, PostFinance, Apple Pay oder PayPal). Die Online-Zahlung ist noch nicht eingerichtet. Kauf auf Rechnung steht nur freigeschalteten Geschäftskunden zur Verfügung.",
+            "contact": "Bitte kontaktieren Sie uns, wenn Sie Ihre Bestellung dennoch abschliessen möchten.",
+            "contactLink": "Kontakt aufnehmen"
+        },
+        "continueToPayment": "Weiter zur Zahlung",
+        "redirecting": "Sie werden zur Zahlungsseite weitergeleitet …",
+        "errors": {
+            "orderPaymentState": "Die Zahlung kann für diese Bestellung im Moment nicht gestartet werden. Bitte prüfen Sie Lieferadresse und Versandart und versuchen Sie es erneut.",
+            "ineligiblePaymentMethod": "Diese Zahlungsart ist für Ihre Bestellung nicht verfügbar. Bitte wählen Sie eine andere Zahlungsart.",
+            "orderStateTransition": "Die Bestellung konnte nicht für die Zahlung vorbereitet werden. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+            "paymentDeclined": "Die Zahlung wurde abgelehnt. Bitte wählen Sie eine andere Zahlungsart oder versuchen Sie es erneut.",
+            "paymentFailed": "Die Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+            "noActiveOrder": "Es wurde keine aktive Bestellung gefunden. Bitte legen Sie die Artikel erneut in den Warenkorb.",
+            "generic": "Die Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es erneut oder wählen Sie eine andere Zahlungsart."
+        },
+        "accountRequired": "Für die Bestellung ist ein Kundenkonto erforderlich – darüber verwalten Sie Ihre Geräte, Software-Lizenzen und Updates.",
+        "signInLink": "Anmelden oder Konto erstellen",
+        "confirmation": {
+            "checkingTitle": "Zahlung wird bestätigt",
+            "checkingText": "Wir warten auf die Bestätigung Ihrer Zahlung. Das dauert in der Regel nur wenige Sekunden.",
+            "stillPendingTitle": "Zahlung wird noch bestätigt",
+            "stillPendingText": "Die Bestätigung Ihrer Zahlung steht noch aus. Aktualisieren Sie den Status in Kürze oder prüfen Sie ihn unter «Bestellungen». Falls Sie die Zahlung abgebrochen haben, können Sie sie erneut starten.",
+            "orderCode": "Bestellnummer",
+            "refresh": "Status aktualisieren",
+            "retryPayment": "Zahlung erneut starten",
+            "viewOrders": "Bestellungen ansehen"
+        }
+    }
+}

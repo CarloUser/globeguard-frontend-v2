@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import { getRouteLocale } from "@/i18n/server";
 import { Button } from "@/components/ui/button";
-import { Minus, Package, Plus, X } from "lucide-react";
+import { Minus, Package, Plus } from "lucide-react";
 import { Price } from "@/components/commerce/price";
-import { removeFromCart, adjustQuantity } from "./actions";
+import { RemoveLineButton } from "@/components/checkout/remove-line-button";
+import { SelectionBadge } from "@/components/checkout/selection-badge";
+import { adjustQuantity } from "./actions";
 import { getTranslations } from "next-intl/server";
 
 type ActiveOrder = {
@@ -16,6 +19,12 @@ type ActiveOrder = {
     unitPrice: number;
     /** NET line total in minor units. */
     linePrice: number;
+    /** Configurator selections (brand group / model year / ELITE Mixed brand groups). */
+    customFields?: {
+      selectedBrandGroupId?: string | null;
+      selectedYear?: number | null;
+      selectedBrandGroupIds?: string | null;
+    } | null;
     productVariant: {
       id: string;
       name: string;
@@ -36,6 +45,7 @@ export async function CartItems({
 }: {
   activeOrder: ActiveOrder | null;
 }) {
+  const locale = await getRouteLocale();
   const t = await getTranslations("Cart");
   const tCommon = await getTranslations("Common");
 
@@ -111,6 +121,11 @@ export async function CartItems({
                       {line.productVariant.name}
                     </p>
                   )}
+                  <SelectionBadge
+                    selection={line.customFields}
+                    locale={locale}
+                    className="mt-1"
+                  />
                   <p className="mt-1 font-mono text-xs text-muted-foreground">
                     {t("sku", { sku: line.productVariant.sku })}
                   </p>
@@ -203,23 +218,14 @@ export async function CartItems({
                   </div>
                 </div>
 
-                <form
-                  action={async () => {
-                    "use server";
-                    await removeFromCart(line.id);
-                  }}
-                  className="absolute right-4 top-4 md:static"
-                >
-                  <Button
-                    type="submit"
-                    variant="ghost"
-                    size="icon"
-                    className="h-9 w-9 rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-                    aria-label={t("removeItem")}
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
-                </form>
+                {/* SGW unlock lines (SKU GG-SGW-*) ask for confirmation before removal. */}
+                <div className="absolute right-4 top-4 md:static">
+                  <RemoveLineButton
+                    lineId={line.id}
+                    sku={line.productVariant.sku}
+                    label={t("removeItem")}
+                  />
+                </div>
               </div>
             );
           })}

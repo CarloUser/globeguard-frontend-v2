@@ -2,6 +2,7 @@ import {useLocale, useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {Badge} from '@/components/ui/badge';
 import {formatBlogDate, toIsoDate} from '@/lib/blog/date';
+import {blogPostHref} from '@/lib/blog/slug';
 import type {BlogSidebarData} from '@/lib/blog/sidebar';
 
 interface BlogSidebarProps extends BlogSidebarData {
@@ -39,7 +40,7 @@ export function BlogSidebar({aboutText, latestPosts, readTimeBuckets, tags}: Blo
                             const isoDate = toIsoDate(post.publishedAt);
                             return (
                                 <li key={post.id}>
-                                    <Link href={`/blog/${post.slug}`} className="text-sm font-semibold leading-snug text-foreground hover:text-primary">
+                                    <Link href={blogPostHref(post)} className="text-sm font-semibold leading-snug text-foreground hover:text-primary">
                                         {post.title}
                                     </Link>
                                     {isoDate && (

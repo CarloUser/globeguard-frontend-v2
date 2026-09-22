@@ -1,0 +1,53 @@
+{
+    "HomePage": {
+        "seoTitle": "OBD Diagnostic Devices for All Brands",
+        "seoDescription": "GlobeGuard – professional vehicle diagnostics from Switzerland. BASIC and PRO for private users, ELITE multibrand devices for workshops. Cars, motorcycles, trucks, buses and trailers.",
+        "hero": {
+            "eyebrow": "GlobeGuard",
+            "subtitle": "Professional diagnostic devices with workshop-grade functionality for cars, motorcycles, campers, trucks, and commercial vehicles.",
+            "ctaFinder": "Check compatibility",
+            "ctaProducts": "Explore devices",
+            "proofAria": "GlobeGuard at a glance",
+            "proof": {
+                "tiersLabel": "BASIC, PRO & ELITE",
+                "tiersValue": "For private owners and workshops",
+                "classesLabel": "Cars to trailers",
+                "classesValue": "Brand groups and model years",
+                "shippingLabel": "Shipped from Cham",
+                "shippingValue": "Swiss shop and support"
+            }
+        },
+        "b2c": {
+            "title": "Your diagnostic device in three steps",
+            "subtitle": "Choose your vehicle type, choose your brand, check the model year – done.",
+            "basicText": "Diagnostics for 1 brand group from model year 2008. The cost-effective solution for owners of one vehicle – also available as a WoMo version with Truma support.",
+            "basicCta": "Configure BASIC",
+            "womoText": "1 brand group + Truma diagnostics. Car/van + Truma add-on equipment – for camper and motorhome travellers.",
+            "womoCta": "Go to WoMo",
+            "proText": "Workshop-level diagnostics from model year 1991 – up to 3 brand groups on one device, expandable via PRO Erweiterung. Also for trucks, buses, trailers, agriculture and industry.",
+            "proCta": "Configure PRO"
+        },
+        "b2b": {
+            "title": "GlobeGuard ELITE – Multibrand Without Compromise",
+            "subtitle": "All brand groups of a vehicle class on one device – from the ELITE Cars Mixed (4–10 brand groups) to the ELITE Full covering all classes.",
+            "cta": "View ELITE devices"
+        },
+        "benefits": {
+            "title": "Your benefits",
+            "sgwTitle": "SGW unlock included",
+            "sgwText": "Security Gateway access for Fiat, Mercedes-Benz and the VW Group – bypass cables and licenses available directly from us.",
+            "coverageTitle": "All brands, all classes",
+            "coverageText": "From cars and motorcycles to trucks, buses and trailers – workshop-level diagnostics for over 75 brand groups.",
+            "shippingChTitle": "Shipping from Switzerland",
+            "shippingChText": "Fast shipping to Switzerland and Liechtenstein directly from Cham – free shipping and no customs fees, no surprises, support in German and English.",
+            "shippingDeTitle": "Shipping from our German warehouse",
+            "shippingDeText": "Fast shipping to the EU and worldwide directly from Germany. Please note: deliveries outside the EU may be subject to customs and country-specific fees.",
+            "updatesTitle": "Updates & remote diagnostics",
+            "updatesText": "Software updates for every device and a remote diagnostics service when you need support – your device stays up to date."
+        },
+        "news": {
+            "title": "Latest News",
+            "viewAll": "All posts"
+        }
+    }
+}

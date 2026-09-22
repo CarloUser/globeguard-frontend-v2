@@ -32,6 +32,11 @@ export function siteFaqOwnerKey(pageKey: string): string {
     return `site:${pageKey.trim().replace(/^\/+|\/+$/g, '')}`;
 }
 
+/** Owner key the backend assigns to a blog post section by default (`blog:<base slug>`). */
+export function blogFaqOwnerKey(slug: string): string {
+    return `blog:${slug.trim().replace(/^\/+|\/+$/g, '')}`;
+}
+
 /**
  * Published FAQ section of `pageKey` (e.g. "faq", "support", "produkte-basic") in `locale`,
  * items sorted by `sortOrder`, or `null` when there is none. Wrapped in React `cache()` so
@@ -49,17 +54,25 @@ export const getSitePageFaq = cache(async (pageKey: string, locale: string): Pro
     };
 });
 
+/** The fields the schema gate needs; satisfied by site-page and blog FAQ sections alike. */
+export interface FaqSchemaCandidate {
+    items: readonly unknown[];
+    schemaEnabled: boolean;
+    canonicalOwnerKey: string | null;
+}
+
 /**
  * FAQPage JSON-LD is emitted only when the section has items, the editor enabled schema output
- * and this page is the canonical owner of the section (duplicated sections on other pages must
- * not repeat the schema).
+ * and the rendering page is the canonical owner of the section (duplicated sections on other
+ * pages must not repeat the schema). `expectedOwnerKey` is the page's own key, built with
+ * `siteFaqOwnerKey(pageKey)` or `blogFaqOwnerKey(slug)`.
  */
-export function shouldEmitFaqSchema(section: SitePageFaq | null, pageKey: string): section is SitePageFaq {
+export function shouldEmitFaqSchema<T extends FaqSchemaCandidate>(section: T | null, expectedOwnerKey: string): section is T {
     return (
         !!section &&
         section.items.length > 0 &&
         section.schemaEnabled &&
-        section.canonicalOwnerKey === siteFaqOwnerKey(pageKey)
+        section.canonicalOwnerKey === expectedOwnerKey
     );
 }
 

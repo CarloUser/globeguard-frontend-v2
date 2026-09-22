@@ -9,7 +9,8 @@ import { Separator } from '@/components/ui/separator';
 import { OrderLine } from './types';
 import { useCheckout } from './checkout-provider';
 import { Price, VatNote } from '@/components/commerce/price';
-import {useTranslations} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
+import {SelectionBadge} from '@/components/checkout/selection-badge';
 
 /**
  * Same rows as the cart summary (cart/order-summary.tsx): line totals and
@@ -18,6 +19,7 @@ import {useTranslations} from 'next-intl';
  */
 function OrderSummaryContent({ order, t }: { order: ReturnType<typeof useCheckout>['order']; t: ReturnType<typeof useTranslations<'Checkout'>> }) {
   const vatTotal = order.taxSummary.reduce((sum, entry) => sum + entry.taxTotal, 0);
+  const locale = useLocale();
 
   return (
     <div className="space-y-4">
@@ -48,6 +50,7 @@ function OrderSummaryContent({ order, t }: { order: ReturnType<typeof useCheckou
                   {line.productVariant.name}
                 </p>
               )}
+              <SelectionBadge selection={line.customFields} locale={locale} className="mt-1" />
               <p className="text-xs text-muted-foreground">
                 {t('qty', {quantity: line.quantity})}
               </p>

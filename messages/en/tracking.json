@@ -1,0 +1,64 @@
+{
+    "Tracking": {
+        "pageTitle": "Track order",
+        "intro": "Enter the order number and the e-mail address that was used to place the order, then click \"Track\".",
+        "orderCode": "Order number",
+        "orderCodePlaceholder": "e.g. GG123456",
+        "emailAddress": "E-mail address",
+        "orderCodeRequired": "Order number is required",
+        "emailRequired": "E-mail address is required",
+        "emailInvalid": "Invalid e-mail address",
+        "submit": "Track",
+        "submitting": "Searching...",
+        "accountHint": "Have an account?",
+        "accountHintLink": "View orders in your account",
+        "notFoundTitle": "No order found",
+        "notFoundBody": "No order was found for this combination of order number and e-mail address. Please check your entries.",
+        "tooManyAttemptsTitle": "Too many attempts",
+        "tooManyAttemptsBody": "This order number has been looked up too often. Please try again in a few minutes.",
+        "errorTitle": "Lookup failed",
+        "errorBody": "The order could not be retrieved right now. Please try again later.",
+        "result": {
+            "orderTitle": "Order {code}",
+            "placedOn": "Placed on {date}",
+            "status": "Status",
+            "items": "Items",
+            "quantity": "Qty: {quantity}",
+            "sku": "SKU {sku}",
+            "shippingMethod": "Shipping method",
+            "fulfillments": "Shipments",
+            "fulfillmentCreated": "Created on {date}",
+            "trackingCode": "Tracking number",
+            "noFulfillments": "No shipment has been created yet.",
+            "payments": "Payment",
+            "paymentMethod": "Payment method",
+            "paymentState": "Payment status",
+            "amount": "Amount",
+            "summary": "Summary",
+            "subtotalNet": "Subtotal (net)",
+            "vat": "VAT",
+            "shipping": "Shipping",
+            "total": "Total",
+            "totalNote": "incl. VAT"
+        },
+        "fulfillmentState": {
+            "Created": "Created",
+            "Pending": "Being prepared",
+            "Shipped": "Shipped",
+            "Delivered": "Delivered",
+            "Cancelled": "Cancelled"
+        },
+        "paymentState": {
+            "Created": "Created",
+            "Authorized": "Authorised",
+            "Settled": "Paid",
+            "Declined": "Declined",
+            "Error": "Error",
+            "Cancelled": "Cancelled"
+        },
+        "paymentMethod": {
+            "invoice": "Invoice",
+            "mollie": "Online payment (Mollie)"
+        }
+    }
+}

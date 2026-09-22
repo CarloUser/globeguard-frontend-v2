@@ -21,10 +21,9 @@ const CABLES = [
     {key: 'ive', sku: SGW_CABLE_SKUS.IVE},
 ] as const;
 
-// TODO(Phase 2c): repoint to /produkte/kategorie/[slug] once that route exists
-// (or add a permanent redirect from /collection/*).
-const LICENSES_COLLECTION_HREF = '/collection/sgw-license';
-const CABLES_COLLECTION_HREF = '/collection/sgw-bypass';
+// Collection listings live under /produkte/kategorie/[slug] (Vendure collection slugs).
+const LICENSES_COLLECTION_HREF = '/produkte/kategorie/sgw-license';
+const CABLES_COLLECTION_HREF = '/produkte/kategorie/sgw-bypass';
 
 export async function generateMetadata(): Promise<Metadata> {
     const locale = await getRouteLocale();

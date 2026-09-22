@@ -1,15 +1,17 @@
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Check, Clock, ShoppingBag, ClipboardList, XCircle, CreditCard} from 'lucide-react';
-import { Link } from '@/i18n/navigation';
+import {Check, ShoppingBag, ClipboardList, XCircle} from 'lucide-react';
+import {Link} from '@/i18n/navigation';
 import Image from 'next/image';
 import {Separator} from '@/components/ui/separator';
 import {Price, VatNote} from '@/components/commerce/price';
+import {SelectionBadge} from '@/components/checkout/selection-badge';
 import {notFound} from 'next/navigation';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
 import {query} from '@/lib/vendure/api';
-import {graphql} from '@/graphql';
+import {graphql, type ResultOf} from '@/graphql';
+import {PaymentPendingStatus, PENDING_ORDER_STATES} from './payment-pending-status';
 
 const GetOrderByCodeQuery = graphql(`
     query GetOrderByCode($code: String!) {
@@ -36,6 +38,7 @@ const GetOrderByCodeQuery = graphql(`
                 productVariant {
                     id
                     name
+                    sku
                     product {
                         id
                         name
@@ -48,6 +51,11 @@ const GetOrderByCodeQuery = graphql(`
                 }
                 quantity
                 linePrice
+                customFields {
+                    selectedBrandGroupId
+                    selectedYear
+                    selectedBrandGroupIds
+                }
             }
             shippingAddress {
                 fullName
@@ -62,24 +70,27 @@ const GetOrderByCodeQuery = graphql(`
     }
 `);
 
+type OrderByCode = ResultOf<typeof GetOrderByCodeQuery>['orderByCode'];
+
 type ConfirmationVariant = 'success' | 'pending' | 'cancelled';
 
 /**
  * Maps the Vendure order state to what the confirmation page should say.
- * - PaymentSettled / PaymentAuthorized (and every later fulfilment state) -> success
- * - ArrangingPayment / AddingItems -> payment still outstanding
+ * - PaymentSettled (Mollie, immediate capture) / PaymentAuthorized (invoice: offline
+ *   Authorized payment settled manually) and every later fulfilment state -> success
+ * - ArrangingPayment / AddingItems -> payment still outstanding: the webhook has not
+ *   settled the Mollie payment yet (or the customer abandoned it) -> poll, see
+ *   PaymentPendingStatus
  * - Cancelled -> failure
  */
 function getConfirmationVariant(state: string): ConfirmationVariant {
-    switch (state) {
-        case 'Cancelled':
-            return 'cancelled';
-        case 'AddingItems':
-        case 'ArrangingPayment':
-            return 'pending';
-        default:
-            return 'success';
+    if (state === 'Cancelled') {
+        return 'cancelled';
     }
+    if (PENDING_ORDER_STATES.includes(state)) {
+        return 'pending';
+    }
+    return 'success';
 }
 
 interface OrderConfirmationProps {
@@ -91,8 +102,15 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'OrderConfirmation'});
 
-    const {data} = await query(GetOrderByCodeQuery, {code}, {useAuthToken: true, languageCode: locale});
-    const order = data.orderByCode;
+    // orderByCode is owner-scoped (accounts are mandatory): the auth cookie must be sent. A foreign
+    // or unknown code is answered with a FORBIDDEN GraphQL error, which `query` throws -> 404.
+    let order: OrderByCode = null;
+    try {
+        const {data} = await query(GetOrderByCodeQuery, {code}, {useAuthToken: true, languageCode: locale});
+        order = data.orderByCode;
+    } catch (error) {
+        console.warn(`Order confirmation: could not load order ${code}`, error);
+    }
 
     if (!order) {
         notFound();
@@ -125,18 +143,8 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                     )}
 
                     {variant === 'pending' && (
-                        <>
-                            <div className="flex justify-center mb-6">
-                                <div className="rounded-full bg-muted p-5">
-                                    <Clock className="h-10 w-10 text-muted-foreground" strokeWidth={2.5} />
-                                </div>
-                            </div>
-                            <h1 className="text-3xl font-bold mb-2">{t('paymentPending')}</h1>
-                            <p className="text-muted-foreground">
-                                {t('paymentPendingMessage')}{' '}
-                                <span className="font-semibold text-foreground">{order.code}</span>
-                            </p>
-                        </>
+                        // Remounts (and restarts the poll) whenever the server-rendered state changes.
+                        <PaymentPendingStatus key={order.state} code={order.code} />
                     )}
 
                     {variant === 'cancelled' && (
@@ -180,6 +188,7 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                                             {line.productVariant.name}
                                         </p>
                                     )}
+                                    <SelectionBadge selection={line.customFields} locale={locale} className="mt-1" />
                                     <p className="text-xs text-muted-foreground mt-0.5">{t('qty', {quantity: line.quantity})}</p>
                                 </div>
                                 <div className="text-right">
@@ -247,23 +256,19 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                     </Card>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-3">
-                    {variant === 'pending' ? (
-                        <Button nativeButton={false} render={<Link href="/checkout" />} className="flex-1" size="lg">
-                            <CreditCard className="mr-2 h-4 w-4" />
-                            {t('completePayment')}
-                        </Button>
-                    ) : (
+                {/* While pending, PaymentPendingStatus owns the actions (refresh / retry / orders). */}
+                {variant !== 'pending' && (
+                    <div className="flex flex-col sm:flex-row gap-3">
                         <Button nativeButton={false} render={<Link href="/" />} className="flex-1" size="lg">
                             <ShoppingBag className="mr-2 h-4 w-4" />
                             {t('continueShopping')}
                         </Button>
-                    )}
-                    <Button nativeButton={false} render={<Link href="/account/orders" />} variant="outline" className="flex-1" size="lg">
-                        <ClipboardList className="mr-2 h-4 w-4" />
-                        {t('viewOrders')}
-                    </Button>
-                </div>
+                        <Button nativeButton={false} render={<Link href="/account/orders" />} variant="outline" className="flex-1" size="lg">
+                            <ClipboardList className="mr-2 h-4 w-4" />
+                            {t('viewOrders')}
+                        </Button>
+                    </div>
+                )}
             </div>
         </div>
     );

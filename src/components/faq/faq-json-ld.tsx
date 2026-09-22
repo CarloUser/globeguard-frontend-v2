@@ -1,4 +1,4 @@
-import {buildFaqPageJsonLd, shouldEmitFaqSchema, type SitePageFaq} from '@/lib/vendure/faq';
+import {buildFaqPageJsonLd, shouldEmitFaqSchema, siteFaqOwnerKey, type SitePageFaq} from '@/lib/vendure/faq';
 
 interface FaqJsonLdProps {
     section: SitePageFaq | null;
@@ -7,7 +7,7 @@ interface FaqJsonLdProps {
 
 /** FAQPage structured data; renders nothing unless `shouldEmitFaqSchema` holds. */
 export function FaqJsonLd({section, pageKey}: FaqJsonLdProps) {
-    if (!shouldEmitFaqSchema(section, pageKey)) {
+    if (!shouldEmitFaqSchema(section, siteFaqOwnerKey(pageKey))) {
         return null;
     }
     // Escape "<" so that a "</script>" inside an answer cannot terminate the script element.

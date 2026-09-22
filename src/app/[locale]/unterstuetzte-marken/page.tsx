@@ -46,11 +46,13 @@ export default async function SupportedBrandsPage() {
                         {t('subtitle', {count: totalGroups, basicFromYear: BASIC_FROM_YEAR, proFromYear: PRO_FROM_YEAR})}
                     </p>
                     <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-                        {t('sgwNote')}
-                        <Link href="/support/sgw" className="font-semibold text-primary hover:underline">
-                            {t('sgwLink')}
-                        </Link>
-                        .
+                        {t.rich('sgwNote', {
+                            link: (chunks) => (
+                                <Link href="/support/sgw" className="font-semibold text-primary hover:underline">
+                                    {chunks}
+                                </Link>
+                            ),
+                        })}
                     </p>
                     <Link href="/geraet-finden" className="btn-primary mt-6">
                         {t('ctaFinder')}

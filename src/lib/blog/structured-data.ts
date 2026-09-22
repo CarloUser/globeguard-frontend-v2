@@ -2,6 +2,7 @@ import {SITE_NAME, SITE_URL, buildCanonicalUrl} from '@/lib/metadata';
 import type {BlogCard, BlogDetail, BlogFaqItem} from '@/lib/vendure/blog';
 import {buildBlogExcerpt, normalizeBlogTags, stripHtml} from './content';
 import {toIsoDate} from './date';
+import {blogPostHref} from './slug';
 
 /**
  * JSON-LD builders for the blog (ported from the old services/seo/structured-data.ts and
@@ -58,8 +59,8 @@ export interface BlogListingJsonLdInput {
     description: string;
     url: string;
     posts: readonly BlogCard[];
-    /** Absolute URL of a post, in the active locale. */
-    postUrl: (slug: string) => string;
+    /** Absolute URL (active locale) for a locale-agnostic post href such as `/blog/<base slug>`. */
+    postUrl: (href: string) => string;
 }
 
 export function buildBlogListingJsonLd(input: BlogListingJsonLdInput): JsonLd {
@@ -73,7 +74,7 @@ export function buildBlogListingJsonLd(input: BlogListingJsonLdInput): JsonLd {
         blogPost: input.posts.slice(0, 10).map((post) => ({
             '@type': 'BlogPosting',
             headline: post.title,
-            url: input.postUrl(post.slug),
+            url: input.postUrl(blogPostHref(post)),
             datePublished: toIsoDate(post.publishedAt),
             author: {'@type': 'Organization', name: SITE_NAME},
             image: toAbsoluteUrl(post.featuredImage?.preview),

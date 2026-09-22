@@ -142,6 +142,11 @@ export const GetActiveOrderQuery = graphql(`
                 quantity
                 linePrice
                 linePriceWithTax
+                customFields {
+                    selectedBrandGroupId
+                    selectedYear
+                    selectedBrandGroupIds
+                }
             }
         }
     }
@@ -232,6 +237,11 @@ export const GetActiveOrderForCheckoutQuery = graphql(`
                 quantity
                 linePrice
                 linePriceWithTax
+                customFields {
+                    selectedBrandGroupId
+                    selectedYear
+                    selectedBrandGroupIds
+                }
             }
         }
     }

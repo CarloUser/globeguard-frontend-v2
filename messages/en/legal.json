@@ -48,7 +48,7 @@
       "facts": {
         "online": {
           "title": "Online payment",
-          "text": "TWINT, card, PostFinance, Apple Pay and PayPal – processed via Mollie."
+          "text": "TWINT, card, PostFinance Pay, Apple Pay and PayPal – processed via Mollie."
         },
         "invoice": {
           "title": "Purchase on account",

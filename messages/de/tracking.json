@@ -1,0 +1,64 @@
+{
+    "Tracking": {
+        "pageTitle": "Bestellung verfolgen",
+        "intro": "Geben Sie die Bestellnummer und die bei der Bestellung verwendete E-Mail-Adresse ein und klicken Sie anschliessend auf «Verfolgen».",
+        "orderCode": "Bestellnummer",
+        "orderCodePlaceholder": "z. B. GG123456",
+        "emailAddress": "E-Mail-Adresse",
+        "orderCodeRequired": "Bestellnummer ist erforderlich",
+        "emailRequired": "E-Mail-Adresse ist erforderlich",
+        "emailInvalid": "Ungültige E-Mail-Adresse",
+        "submit": "Verfolgen",
+        "submitting": "Wird gesucht...",
+        "accountHint": "Sie haben ein Konto?",
+        "accountHintLink": "Bestellungen im Konto ansehen",
+        "notFoundTitle": "Keine Bestellung gefunden",
+        "notFoundBody": "Zu dieser Kombination aus Bestellnummer und E-Mail-Adresse wurde keine Bestellung gefunden. Bitte prüfen Sie Ihre Eingaben.",
+        "tooManyAttemptsTitle": "Zu viele Versuche",
+        "tooManyAttemptsBody": "Diese Bestellnummer wurde zu oft abgefragt. Bitte versuchen Sie es in einigen Minuten erneut.",
+        "errorTitle": "Abfrage fehlgeschlagen",
+        "errorBody": "Die Bestellung konnte gerade nicht abgerufen werden. Bitte versuchen Sie es später erneut.",
+        "result": {
+            "orderTitle": "Bestellung {code}",
+            "placedOn": "Bestellt am {date}",
+            "status": "Status",
+            "items": "Artikel",
+            "quantity": "Menge: {quantity}",
+            "sku": "Art.-Nr. {sku}",
+            "shippingMethod": "Versandart",
+            "fulfillments": "Sendungen",
+            "fulfillmentCreated": "Erstellt am {date}",
+            "trackingCode": "Sendungsnummer",
+            "noFulfillments": "Noch keine Sendung erstellt.",
+            "payments": "Zahlung",
+            "paymentMethod": "Zahlungsart",
+            "paymentState": "Zahlungsstatus",
+            "amount": "Betrag",
+            "summary": "Zusammenfassung",
+            "subtotalNet": "Zwischensumme (netto)",
+            "vat": "MwSt.",
+            "shipping": "Versand",
+            "total": "Gesamt",
+            "totalNote": "inkl. MwSt."
+        },
+        "fulfillmentState": {
+            "Created": "Erstellt",
+            "Pending": "In Vorbereitung",
+            "Shipped": "Versendet",
+            "Delivered": "Zugestellt",
+            "Cancelled": "Storniert"
+        },
+        "paymentState": {
+            "Created": "Erstellt",
+            "Authorized": "Autorisiert",
+            "Settled": "Bezahlt",
+            "Declined": "Abgelehnt",
+            "Error": "Fehler",
+            "Cancelled": "Storniert"
+        },
+        "paymentMethod": {
+            "invoice": "Rechnung",
+            "mollie": "Online-Zahlung (Mollie)"
+        }
+    }
+}

@@ -1,36 +1,49 @@
 'use client';
 
-import {useState} from 'react';
+import {useState, useTransition} from 'react';
 import {useForm} from 'react-hook-form';
+import {AlertCircle, PackageSearch, SearchX} from 'lucide-react';
+import {useTranslations} from 'next-intl';
+import {Alert, AlertDescription, AlertTitle} from '@/components/ui/alert';
 import {Button} from '@/components/ui/button';
-import {Input} from '@/components/ui/input';
 import {Card, CardContent} from '@/components/ui/card';
 import {Field, FieldError, FieldGroup, FieldLabel} from '@/components/ui/field';
-import {PackageSearch} from 'lucide-react';
-import {useTranslations} from 'next-intl';
+import {Input} from '@/components/ui/input';
+import type {TrackOrderResult} from '@/lib/vendure/order-tracking';
+import {trackOrderAction} from './actions';
+import {TrackedOrderView} from './tracked-order-view';
 
 interface TrackOrderFormData {
     orderCode: string;
     emailAddress: string;
 }
 
+/**
+ * Order code + e-mail form. The server action answers with a discriminated result; "not found"
+ * never says which of the two inputs was wrong (backend contract), and the backend's rate limit
+ * is shown as its own notice.
+ */
 export function TrackOrderForm() {
-    const t = useTranslations('TrackOrder');
-    const [submitted, setSubmitted] = useState<TrackOrderFormData | null>(null);
+    const t = useTranslations('Tracking');
+    const [isPending, startTransition] = useTransition();
+    const [result, setResult] = useState<TrackOrderResult | null>(null);
 
     const {
         register,
         handleSubmit,
-        formState: {errors, isSubmitting},
+        formState: {errors},
     } = useForm<TrackOrderFormData>({
         defaultValues: {orderCode: '', emailAddress: ''},
     });
 
     const onSubmit = (data: TrackOrderFormData) => {
-        // TODO(backend): call a server action that queries an order-lookup
-        // resolver (order code + e-mail). No such shop-API query exists yet,
-        // so this only shows a placeholder result.
-        setSubmitted(data);
+        startTransition(async () => {
+            try {
+                setResult(await trackOrderAction(data.orderCode, data.emailAddress));
+            } catch {
+                setResult({status: 'error'});
+            }
+        });
     };
 
     return (
@@ -44,8 +57,14 @@ export function TrackOrderForm() {
                                 <Input
                                     id="orderCode"
                                     autoComplete="off"
-                                    disabled={isSubmitting}
-                                    {...register('orderCode', {required: t('orderCodeRequired')})}
+                                    autoCapitalize="characters"
+                                    placeholder={t('orderCodePlaceholder')}
+                                    disabled={isPending}
+                                    className="font-mono"
+                                    {...register('orderCode', {
+                                        required: t('orderCodeRequired'),
+                                        setValueAs: (value: string) => String(value ?? '').trim(),
+                                    })}
                                 />
                                 <FieldError>{errors.orderCode?.message}</FieldError>
                             </Field>
@@ -56,11 +75,12 @@ export function TrackOrderForm() {
                                     id="emailAddress"
                                     type="email"
                                     autoComplete="email"
-                                    disabled={isSubmitting}
+                                    disabled={isPending}
                                     {...register('emailAddress', {
                                         required: t('emailRequired'),
+                                        setValueAs: (value: string) => String(value ?? '').trim(),
                                         pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
                                             message: t('emailInvalid'),
                                         },
                                     })}
@@ -68,25 +88,42 @@ export function TrackOrderForm() {
                                 <FieldError>{errors.emailAddress?.message}</FieldError>
                             </Field>
 
-                            <Button type="submit" className="w-full mt-2" disabled={isSubmitting}>
-                                <PackageSearch className="mr-2 h-4 w-4" />
-                                {t('submit')}
+                            <Button type="submit" className="mt-2 w-full" disabled={isPending}>
+                                <PackageSearch className="mr-2 h-4 w-4" aria-hidden="true" />
+                                {isPending ? t('submitting') : t('submit')}
                             </Button>
                         </FieldGroup>
                     </form>
                 </CardContent>
             </Card>
 
-            {submitted && (
-                <Card>
-                    <CardContent className="pt-6 space-y-2">
-                        <p className="font-medium">
-                            {t('resultTitle', {orderCode: submitted.orderCode})}
-                        </p>
-                        <p className="text-sm text-muted-foreground">{t('resultPlaceholder')}</p>
-                    </CardContent>
-                </Card>
-            )}
+            <div aria-live="polite">
+                {result?.status === 'found' && <TrackedOrderView order={result.order} />}
+
+                {result?.status === 'not-found' && (
+                    <Alert>
+                        <SearchX className="h-4 w-4" aria-hidden="true" />
+                        <AlertTitle>{t('notFoundTitle')}</AlertTitle>
+                        <AlertDescription>{t('notFoundBody')}</AlertDescription>
+                    </Alert>
+                )}
+
+                {result?.status === 'too-many-attempts' && (
+                    <Alert variant="destructive">
+                        <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                        <AlertTitle>{t('tooManyAttemptsTitle')}</AlertTitle>
+                        <AlertDescription>{t('tooManyAttemptsBody')}</AlertDescription>
+                    </Alert>
+                )}
+
+                {result?.status === 'error' && (
+                    <Alert variant="destructive">
+                        <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                        <AlertTitle>{t('errorTitle')}</AlertTitle>
+                        <AlertDescription>{t('errorBody')}</AlertDescription>
+                    </Alert>
+                )}
+            </div>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import {cache} from 'react';
 import {graphql, type ResultOf} from '@/graphql';
+import {blogBaseSlug} from '@/lib/blog/slug';
 import {query} from '@/lib/vendure/api';
 
 /**
@@ -16,11 +17,20 @@ export const blogPostCacheTag = (slug: string) => `blog-${slug}`;
 /** Upper bound accepted by the Vendure list resolvers. */
 export const MAX_BLOG_TAKE = 100;
 
+/**
+ * `translations { languageCode slug }` is part of the card because hrefs must be built from
+ * the base (German) slug: the backend resolves `blog(slug)` against the base entity's slug,
+ * not the translated one (see src/lib/blog/slug.ts).
+ */
 export const BlogCardFragment = graphql(`
     fragment BlogCard on Blog @_unmask {
         id
         title
         slug
+        translations {
+            languageCode
+            slug
+        }
         excerpt
         publishedAt
         updatedAt
@@ -59,6 +69,10 @@ export const GetBlogSlugsQuery = graphql(`
             totalItems
             items {
                 slug
+                translations {
+                    languageCode
+                    slug
+                }
                 updatedAt
                 publishedAt
             }
@@ -187,12 +201,13 @@ export const getBlogFaq = cache(async (locale: string, slug: string): Promise<Bl
 });
 
 export interface BlogSlugEntry {
+    /** Base (German) slug, the only one the backend resolves; see src/lib/blog/slug.ts. */
     slug: string;
     lastModified: string | null;
 }
 
 /**
- * Slugs of up to `limit` posts for the sitemap, newest first. Pages through the backend
+ * Base slugs of up to `limit` posts for the sitemap, newest first. Pages through the backend
  * in chunks of 100 because the list resolver caps `take`.
  */
 export async function getBlogSlugs(limit = 1000): Promise<BlogSlugEntry[]> {
@@ -208,7 +223,7 @@ export async function getBlogSlugs(limit = 1000): Promise<BlogSlugEntry[]> {
         );
         const items = result.data.blogs.items;
         entries.push(...items.map((item) => ({
-            slug: item.slug,
+            slug: blogBaseSlug(item),
             lastModified: item.updatedAt || item.publishedAt || null,
         })));
         skip += items.length;

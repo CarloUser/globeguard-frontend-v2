@@ -10,7 +10,9 @@ vi.mock('@/lib/metadata', () => ({
 
 import {buildBlogExcerpt, decorateBlogContentHtml, normalizeBlogTags, stripHtml} from '../content';
 import {formatBlogDate, toIsoDate} from '../date';
+import {MAX_BLOG_PAGE, blogListHref, parseBlogPage} from '../paging';
 import {buildBlogSidebarData, findAdjacentPosts} from '../sidebar';
+import {blogBaseSlug, blogPostHref} from '../slug';
 import {buildBlogPostingJsonLd, parseBackendStructuredData, toAbsoluteUrl} from '../structured-data';
 import type {BlogCard, BlogInlineAsset} from '@/lib/vendure/blog';
 
@@ -37,6 +39,7 @@ const card = (slug: string, overrides: Partial<BlogCard> = {}): BlogCard => ({
     id: slug,
     title: slug,
     slug,
+    translations: [{languageCode: 'de', slug}],
     excerpt: null,
     publishedAt: '2026-09-17T10:00:00.000Z',
     updatedAt: '2026-09-17T10:00:00.000Z',
@@ -127,6 +130,45 @@ describe('sidebar', () => {
         expect(findAdjacentPosts(posts, 'a').newer).toBeNull();
         expect(findAdjacentPosts(posts, 'c').older).toBeNull();
         expect(findAdjacentPosts(posts, 'zzz')).toEqual({newer: null, older: null});
+    });
+});
+
+describe('slugs', () => {
+    it('uses the German translation slug for hrefs, whatever language the card was fetched in', () => {
+        const post = card('sgw-unlock', {translations: [{languageCode: 'de', slug: 'sgw-freischaltung'}, {languageCode: 'en', slug: 'sgw-unlock'}]});
+        expect(blogBaseSlug(post)).toBe('sgw-freischaltung');
+        expect(blogPostHref(post)).toBe('/blog/sgw-freischaltung');
+    });
+
+    it('falls back to the fetched slug when there is no German translation', () => {
+        expect(blogBaseSlug(card('only-en', {translations: []}))).toBe('only-en');
+        expect(blogBaseSlug(card('x', {translations: [{languageCode: 'en', slug: 'y'}]}))).toBe('x');
+    });
+});
+
+describe('paging', () => {
+    it('parses positive integers and clamps to the int32-safe maximum', () => {
+        expect(parseBlogPage(undefined)).toBe(1);
+        expect(parseBlogPage('3')).toBe(3);
+        expect(parseBlogPage(['7', '9'])).toBe(7);
+        expect(parseBlogPage('2.9')).toBe(2);
+        expect(parseBlogPage(String(MAX_BLOG_PAGE))).toBe(MAX_BLOG_PAGE);
+        expect(parseBlogPage(String(MAX_BLOG_PAGE + 1))).toBe(MAX_BLOG_PAGE);
+        expect((MAX_BLOG_PAGE - 1) * 10).toBeLessThanOrEqual(2147483647);
+    });
+
+    it('falls back to page 1 for zero, negatives, non-numbers and non-safe integers', () => {
+        expect(parseBlogPage('0')).toBe(1);
+        expect(parseBlogPage('-4')).toBe(1);
+        expect(parseBlogPage('abc')).toBe(1);
+        expect(parseBlogPage('')).toBe(1);
+        expect(parseBlogPage('Infinity')).toBe(1);
+        expect(parseBlogPage('99999999999999999999')).toBe(1);
+    });
+
+    it('builds the list href without a query for page 1', () => {
+        expect(blogListHref(1)).toBe('/blog');
+        expect(blogListHref(2)).toBe('/blog?page=2');
     });
 });
 

@@ -1,0 +1,154 @@
+{
+    "Configurator": {
+        "durations": {
+            "day": "1 day",
+            "week": "1 week",
+            "month": "1 month",
+            "year": "1 year"
+        },
+        "licenseGroups": {
+            "stellantis": "SGW license Fiat/Stellantis",
+            "mercedes": "SGW license Mercedes-Benz",
+            "vag": "SGW license VW Group",
+            "other": "SGW license ({detail})"
+        },
+        "cableNames": {
+            "IVE": "Iveco Daily",
+            "FCCA": "Fiat group"
+        },
+        "addOn": {
+            "sgwLicense": "{quantity, plural, =1 {} other {#× }}{licenseGroup, select, stellantis {SGW license Fiat/Stellantis} mercedes {SGW license Mercedes-Benz} vag {SGW license VW Group} other {SGW license}} ({duration, select, day {1 day} week {1 week} month {1 month} year {1 year} other {{duration}}})",
+            "sgwCable": "SGW bypass cable ({cable})",
+            "proExtension": "PRO Extension – {name}",
+            "proExtensionModule": "PRO Extension – {name}",
+            "cableSet": "Adapter cable set {name}",
+            "trumaCable": "Adapter cable set Truma Combi"
+        },
+        "variant": {
+            "label": "Version",
+            "price": "Price for this version:",
+            "stockUpHint": "{duration, select, day {Day licenses} week {Week licenses} month {Month licenses} year {Year licenses} other {Licenses}} have no expiry date, so they are well suited to stocking up."
+        },
+        "year": {
+            "fits": "✓ Compatible with model year {year}",
+            "fitsBrand": "({brand})",
+            "range": "{to, select, none {supported from {from}} other {supported from {from} to {to}}}",
+            "misfit": "Model year {year} is not supported by this device",
+            "misfitRange": "{to, select, none {(supported from {from}).} other {(supported from {from} to {to}).}}",
+            "misfitHint": "Please consider the PRO version for older vehicles."
+        },
+        "sgw": {
+            "heading": "Security Gateway unlock (recommended)",
+            "requires": "For {brand} from model year {year} this requires: {requirements} – added to the cart automatically.",
+            "requirementSeparator": " + ",
+            "quantityLabel": "Choose quantity",
+            "pieces": "{count} pcs",
+            "durationLabel": "Choose license duration",
+            "durationWithPrice": "{label} – {price}",
+            "durationAria": "License duration",
+            "unsure": "Not sure? <sgw>View the SGW compatibility overview</sgw> – you can also purchase licenses at any later time under <services>Services</services>.",
+            "warning": "Warning: without the SGW unlock, diagnostic functions on this vehicle are severely limited.",
+            "allServicesLink": "View all SGW licenses & services"
+        },
+        "sgwDialog": {
+            "title": "Really remove the SGW unlock?",
+            "text": "Without the Security Gateway unlock, diagnostic functions on this vehicle are severely limited: read-only access, no actuator tests, no coding, no service resets. You can also purchase the unlock later.",
+            "keep": "Keep the unlock",
+            "remove": "Continue without unlock"
+        },
+        "extension": {
+            "heading": "Which brand group is the extension for?",
+            "label": "Choose brand group",
+            "pleaseSelect": "— Please select —",
+            "hint": "The extension is activated for the chosen brand group on your PRO device. Purchasing it requires a software update of the already installed brands to the latest version.",
+            "ineosNote": "This extension activates the INEOS brand group on your PRO device.",
+            "trumaNote": "This extension activates Truma auxiliary-equipment diagnostics on your PRO device – it counts like a brand-group extension and occupies one of the three brand slots.",
+            "missing": "Please choose the brand group for the extension first."
+        },
+        "extras": {
+            "heading": "Additional brands (PRO Extension) – added to the cart:",
+            "moduleSlot": "PRO Extension – {name} (occupies one brand slot)",
+            "moduleCablePrompt": "Order the {name} adapter cable set – required for {name} diagnostics, not included with the device.",
+            "yearChosen": "(model year {year})",
+            "yearOpen": "(model year not decided yet)",
+            "sgwPrompt": "Order the SGW unlock too: {requirements}",
+            "bypassShort": "bypass cable ({detail})",
+            "licenseShort": "SGW license",
+            "yearOpenHint": "Model year still open? <sgw>Check the SGW requirement in our compatibility overview</sgw> – you can purchase an unlock at any later time."
+        },
+        "truma": {
+            "heading": "Order the Truma adapter cable set (recommended)",
+            "text": "Required for Truma heater diagnostics – not included in the box. Added to the cart automatically.",
+            "warning": "Without the adapter cable set, Truma diagnostics are not possible."
+        },
+        "eliteMixed": {
+            "heading": "Choose brand groups ({count}/{max}, at least {min})",
+            "hint": "Choose 4–10 car/van brand groups. Unused slots can be purchased later – once the 10-brand limit is reached, the device is locked.",
+            "invalid": "Please choose at least {min} brand groups to continue.",
+            "gridLabel": "Brand groups"
+        },
+        "eliteSgw": {
+            "heading": "SGW unlocks (optional, any number)",
+            "hint": "ELITE covers many brands – choose the Security Gateway accesses your business needs.",
+            "cable": "SGW bypass cable ({name})"
+        },
+        "eliteNoSgwDialog": {
+            "title": "No SGW unlock selected",
+            "text": "You have not selected an SGW unlock. Without Security Gateway access, diagnostic functions on Fiat/Stellantis, Mercedes-Benz and the VW Group are severely limited. Continue without an unlock anyway?",
+            "cancel": "Back",
+            "confirm": "Continue without unlock"
+        },
+        "summary": {
+            "heading": "Also added to the cart:",
+            "together": "— together",
+            "liveTotal": "Device {device} + options {addOns}",
+            "listSeparator": ", "
+        },
+        "warnings": {
+            "extensionBrandMissing": "Please choose the brand group for the extension first.",
+            "eliteMixedInvalid": "Please choose at least {min} brand groups first."
+        },
+        "cart": {
+            "quantity": "Quantity",
+            "addToCart": "Add to cart",
+            "adding": "Adding...",
+            "added": "Product “{name}” was added to the cart!",
+            "addedWithAddOns": "Product “{name} (+{count})” was added to the cart!",
+            "viewCart": "View cart",
+            "error": "The items could not be added to the cart. Please try again.",
+            "partialError": "Some items could not be added to the cart: {message}"
+        },
+        "product": {
+            "articleNumber": "Article number: {sku}",
+            "inStock": "In stock",
+            "highlights": "Highlights",
+            "shippingTitle": "Shipping from Cham, Switzerland",
+            "shippingTime": "Delivery in 2–4 working days",
+            "vatNote": "excl. VAT – calculated at checkout based on delivery country",
+            "noDescription": "No detailed information has been added for this product yet."
+        },
+        "highlights": {
+            "readClearAll": "Read & clear faults on ALL control units – plain-text like the OEM tester",
+            "allClasses": "All classes on one device: car/van, truck, trailer & bus",
+            "dpfAdblue": "DPF/GPF regeneration & AdBlue service – no dealer visit needed",
+            "absMaintenance": "ABS maintenance: bleeding, filling, testing",
+            "airBrakeTacho": "Air-brake actuation & tachograph parameters",
+            "trumaUnlock": "Truma diagnostics: unlock a locked heater yourself",
+            "codingCalibration": "Coding & calibration of sensors and intelligent components",
+            "injectorCoding": "Injector coding, sensor calibration & component teach-in",
+            "liveData": "Live data with logging, panel and chart view",
+            "remoteDiagnostics": "Worldwide remote diagnostics – 1st year included"
+        },
+        "vehicleTypes": {
+            "car": "Car & Van",
+            "moto": "Motorcycle",
+            "truck": "Truck",
+            "bus": "Bus",
+            "trailer": "Trailer",
+            "womo": "Motorhome",
+            "agrar": "Agricultural machinery",
+            "industrial": "Industrial",
+            "all": "All vehicle classes"
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import {cache} from 'react';
-import {graphql, type ResultOf} from '@/graphql';
+import {graphql, readFragment, type ResultOf} from '@/graphql';
 import {query} from './api';
 
 /**
@@ -136,6 +136,22 @@ export const GetCollectionChildrenQuery = graphql(`
     }
 `);
 
+/**
+ * Several products in one round-trip. The shop API `products` list accepts
+ * `slug: { in: [...] }` (StringOperators.in, verified against the running backend in both
+ * locales), so the add-on products of a product page need no per-slug fan-out.
+ */
+export const GetProductsBySlugsQuery = graphql(`
+    query GetProductsBySlugs($slugs: [String!]!, $take: Int!) {
+        products(options: { filter: { slug: { in: $slugs } }, take: $take }) {
+            totalItems
+            items {
+                ...CatalogProduct
+            }
+        }
+    }
+`, [CatalogProductFragment]);
+
 /** Minimal projection for price teasers: one round-trip per tier, variants only. */
 export const GetTierMinPriceQuery = graphql(`
     query GetTierMinPrice($tierKey: String!, $take: Int!) {
@@ -188,6 +204,37 @@ export const getProductBySlug = cache(async (slug: string, locale: string): Prom
     );
     return result.data.product ?? null;
 });
+
+/**
+ * React `cache()` compares arguments by identity, so the batch is keyed by a normalised
+ * (deduplicated, sorted, comma-joined) slug list instead of the caller's array instance.
+ */
+const getProductsBySlugKey = cache(async (slugKey: string, locale: string): Promise<Record<string, CatalogProduct>> => {
+    const slugs = slugKey.split(',').filter(Boolean);
+    if (slugs.length === 0) {
+        return {};
+    }
+    const result = await query(
+        GetProductsBySlugsQuery,
+        {slugs, take: TIER_PAGE_SIZE},
+        {languageCode: locale, tags: [PRODUCTS_TAG, ...slugs.map((slug) => `product-${slug}`)]},
+    );
+    return Object.fromEntries(
+        result.data.products.items.map((item) => [readFragment(CatalogProductFragment, item).slug, item] as const),
+    );
+});
+
+/**
+ * Products for a list of slugs in ONE request, keyed by slug; unknown slugs are absent.
+ * Used by the product page to load the add-on products (SGW licences / bypass cables,
+ * PRO Erweiterungen, Truma cable set) that `getRequiredAddOnSkus` asks for — map the SKUs
+ * with `skuToProductSlug` and re-key the result with `indexAddOnProductsBySku`
+ * (src/lib/globeguard/catalog-adapter.ts).
+ */
+export async function getProductsBySlugs(slugs: readonly string[], locale: string): Promise<Record<string, CatalogProduct>> {
+    const key = Array.from(new Set(slugs.filter(Boolean))).sort().join(',');
+    return getProductsBySlugKey(key, locale);
+}
 
 /** A collection and its direct child collections (e.g. `zubehoer` -> sgw-bypass, adapterkabel, ...); `null` if unknown. */
 export const getCollectionChildren = cache(async (slug: string, locale: string): Promise<CatalogCollection | null> => {

@@ -1,5 +1,4 @@
 import type {Metadata, Viewport} from "next";
-import {Suspense} from "react";
 import {hasLocale, NextIntlClientProvider} from "next-intl";
 import {Inter, JetBrains_Mono} from "next/font/google";
 import {getMessages, getTranslations, setRequestLocale} from "next-intl/server";
@@ -101,15 +100,16 @@ export default async function LocaleLayout({children, params}: {children: React.
     return (
         <html lang={locale} data-scroll-behavior="smooth">
             <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}>
+                {/* No Suspense boundary around the page: a boundary here would let Next flush the
+                    shell with HTTP 200 before a page's notFound() runs, so 404s would only be
+                    "soft" (client-side). The navbar keeps its own boundaries for the async slots. */}
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    <Suspense>
-                        <DisplayCurrencyProvider initialCurrency={initialCurrency}>
-                            <Navbar />
-                            {children}
-                            <Footer locale={locale}/>
-                            <Toaster/>
-                        </DisplayCurrencyProvider>
-                    </Suspense>
+                    <DisplayCurrencyProvider initialCurrency={initialCurrency}>
+                        <Navbar />
+                        {children}
+                        <Footer locale={locale}/>
+                        <Toaster/>
+                    </DisplayCurrencyProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

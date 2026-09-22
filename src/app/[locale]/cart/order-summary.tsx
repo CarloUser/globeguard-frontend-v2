@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Lock } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Lock, UserRound } from "lucide-react";
 import { Price } from "@/components/commerce/price";
 import { getTranslations } from "next-intl/server";
 
@@ -30,14 +31,18 @@ type ActiveOrder = {
 /**
  * Cart summary: Zwischensumme (netto) = subTotal, MwSt. = sum of taxSummary.taxTotal,
  * Versand = shippingWithTax, Gesamt = totalWithTax. VAT depends on the delivery country
- * chosen at checkout (Cart.vatNote).
+ * chosen at checkout (Cart.vatNote). Signed-out visitors see the account-required notice
+ * (accounts are mandatory at checkout) with a sign-in link that returns to the checkout.
  */
 export async function OrderSummary({
   activeOrder,
+  isSignedIn,
 }: {
   activeOrder: ActiveOrder;
+  isSignedIn: boolean;
 }) {
   const t = await getTranslations("Cart");
+  const tPayment = await getTranslations("Payment");
   const vatTotal = activeOrder.taxSummary.reduce(
     (sum, entry) => sum + entry.taxTotal,
     0,
@@ -139,6 +144,21 @@ export async function OrderSummary({
         </div>
         <p className="mt-1 text-xs text-muted-foreground">{t("vatNote")}</p>
       </div>
+
+      {!isSignedIn && (
+        <Alert className="mb-4">
+          <UserRound />
+          <AlertDescription>
+            {tPayment("accountRequired")}{" "}
+            <Link
+              href={`/sign-in?redirectTo=${encodeURIComponent("/checkout")}`}
+              className="font-medium text-foreground underline underline-offset-3"
+            >
+              {tPayment("signInLink")}
+            </Link>
+          </AlertDescription>
+        </Alert>
+      )}
 
       <Button
         render={<Link href="/checkout" />}

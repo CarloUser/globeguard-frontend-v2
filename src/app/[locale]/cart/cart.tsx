@@ -4,6 +4,7 @@ import { PromotionCode } from "@/app/[locale]/cart/promotion-code";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getRouteLocale } from "@/i18n/server";
+import { getActiveCustomer } from "@/lib/vendure/actions";
 import { query } from "@/lib/vendure/api";
 import { GetActiveOrderQuery } from "@/lib/vendure/queries";
 import { getTranslations } from "next-intl/server";
@@ -11,14 +12,18 @@ import { getTranslations } from "next-intl/server";
 export async function Cart() {
   const locale = await getRouteLocale();
   const t = await getTranslations("Cart");
-  const { data } = await query(
-    GetActiveOrderQuery,
-    {},
-    {
-      useAuthToken: true,
-      languageCode: locale,
-    },
-  );
+  const [{ data }, customer] = await Promise.all([
+    query(
+      GetActiveOrderQuery,
+      {},
+      {
+        useAuthToken: true,
+        languageCode: locale,
+      },
+    ),
+    // Accounts are mandatory at checkout: the summary shows the account notice when signed out.
+    getActiveCustomer(),
+  ]);
 
   const activeOrder = data.activeOrder;
 
@@ -51,7 +56,7 @@ export async function Cart() {
         <CartItems activeOrder={activeOrder} />
 
         <div className="lg:col-span-1">
-          <OrderSummary activeOrder={activeOrder} />
+          <OrderSummary activeOrder={activeOrder} isSignedIn={!!customer} />
           <PromotionCode activeOrder={activeOrder} />
         </div>
       </div>

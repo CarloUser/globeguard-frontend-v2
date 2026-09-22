@@ -1,0 +1,99 @@
+{
+    "Tiers": {
+        "picker": {
+            "vehicleTypeGroup": "Vehicle type",
+            "stepVehicleType": "1. Choose vehicle type",
+            "stepBrandYearFirst": "1. Choose brand & model year",
+            "stepBrandYearSecond": "2. Choose brand & model year",
+            "brandLabel": "Brand group",
+            "yearLabel": "Model year",
+            "pleaseSelect": "— Please select —",
+            "extraBrandLabel": "Additional brand {slot} (optional)",
+            "none": "— None —",
+            "moduleOption": "{name} (extension)",
+            "moduleHint": "The {name} extension counts like a brand group and occupies one of the 3 brand slots. We suggest the required adapter cable set on the product page.",
+            "extraYearLabel": "Model year (optional – if already known)",
+            "yearUnknown": "— Not known yet —",
+            "extraSgwHint": "{name} requires an SGW unlock from this model year – we suggest it on the product page.",
+            "proSlotsHint": "Up to 3 brands per PRO device. Additional brands are charged as a PRO Extension. The model year helps us check the SGW requirement of the additional brand – you can also provide it later.",
+            "sgwTitle": "Security Gateway (SGW):",
+            "sgwRequired": "Required for this brand from this model year: {requirements}. You can add the option on the product page.",
+            "sgwCable": "SGW bypass cable ({cable})",
+            "sgwLicense": {
+                "stellantis": "SGW license Fiat/Stellantis",
+                "mercedes": "SGW license Mercedes-Benz",
+                "vag": "SGW license VW Group"
+            },
+            "sgwLicenseFallback": "SGW license ({detail})",
+            "priceLabel": "Price incl. 1 brand group:",
+            "priceLabelWomo": "Price incl. 1 brand group + Truma module:",
+            "toProduct": "View product",
+            "productLoading": "Loading the product for this brand … Please reload the page if the selection does not become available."
+        },
+        "basic": {
+            "seoTitle": "GlobeGuard BASIC – Diagnostic device for your brand",
+            "seoDescription": "GlobeGuard BASIC: OBD diagnostics for 1 brand group from model year 2008 – for car & van, motorcycle or as a WoMo set with Truma support.",
+            "badge": "For private users",
+            "title": "Configure GlobeGuard BASIC",
+            "subtitle": "Diagnostics for 1 brand group from model year 2008. Choose vehicle type, brand and model year – we will show you the right device.",
+            "womoTitle": "Motorhome (WoMo)?",
+            "womoText": "The GlobeGuard BASIC WoMo combines 1 car/van brand group with additional Truma diagnostics – ideal for motorhomes.",
+            "womoCta": "Go to BASIC WoMo"
+        },
+        "pro": {
+            "seoTitle": "GlobeGuard PRO – up to 3 brand groups on one device",
+            "seoDescription": "GlobeGuard PRO: Workshop-grade OBD diagnostics from model year 1991. Up to 3 brand groups per device, expandable via PRO Extension – for car & van, motorcycle, truck/bus/trailer, agricultural and industrial vehicles.",
+            "badge": "For private & demanding users",
+            "title": "Configure GlobeGuard PRO",
+            "subtitle": "Diagnostics from model year 1991, up to 3 brand groups on one device. The first brand is included in the price; additional brands are charged as PRO Extension."
+        },
+        "womo": {
+            "seoTitle": "GlobeGuard WoMo – Diagnostic device for your motorhome",
+            "seoDescription": "GlobeGuard WoMo: Diagnostics for 1 base-vehicle brand group from model year 2008 plus additional Truma diagnostics. Heater locked? Unlock it yourself.",
+            "badge": "For campers & motorhome owners",
+            "title": "Configure GlobeGuard WoMo",
+            "subtitle": "The WoMo set combines diagnostics for your base vehicle (1 brand group, from model year 2008) with the additional Truma module – so you can unlock locked heaters yourself. Choose the brand of your base vehicle and the model year.",
+            "hintTitle": "Note: Truma adapter cable set",
+            "hintText": "For Truma diagnostics you also need the adapter cable set for Truma Combi 4 / 6 / D (<price>CHF 90.00</price>) – we suggest it automatically on the product page.",
+            "notWomo": "Not a motorhome? The regular <link>GlobeGuard BASIC</link> is available for car & van or motorcycle <price>from CHF 583.00</price>."
+        },
+        "elite": {
+            "seoTitle": "GlobeGuard ELITE – Multibrand Diagnostics for Workshops",
+            "seoDescription": "GlobeGuard ELITE: Multibrand OBD diagnostics for professional use. Cars Mixed 4–10, Cars/Moto/Bus/Truck-Trailer Multibrand and ELITE Full across all classes.",
+            "badge": "For workshops & businesses",
+            "title": "GlobeGuard ELITE",
+            "subtitle": "Multibrand diagnostics without brand limits – choose the vehicle class of your business and we will show you the right device.",
+            "stepTitle": "Which vehicles do you diagnose?",
+            "vehicleTypeGroup": "Vehicle class",
+            "busHint": "Bus operators receive the ELITE Bus Multibrand – a dedicated device, separate from the Truck/Trailer Multibrand.",
+            "matchesSelection": "Matches your selection",
+            "toDevice": "View device",
+            "devices": {
+                "carsMixed": "4–10 car/van brand groups of your choice – at least 4 at purchase, the rest at any later time.",
+                "carsMultibrand": "All car/van brand groups activated – full brand coverage for the car workshop.",
+                "motoMultibrand": "All motorcycle brand groups activated – one device for the entire motorcycle workshop.",
+                "busMultibrand": "All bus brand groups activated – the dedicated device for bus operators.",
+                "truckMultibrand": "All truck and trailer brand groups activated – incl. air-brake and tachograph functions.",
+                "fullMultibrand": "The flagship: all brand groups across all classes – car/van, truck, trailer and bus."
+            }
+        },
+        "category": {
+            "productsCrumb": "Products",
+            "empty": "There are currently no products available in this category.",
+            "known": {
+                "zubehoer": {
+                    "title": "Accessories",
+                    "description": "SGW bypass cables and adapter cables for your GlobeGuard device."
+                },
+                "services": {
+                    "title": "Services",
+                    "description": "SGW licenses for Fiat/Stellantis, Mercedes-Benz and the VW Group, as well as remote diagnostics packages."
+                },
+                "softwareUpdates": {
+                    "title": "Software Updates & Extensions",
+                    "description": "Annual updates at a preferential price, reactivation updates and PRO extensions for additional brand groups – your device stays up to date and grows with you."
+                }
+            }
+        }
+    }
+}

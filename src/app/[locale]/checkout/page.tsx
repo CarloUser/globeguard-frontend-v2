@@ -8,6 +8,8 @@ import {
     GetEligiblePaymentMethodsQuery,
     GetEligibleShippingMethodsQuery,
 } from '@/lib/vendure/queries';
+import {getMolliePaymentMethodSummaries} from '@/lib/vendure/mollie';
+import {isMolliePaymentMethod, paymentMethodSortIndex} from '@/components/checkout/payment-method-codes';
 import {redirect} from '@/i18n/navigation';
 import CheckoutFlow from './checkout-flow';
 import {CheckoutProvider} from './checkout-provider';
@@ -30,6 +32,8 @@ export default async function CheckoutPage() {
     const t = await getTranslations({locale, namespace: 'Checkout'});
 
     // Accounts are mandatory at checkout (guest checkout is disabled in the backend).
+    // No loading.tsx for this route: a Suspense boundary above the page would stream this
+    // redirect as a client-side NEXT_REDIRECT (HTTP 200 + meta refresh) instead of a real 307.
     const customer = await getActiveCustomer();
     if (!customer) {
         return redirect({href: `/sign-in?redirectTo=${encodeURIComponent('/checkout')}`, locale});
@@ -58,8 +62,14 @@ export default async function CheckoutPage() {
 
     const addresses = addressesRes.data.activeCustomer?.addresses || [];
     const shippingMethods = shippingMethodsRes.data.eligibleShippingMethods || [];
-    const paymentMethods =
-        paymentMethodsRes.data.eligiblePaymentMethods?.filter((m) => m.isEligible) || [];
+    // Eligible methods only, online payment ("Online bezahlen") first, then invoice.
+    const paymentMethods = (paymentMethodsRes.data.eligiblePaymentMethods || [])
+        .filter((m) => m.isEligible)
+        .sort((a, b) => paymentMethodSortIndex(a.code) - paymentMethodSortIndex(b.code));
+    // Logos for the online tile; best effort (empty without a Mollie key or when Mollie is unreachable).
+    const mollieMethods = paymentMethods.some((m) => isMolliePaymentMethod(m.code))
+        ? await getMolliePaymentMethodSummaries()
+        : [];
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -70,6 +80,7 @@ export default async function CheckoutPage() {
                 countries={countries}
                 shippingMethods={shippingMethods}
                 paymentMethods={paymentMethods}
+                mollieMethods={mollieMethods}
             >
                 <CheckoutFlow/>
             </CheckoutProvider>

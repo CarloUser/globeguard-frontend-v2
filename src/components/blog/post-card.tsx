@@ -3,6 +3,7 @@ import {ArrowRight} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
 import {buildBlogExcerpt, stripHtml} from '@/lib/blog/content';
+import {blogPostHref} from '@/lib/blog/slug';
 import type {BlogCard} from '@/lib/vendure/blog';
 import {PostMeta} from './post-meta';
 
@@ -17,7 +18,7 @@ interface PostCardProps {
  */
 export function PostCard({post, priority = false}: PostCardProps) {
     const t = useTranslations('Blog');
-    const href = `/blog/${post.slug}`;
+    const href = blogPostHref(post);
     const image = post.featuredImage?.preview || post.featuredImage?.source || null;
     const imageAlt = stripHtml(post.featuredImageAlt) || post.title;
     const imageTitle = stripHtml(post.featuredImageTitle) || undefined;

@@ -23,6 +23,7 @@ import {getRouteLocale} from '@/i18n/server';
 import {buildBlogExcerpt, decorateBlogContentHtml, normalizeBlogTags, stripHtml} from '@/lib/blog/content';
 import {formatBlogDate, toIsoDate} from '@/lib/blog/date';
 import {buildBlogSidebarData, findAdjacentPosts} from '@/lib/blog/sidebar';
+import {blogPostHref} from '@/lib/blog/slug';
 import {
     buildBlogPostingJsonLd,
     buildBreadcrumbJsonLd,
@@ -33,6 +34,7 @@ import {
 } from '@/lib/blog/structured-data';
 import {SITE_URL, buildAlternates, buildCanonicalUrl, buildOgImages, truncateDescription} from '@/lib/metadata';
 import {getBlogBySlug, getBlogFaq, getBlogs, type BlogCard} from '@/lib/vendure/blog';
+import {blogFaqOwnerKey, shouldEmitFaqSchema} from '@/lib/vendure/faq';
 
 const SIDEBAR_SOURCE_TAKE = 100;
 
@@ -75,7 +77,8 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
 
     const title = post.metaTitle?.trim() || post.title;
     const description = truncateDescription(post.metaDescription || buildBlogExcerpt(post) || t('description'));
-    const alternates = buildAlternates(locale, `/blog/${post.slug}`);
+    // Hrefs/alternates always use the base slug (src/lib/blog/slug.ts), never the translated one.
+    const alternates = buildAlternates(locale, blogPostHref(post));
     const canonical = toAbsoluteUrl(post.canonicalUrl) || alternates.canonical;
     const featuredImage = post.featuredImage?.source || post.featuredImage?.preview;
     const socialImage = toSocialImage(post.ogImage?.source || post.ogImage?.preview || featuredImage);
@@ -115,7 +118,7 @@ function AdjacentPostLink({post, direction, label}: {post: BlogCard; direction: 
     const Icon = direction === 'newer' ? ArrowLeft : ArrowRight;
     return (
         <Link
-            href={`/blog/${post.slug}`}
+            href={blogPostHref(post)}
             rel={direction === 'newer' ? 'prev' : 'next'}
             className={`group flex flex-col gap-1 rounded-md border border-slate-200 bg-white p-4 transition-colors hover:border-primary ${direction === 'older' ? 'text-right md:items-end' : ''}`}
         >
@@ -155,7 +158,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
     const updatedIso = toIsoDate(post.updatedAt);
     const showUpdated = Boolean(updatedIso && post.publishedAt && updatedIso.slice(0, 10) !== (toIsoDate(post.publishedAt) ?? '').slice(0, 10));
 
-    const otherPosts = sidebarSource.items.filter((item) => item.slug !== post.slug);
+    const otherPosts = sidebarSource.items.filter((item) => item.id !== post.id);
     const sidebarData = buildBlogSidebarData(otherPosts);
     const {newer, older} = findAdjacentPosts(sidebarSource.items, post.slug);
 
@@ -164,7 +167,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
 
     const homeUrl = buildCanonicalUrl(getPathname({locale, href: '/'}));
     const blogUrl = buildCanonicalUrl(getPathname({locale, href: '/blog'}));
-    const postUrl = toAbsoluteUrl(post.canonicalUrl) || buildCanonicalUrl(getPathname({locale, href: `/blog/${post.slug}`}));
+    const postUrl = toAbsoluteUrl(post.canonicalUrl) || buildCanonicalUrl(getPathname({locale, href: blogPostHref(post)}));
 
     const jsonLd: JsonLd[] = [
         buildBreadcrumbJsonLd([
@@ -179,7 +182,9 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
             image: post.ogImage?.source || post.ogImage?.preview || featuredImageUrl,
             inLanguage: toIntlLocale(locale),
         }),
-        ...(hasFaq && faq?.schemaEnabled ? [buildFaqPageJsonLd(faqItems)] : []),
+        // FAQPage schema only when this post is the section's canonical owner (`blog:<slug>`);
+        // a section duplicated onto several pages must emit the schema once.
+        ...(shouldEmitFaqSchema(faq, blogFaqOwnerKey(slug)) ? [buildFaqPageJsonLd(faqItems)] : []),
         ...parseBackendStructuredData(post.structuredData),
     ];
 

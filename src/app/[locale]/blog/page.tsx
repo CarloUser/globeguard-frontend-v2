@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import {cache} from 'react';
 import {Newspaper} from 'lucide-react';
 import {notFound} from 'next/navigation';
 import {getTranslations} from 'next-intl/server';
@@ -18,12 +19,12 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle} from '@/co
 import {Link, getPathname} from '@/i18n/navigation';
 import {toOgLocale} from '@/i18n/locale-utils';
 import {getRouteLocale} from '@/i18n/server';
+import {BLOG_ITEMS_PER_PAGE, blogListHref, parseBlogPage} from '@/lib/blog/paging';
 import {buildBlogListingJsonLd, buildBreadcrumbJsonLd} from '@/lib/blog/structured-data';
 import {buildBlogSidebarData} from '@/lib/blog/sidebar';
 import {SITE_URL, buildAlternates, buildCanonicalUrl} from '@/lib/metadata';
 import {getBlogs} from '@/lib/vendure/blog';
 
-const ITEMS_PER_PAGE = 10;
 const SIDEBAR_SOURCE_TAKE = 100;
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -32,22 +33,35 @@ interface BlogListPageProps {
     searchParams: Promise<SearchParams>;
 }
 
-function parsePage(searchParams: SearchParams): number {
-    const raw = Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page;
-    const parsed = Number.parseInt(String(raw ?? '1'), 10);
-    return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-}
-
-/** `/blog` for page 1, `/blog?page=N` afterwards; used for canonical + hreflang. */
-function listHref(page: number): string {
-    return page > 1 ? `/blog?page=${page}` : '/blog';
-}
+/**
+ * Page + sidebar source for one listing page. Wrapped in React `cache()` with primitive
+ * arguments so `generateMetadata` and the page body share a single pair of shop-API calls
+ * (`getBlogs` itself is cached, but only by object identity of its options argument).
+ */
+const loadBlogListing = cache(async (locale: string, page: number) => {
+    const [pageResult, sidebarSource] = await Promise.all([
+        getBlogs(locale, {take: BLOG_ITEMS_PER_PAGE, skip: (page - 1) * BLOG_ITEMS_PER_PAGE}),
+        getBlogs(locale, {take: SIDEBAR_SOURCE_TAKE}),
+    ]);
+    const totalPages = Math.max(1, Math.ceil(pageResult.totalItems / BLOG_ITEMS_PER_PAGE));
+    return {pageResult, sidebarSource, totalPages};
+});
 
 export async function generateMetadata({searchParams}: BlogListPageProps): Promise<Metadata> {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Blog'});
-    const page = parsePage(await searchParams);
-    const alternates = buildAlternates(locale, listHref(page));
+    const page = parseBlogPage((await searchParams).page);
+    const {totalPages} = await loadBlogListing(locale, page);
+
+    // The page body answers with notFound(); no canonical/hreflang for a URL that 404s.
+    if (page > totalPages) {
+        return {
+            title: t('notFound'),
+            robots: {index: false, follow: false},
+        };
+    }
+
+    const alternates = buildAlternates(locale, blogListHref(page));
     const title = page > 1 ? `${t('metaTitle')} – ${t('pageTitleSuffix', {page})}` : t('metaTitle');
 
     return {
@@ -69,21 +83,16 @@ export async function generateMetadata({searchParams}: BlogListPageProps): Promi
 export default async function BlogListPage({searchParams}: BlogListPageProps) {
     const locale = await getRouteLocale();
     const t = await getTranslations({locale, namespace: 'Blog'});
-    const currentPage = parsePage(await searchParams);
+    const currentPage = parseBlogPage((await searchParams).page);
+    const {pageResult, sidebarSource, totalPages} = await loadBlogListing(locale, currentPage);
 
-    const [pageResult, sidebarSource] = await Promise.all([
-        getBlogs(locale, {take: ITEMS_PER_PAGE, skip: (currentPage - 1) * ITEMS_PER_PAGE}),
-        getBlogs(locale, {take: SIDEBAR_SOURCE_TAKE}),
-    ]);
-
-    const totalPages = Math.max(1, Math.ceil(pageResult.totalItems / ITEMS_PER_PAGE));
     if (currentPage > totalPages) {
         notFound();
     }
 
     const posts = pageResult.items;
     const sidebarData = buildBlogSidebarData(sidebarSource.items);
-    const listUrl = buildCanonicalUrl(getPathname({locale, href: listHref(currentPage)}));
+    const listUrl = buildCanonicalUrl(getPathname({locale, href: blogListHref(currentPage)}));
     const homeUrl = buildCanonicalUrl(getPathname({locale, href: '/'}));
 
     const jsonLd = [
@@ -96,7 +105,7 @@ export default async function BlogListPage({searchParams}: BlogListPageProps) {
             description: t('description'),
             url: listUrl,
             posts,
-            postUrl: (slug) => buildCanonicalUrl(getPathname({locale, href: `/blog/${slug}`})),
+            postUrl: (href) => buildCanonicalUrl(getPathname({locale, href})),
         }),
     ];
 

@@ -1,0 +1,154 @@
+{
+    "Configurator": {
+        "durations": {
+            "day": "1 Tag",
+            "week": "1 Woche",
+            "month": "1 Monat",
+            "year": "1 Jahr"
+        },
+        "licenseGroups": {
+            "stellantis": "SGW-Lizenz Fiat/Stellantis",
+            "mercedes": "SGW-Lizenz Mercedes-Benz",
+            "vag": "SGW-Lizenz VW-Gruppe",
+            "other": "SGW-Lizenz ({detail})"
+        },
+        "cableNames": {
+            "IVE": "Iveco Daily",
+            "FCCA": "Fiat-Gruppe"
+        },
+        "addOn": {
+            "sgwLicense": "{quantity, plural, =1 {} other {#× }}{licenseGroup, select, stellantis {SGW-Lizenz Fiat/Stellantis} mercedes {SGW-Lizenz Mercedes-Benz} vag {SGW-Lizenz VW-Gruppe} other {SGW-Lizenz}} ({duration, select, day {1 Tag} week {1 Woche} month {1 Monat} year {1 Jahr} other {{duration}}})",
+            "sgwCable": "SGW-Bypass-Kabel ({cable})",
+            "proExtension": "PRO Erweiterung – {name}",
+            "proExtensionModule": "PRO Erweiterung – {name}",
+            "cableSet": "Adapterkabel-Set {name}",
+            "trumaCable": "Adapterkabel-Set Truma Combi"
+        },
+        "variant": {
+            "label": "Ausführung",
+            "price": "Preis für diese Ausführung:",
+            "stockUpHint": "{duration, select, day {Tageslizenzen} week {Wochenlizenzen} month {Monatslizenzen} year {Jahreslizenzen} other {Lizenzen}} haben kein Ablaufdatum und eignen sich daher für den Kauf auf Vorrat."
+        },
+        "year": {
+            "fits": "✓ Kompatibel mit Modelljahr {year}",
+            "fitsBrand": "({brand})",
+            "range": "{to, select, none {unterstützt ab {from}} other {unterstützt ab {from} bis {to}}}",
+            "misfit": "Modelljahr {year} wird von diesem Gerät nicht unterstützt",
+            "misfitRange": "{to, select, none {(unterstützt ab {from}).} other {(unterstützt ab {from} bis {to}).}}",
+            "misfitHint": "Bitte prüfen Sie die PRO-Variante für ältere Fahrzeuge."
+        },
+        "sgw": {
+            "heading": "Security-Gateway-Freischaltung (empfohlen)",
+            "requires": "Für {brand} ab Modelljahr {year} benötigt: {requirements} – wird automatisch mit in den Warenkorb gelegt.",
+            "requirementSeparator": " + ",
+            "quantityLabel": "Anzahl wählen",
+            "pieces": "{count} Stück",
+            "durationLabel": "Lizenzdauer wählen",
+            "durationWithPrice": "{label} – {price}",
+            "durationAria": "Lizenzdauer",
+            "unsure": "Sie sind nicht sicher? <sgw>Zur SGW-Kompatibilitätsübersicht</sgw> – Lizenzen können Sie auch jederzeit später unter <services>Services</services> erwerben.",
+            "warning": "Achtung: Ohne SGW-Freischaltung sind Diagnosefunktionen bei diesem Fahrzeug stark eingeschränkt.",
+            "allServicesLink": "Alle SGW-Lizenzen & Services ansehen"
+        },
+        "sgwDialog": {
+            "title": "SGW-Freischaltung wirklich entfernen?",
+            "text": "Ohne Security-Gateway-Freischaltung sind die Diagnosefunktionen bei diesem Fahrzeug stark eingeschränkt: nur lesender Zugriff, keine Aktuatortests, keine Codierungen, keine Service-Rückstellungen. Sie können die Freischaltung auch später erwerben.",
+            "keep": "Freischaltung behalten",
+            "remove": "Ohne Freischaltung fortfahren"
+        },
+        "extension": {
+            "heading": "Für welche Markengruppe ist die Erweiterung?",
+            "label": "Markengruppe wählen",
+            "pleaseSelect": "— Bitte wählen —",
+            "hint": "Die Erweiterung wird für die gewählte Markengruppe auf Ihrem PRO-Gerät aktiviert. Beim Kauf ist ein Software-Update der bereits vorhandenen Marken auf die neueste Version erforderlich.",
+            "ineosNote": "Diese Erweiterung aktiviert die Markengruppe INEOS auf Ihrem PRO-Gerät.",
+            "trumaNote": "Diese Erweiterung aktiviert die Truma-Zusatzausstattungs-Diagnose auf Ihrem PRO-Gerät – sie zählt wie eine Markengruppen-Erweiterung und belegt einen der drei Markenslots.",
+            "missing": "Bitte wählen Sie zuerst die Markengruppe für die Erweiterung."
+        },
+        "extras": {
+            "heading": "Zusatzmarken (PRO Erweiterung) – werden mit in den Warenkorb gelegt:",
+            "moduleSlot": "PRO Erweiterung – {name} (belegt einen Markenslot)",
+            "moduleCablePrompt": "Adapterkabel-Set {name} mitbestellen – erforderlich für die {name}-Diagnose, nicht im Lieferumfang enthalten.",
+            "yearChosen": "(Modelljahr {year})",
+            "yearOpen": "(Modelljahr noch offen)",
+            "sgwPrompt": "SGW-Freischaltung mitbestellen: {requirements}",
+            "bypassShort": "Bypass-Kabel ({detail})",
+            "licenseShort": "SGW-Lizenz",
+            "yearOpenHint": "Modelljahr noch offen? <sgw>Prüfen Sie den SGW-Bedarf in unserer Kompatibilitätsübersicht</sgw> – eine Freischaltung können Sie jederzeit später erwerben."
+        },
+        "truma": {
+            "heading": "Truma-Adapterkabel-Set mitbestellen (empfohlen)",
+            "text": "Für die Truma-Heizungsdiagnose erforderlich – nicht im Lieferumfang enthalten. Wird automatisch mit in den Warenkorb gelegt.",
+            "warning": "Ohne Adapterkabel-Set ist keine Truma-Diagnose möglich."
+        },
+        "eliteMixed": {
+            "heading": "Markengruppen wählen ({count}/{max}, mindestens {min})",
+            "hint": "Wählen Sie 4–10 PKW/VAN-Markengruppen. Nicht genutzte Slots können Sie später nachkaufen – nach Erreichen der 10-Marken-Grenze ist das Gerät gesperrt.",
+            "invalid": "Bitte wählen Sie mindestens {min} Markengruppen, um fortzufahren.",
+            "gridLabel": "Markengruppen"
+        },
+        "eliteSgw": {
+            "heading": "SGW-Freischaltungen (optional, beliebig viele)",
+            "hint": "ELITE deckt viele Marken ab – wählen Sie die Security-Gateway-Zugänge, die Ihr Betrieb benötigt.",
+            "cable": "SGW-Bypass-Kabel ({name})"
+        },
+        "eliteNoSgwDialog": {
+            "title": "Keine SGW-Freischaltung gewählt",
+            "text": "Sie haben keine SGW-Freischaltung gewählt. Ohne Security-Gateway-Zugang sind die Diagnosefunktionen bei Fiat/Stellantis, Mercedes-Benz und der VW-Gruppe stark eingeschränkt. Trotzdem ohne Freischaltung fortfahren?",
+            "cancel": "Zurück",
+            "confirm": "Ohne Freischaltung fortfahren"
+        },
+        "summary": {
+            "heading": "Wird zusätzlich in den Warenkorb gelegt:",
+            "together": "— zusammen",
+            "liveTotal": "Gerät {device} + Optionen {addOns}",
+            "listSeparator": ", "
+        },
+        "warnings": {
+            "extensionBrandMissing": "Bitte wählen Sie zuerst die Markengruppe für die Erweiterung.",
+            "eliteMixedInvalid": "Bitte wählen Sie zuerst mindestens {min} Markengruppen aus."
+        },
+        "cart": {
+            "quantity": "Menge",
+            "addToCart": "In den Warenkorb",
+            "adding": "Wird hinzugefügt...",
+            "added": "Produkt «{name}» wurde in den Warenkorb gelegt!",
+            "addedWithAddOns": "Produkt «{name} (+{count})» wurde in den Warenkorb gelegt!",
+            "viewCart": "Zum Warenkorb",
+            "error": "Die Artikel konnten nicht in den Warenkorb gelegt werden. Bitte versuchen Sie es erneut.",
+            "partialError": "Einige Artikel konnten nicht in den Warenkorb gelegt werden: {message}"
+        },
+        "product": {
+            "articleNumber": "Artikelnummer: {sku}",
+            "inStock": "An Lager",
+            "highlights": "Highlights",
+            "shippingTitle": "Versand aus Cham, Schweiz",
+            "shippingTime": "Lieferung in 2–4 Werktagen",
+            "vatNote": "zzgl. MwSt. – wird an der Kasse nach Lieferland berechnet",
+            "noDescription": "Für dieses Produkt sind noch keine Detailinformationen hinterlegt."
+        },
+        "highlights": {
+            "readClearAll": "Fehler ALLER Steuergeräte lesen & löschen – Klartext wie am Marken-Tester",
+            "allClasses": "Alle Klassen auf einem Gerät: PKW/VAN, LKW, Trailer & Bus",
+            "dpfAdblue": "DPF-/GPF-Regeneration & AdBlue-Wartung – ohne Werkstatt-Termin",
+            "absMaintenance": "ABS-Wartungsfunktionen: Entlüften, Befüllen, Prüfen",
+            "airBrakeTacho": "Druckluftbremse ansteuern & Tachograph-Parameter",
+            "trumaUnlock": "Truma-Diagnose: verriegelte Heizung selbst entsperren",
+            "codingCalibration": "Codieren & Kalibrieren von Sensoren und intelligenten Komponenten",
+            "injectorCoding": "Injektor-Codierung, Sensor-Kalibrierung & Komponenten anlernen",
+            "liveData": "Live-Daten mit Aufzeichnung, Panel- und Diagramm-Ansicht",
+            "remoteDiagnostics": "Ferndiagnose weltweit – im 1. Jahr inklusive"
+        },
+        "vehicleTypes": {
+            "car": "PKW & Van",
+            "moto": "Motorrad",
+            "truck": "LKW",
+            "bus": "Bus",
+            "trailer": "Trailer",
+            "womo": "Wohnmobil",
+            "agrar": "Landmaschinen",
+            "industrial": "Industrie",
+            "all": "Alle Fahrzeugklassen"
+        }
+    }
+}

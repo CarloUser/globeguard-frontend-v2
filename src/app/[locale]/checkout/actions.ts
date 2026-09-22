@@ -10,15 +10,12 @@ import {
     CreateCustomerAddressMutation,
     TransitionOrderToStateMutation,
 } from '@/lib/vendure/mutations';
+import {createMolliePaymentIntent, toMollieLocale} from '@/lib/vendure/mollie';
+import {isMolliePaymentMethod, MOLLIE_PAYMENT_METHOD_CODE} from '@/components/checkout/payment-method-codes';
+import {getSiteUrl} from '@/lib/metadata';
 import {revalidatePath, updateTag} from 'next/cache';
-import {redirect} from '@/i18n/navigation';
+import {getPathname, redirect} from '@/i18n/navigation';
 import {getLocale} from 'next-intl/server';
-
-/**
- * Payment method codes starting with this prefix are handled by the Mollie
- * plugin (Phase 2e). Until then they are rejected at placeOrder time.
- */
-const MOLLIE_PAYMENT_METHOD_CODE_PREFIX = 'mollie';
 
 const GetActiveOrderStateQuery = graphql(`
     query GetActiveOrderState {
@@ -136,10 +133,11 @@ export async function createCustomerAddress(address: AddressInput) {
 }
 
 /**
- * Transition the active order to ArrangingPayment. Idempotent: if the order is
- * already in that state (e.g. after a failed or abandoned payment attempt) this is a no-op.
+ * Transition the active order to ArrangingPayment and return its code. Idempotent: if the
+ * order is already in that state (e.g. after a failed or abandoned payment attempt) this
+ * is a no-op.
  */
-export async function transitionToArrangingPayment() {
+export async function transitionToArrangingPayment(): Promise<string> {
     const current = await query(GetActiveOrderStateQuery, {}, {useAuthToken: true});
     const activeOrder = current.data.activeOrder;
 
@@ -148,7 +146,7 @@ export async function transitionToArrangingPayment() {
     }
 
     if (activeOrder.state === 'ArrangingPayment') {
-        return;
+        return activeOrder.code;
     }
 
     const result = await mutate(
@@ -166,36 +164,48 @@ export async function transitionToArrangingPayment() {
 
     const locale = await getLocale();
     revalidatePath(`/${locale}/checkout`);
+    return activeOrder.code;
 }
 
-export type PlaceOrderResult = { success: false; error: string };
+export type PlaceOrderResult =
+    /** Online payment: the browser must navigate to the Mollie hosted checkout. */
+    | {success: true; redirectUrl: string}
+    | {
+          success: false;
+          /** Which step failed; the review step maps `errorCode` to a translated message. */
+          source: 'transition' | 'mollie' | 'offline';
+          error: string;
+          errorCode?: string;
+      };
 
 /**
  * Places the order with the selected payment method.
  *
- * - Offline payment methods (e.g. invoice / bank transfer handlers configured in the
- *   backend) are added directly via addPaymentToOrder with empty metadata.
- * - Mollie (online) payment is NOT wired yet. See the TODO below.
+ * - 'mollie' (decision A5/O5, the single "Online bezahlen" tile): the order is moved to
+ *   ArrangingPayment (idempotent) and a Mollie payment intent is created with an absolute
+ *   redirectUrl pointing at /order-confirmation/<code>. The Mollie checkout URL is returned
+ *   so the client can do a full `window.location.assign`; the webhook settles the payment.
+ *   addPaymentToOrder is NEVER called for Mollie.
+ * - Offline methods ('invoice' for approved company customers) are added directly via
+ *   addPaymentToOrder with empty metadata and redirect to the confirmation page server-side.
  *
- * On success this redirects to the order confirmation page; on failure it returns
- * an error object so the caller can surface it.
+ * On failure an error object is returned so the caller can surface it.
  */
 export async function placeOrder(paymentMethodCode: string): Promise<PlaceOrderResult | undefined> {
-    if (paymentMethodCode.toLowerCase().startsWith(MOLLIE_PAYMENT_METHOD_CODE_PREFIX)) {
-        // TODO(Phase 2e, Mollie): create the Mollie payment intent via the
-        // `createMolliePaymentIntent` mutation, redirect the customer to the
-        // returned Mollie checkout URL and let the backend webhook settle the
-        // payment. Do NOT call addPaymentToOrder for Mollie methods.
-        return {success: false, error: 'PAYMENT_METHOD_NOT_AVAILABLE'};
-    }
-
+    let orderCode: string;
     try {
-        await transitionToArrangingPayment();
+        orderCode = await transitionToArrangingPayment();
     } catch (error) {
         return {
             success: false,
+            source: 'transition',
+            errorCode: 'ORDER_STATE_TRANSITION_ERROR',
             error: error instanceof Error ? error.message : 'ORDER_STATE_TRANSITION_ERROR',
         };
+    }
+
+    if (isMolliePaymentMethod(paymentMethodCode)) {
+        return startMolliePayment(orderCode);
     }
 
     const result = await mutate(
@@ -211,17 +221,46 @@ export async function placeOrder(paymentMethodCode: string): Promise<PlaceOrderR
 
     if (result.data.addPaymentToOrder.__typename !== 'Order') {
         const errorResult = result.data.addPaymentToOrder;
-        return {success: false, error: `${errorResult.errorCode} - ${errorResult.message}`};
+        return {
+            success: false,
+            source: 'offline',
+            errorCode: errorResult.errorCode,
+            error: `${errorResult.errorCode} - ${errorResult.message}`,
+        };
     }
 
-    const orderCode = result.data.addPaymentToOrder.code;
+    const placedOrderCode = result.data.addPaymentToOrder.code;
 
     // Update the cart tag to immediately invalidate cached cart data
     updateTag('cart');
     updateTag('active-order');
 
     const locale = await getLocale();
-    redirect({href: `/order-confirmation/${orderCode}`, locale});
+    redirect({href: `/order-confirmation/${placedOrderCode}`, locale});
     // redirect() throws; this is only here to satisfy the return type.
     return undefined;
+}
+
+/**
+ * Create the Mollie payment intent for the order that is now in ArrangingPayment.
+ *
+ * The 3.5.5 plugin uses an explicit `redirectUrl` verbatim (the order code is only appended
+ * to the handler's fallback URL), so the absolute confirmation URL including the code is
+ * built here from NEXT_PUBLIC_SITE_URL and the locale-aware pathname.
+ */
+async function startMolliePayment(orderCode: string): Promise<PlaceOrderResult> {
+    const locale = await getLocale();
+    const redirectUrl = `${getSiteUrl()}${getPathname({locale, href: `/order-confirmation/${orderCode}`})}`;
+
+    const outcome = await createMolliePaymentIntent({
+        paymentMethodCode: MOLLIE_PAYMENT_METHOD_CODE,
+        redirectUrl,
+        locale: toMollieLocale(locale),
+    });
+
+    if (!outcome.ok) {
+        return {success: false, source: 'mollie', errorCode: outcome.errorCode, error: outcome.message};
+    }
+
+    return {success: true, redirectUrl: outcome.url};
 }

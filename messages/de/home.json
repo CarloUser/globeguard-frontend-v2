@@ -1,0 +1,53 @@
+{
+    "HomePage": {
+        "seoTitle": "OBD-Diagnosegeräte für alle Marken",
+        "seoDescription": "GlobeGuard – professionelle Fahrzeugdiagnose aus der Schweiz. BASIC und PRO für Privatanwender, ELITE Multibrand-Geräte für Werkstätten. PKW, Motorrad, LKW, Bus und Trailer.",
+        "hero": {
+            "eyebrow": "GlobeGuard",
+            "subtitle": "Professionelle Diagnosegeräte mit Werkstatt-Funktionen für PKW, Motorrad, Reisemobile, LKW und Nutzfahrzeuge.",
+            "ctaFinder": "Fahrzeug prüfen",
+            "ctaProducts": "Geräte entdecken",
+            "proofAria": "GlobeGuard auf einen Blick",
+            "proof": {
+                "tiersLabel": "BASIC, PRO & ELITE",
+                "tiersValue": "Für Privatkunden und Werkstätten",
+                "classesLabel": "PKW bis Trailer",
+                "classesValue": "Markengruppen und Modelljahre",
+                "shippingLabel": "Versand aus Cham",
+                "shippingValue": "Schweizer Shop und Support"
+            }
+        },
+        "b2c": {
+            "title": "Ihr Diagnosegerät in drei Schritten",
+            "subtitle": "Fahrzeugtyp wählen, Marke wählen, Modelljahr prüfen – fertig.",
+            "basicText": "Diagnose für 1 Markengruppe ab Modelljahr 2008. Die kostengünstige Lösung für Besitzer eines Fahrzeugs – auch als WoMo-Ausführung mit Truma-Unterstützung.",
+            "basicCta": "BASIC konfigurieren",
+            "womoText": "1 Markengruppe + Truma Diagnose. PKW/Van + Truma-Zusatzausstattung – für Camper & Wohnmobil-Reisende.",
+            "womoCta": "Zu WoMo",
+            "proText": "Diagnose auf Werkstattniveau ab Modelljahr 1991 – bis zu 3 Markengruppen auf einem Gerät, erweiterbar per PRO Erweiterung. Auch für LKW, Bus, Trailer, Agrar und Industrie.",
+            "proCta": "PRO konfigurieren"
+        },
+        "b2b": {
+            "title": "GlobeGuard ELITE – Multibrand ohne Kompromisse",
+            "subtitle": "Alle Markengruppen einer Fahrzeugklasse auf einem Gerät – vom ELITE Cars Mixed (4–10 Markengruppen) bis zum ELITE Full über alle Klassen.",
+            "cta": "ELITE Geräte ansehen"
+        },
+        "benefits": {
+            "title": "Ihre Vorteile",
+            "sgwTitle": "SGW-Freischaltung inklusive",
+            "sgwText": "Security-Gateway-Zugang für Fiat, Mercedes-Benz und VW-Gruppe – Bypass-Kabel und Lizenzen direkt bei uns erhältlich.",
+            "coverageTitle": "Alle Marken, alle Klassen",
+            "coverageText": "Vom PKW über Motorrad bis LKW, Bus und Trailer – Diagnose auf Werkstattniveau für über 75 Markengruppen.",
+            "shippingChTitle": "Versand aus der Schweiz",
+            "shippingChText": "Schneller Versand in die Schweiz und Liechtenstein direkt aus Cham – Versandkostenfrei und ohne Zollgebühren, keine Überraschungen, Support auf Deutsch.",
+            "shippingDeTitle": "Versand aus unserem deutschen Lager",
+            "shippingDeText": "Schneller Versand in die EU und das weltweite Ausland direkt aus Deutschland. Bitte beachten Sie: Bei Lieferungen ausserhalb der EU können zoll- und länderspezifische Gebühren anfallen.",
+            "updatesTitle": "Updates & Ferndiagnose",
+            "updatesText": "Software-Updates für jedes Gerät und Ferndiagnose-Service, wenn Sie Unterstützung brauchen – Ihr Gerät bleibt aktuell."
+        },
+        "news": {
+            "title": "Aktuelle Neuigkeiten",
+            "viewAll": "Alle Beiträge"
+        }
+    }
+}
