@@ -10,8 +10,10 @@
 //
 // Expected outcomes, all of them asserted:
 //   * a mapped URL answers 301 with exactly the mapped destination;
-//   * an entry whose destination equals its source is NOT a redirect (the new site kept that URL),
-//     so it must answer 200 - emitting a rule for it would be an infinite loop;
+//   * an entry whose source is a route the storefront serves itself is NOT redirected. That covers
+//     the URLs the new site kept unchanged (/faq, /impressum, /support, /en/cart), where a rule
+//     would loop, and the ones whose meaning changed (/en/checkout, which the old site sent to the
+//     cart), where a rule would make the page unreachable;
 //   * the five Download-Monitor query URLs answer 301 to /support; Next forwards the original
 //     query string to the destination, which is harmless and expected;
 //   * the trailing-slash form every old URL was indexed under resolves, in at most two hops
@@ -24,6 +26,29 @@ import process from 'node:process';
 const base = (process.argv[2] || 'http://localhost:3200').replace(/\/$/, '');
 const map = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/redirect-map.json'), 'utf8'));
 const normalise = value => value.split('?')[0].replace(/\/$/, '') || '/';
+const withoutLocale = value => value.replace(/^\/en(?=\/|$)/, '') || '/';
+
+// The same rule next.config.ts applies, derived from the same place, so the two cannot drift.
+function ownRoutes() {
+    const routes = new Set();
+    const walk = (dir, prefix) => {
+        for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
+            if (!entry.isDirectory() || /^[[(_]/.test(entry.name)) {
+                continue;
+            }
+            const routePath = `${prefix}/${entry.name}`;
+            const child = path.join(dir, entry.name);
+            if (fs.existsSync(path.join(child, 'page.tsx'))) {
+                routes.add(routePath);
+            }
+            walk(child, routePath);
+        }
+    };
+    walk(path.join(process.cwd(), 'src', 'app', '[locale]'), '');
+    return routes;
+}
+
+const own = ownRoutes();
 
 let failures = 0;
 const fail = message => {
@@ -49,13 +74,18 @@ let redirects = 0;
 let kept = 0;
 for (const entry of map) {
     const source = normalise(entry.from);
-    const isKeptUrl = !entry.from.includes('?') && source === normalise(entry.to);
+    const isOwnRoute =
+        !entry.from.includes('?') && (source === normalise(entry.to) || own.has(withoutLocale(source)));
     const {status, location} = await head(base + entry.from);
 
-    if (isKeptUrl) {
+    if (isOwnRoute) {
         kept += 1;
-        if (status !== 200) {
-            fail(`${entry.from} answered ${status}; the new site kept this URL, so it must serve 200 (a rule here loops)`);
+        // 200 for a page, or the app's own 307 (e.g. /checkout sending a signed-out visitor to
+        // /sign-in). What must never happen is the map's 301 taking the URL away from the app.
+        if (status === 301) {
+            fail(`${entry.from} answered 301 -> ${location}; the storefront serves this route itself`);
+        } else if (status !== 200 && status !== 307 && status !== 308) {
+            fail(`${entry.from} answered ${status}; the storefront serves this route itself, expected 200 or its own redirect`);
         }
         continue;
     }
@@ -72,10 +102,12 @@ for (const entry of map) {
         fail(`${entry.from} -> ${location}, expected ${entry.to}`);
     }
 }
-console.log(`  ${redirects} redirect(s) checked, ${kept} kept URL(s) confirmed as 200`);
+console.log(`  ${redirects} redirect(s) checked, ${kept} URL(s) confirmed as still owned by the storefront`);
 
 console.log('\n2. the trailing-slash form the old site served');
-const sample = map.filter(e => !e.from.includes('?') && normalise(e.from) !== '/' && normalise(e.from) !== normalise(e.to));
+const sample = map.filter(
+    e => !e.from.includes('?') && normalise(e.from) !== '/' && normalise(e.from) !== normalise(e.to) && !own.has(withoutLocale(normalise(e.from))),
+);
 for (const entry of [sample[0], sample[Math.floor(sample.length / 2)], sample[sample.length - 1]].filter(Boolean)) {
     const {status, url} = await follow(`${base}${normalise(entry.from)}/`);
     if (status !== 200 || normalise(url) !== normalise(entry.to)) {
