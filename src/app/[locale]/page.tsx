@@ -79,7 +79,7 @@ export default async function Home() {
     const jsonLd = [buildOrganizationJsonLd(), buildWebSiteJsonLd()];
 
     return (
-        <main className="flex w-full flex-col bg-slate-50">
+        <main id="main-content" className="flex w-full flex-col bg-slate-50">
             <JsonLdScript data={jsonLd} />
 
             <HomeHero locale={locale} />

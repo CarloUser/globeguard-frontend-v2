@@ -56,7 +56,7 @@ export default async function SignInPage({searchParams}: PageProps<'/[locale]/si
     const t = await getTranslations({locale, namespace: 'Auth'});
 
     return (
-        <div className="flex min-h-[calc(100vh-4rem)] mt-16">
+        <main id="main-content" className="flex min-h-[calc(100vh-4rem)] mt-16">
             {/* Branded panel - desktop only */}
             <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary to-primary/70 items-center justify-center p-12 rounded-br-3xl">
                 <div className="max-w-md text-primary-foreground space-y-6">
@@ -82,6 +82,6 @@ export default async function SignInPage({searchParams}: PageProps<'/[locale]/si
                     </Suspense>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

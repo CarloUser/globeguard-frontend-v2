@@ -27,7 +27,7 @@ export default async function TrackOrderPage() {
     const t = await getTranslations({locale, namespace: 'Tracking'});
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <div className="container mx-auto px-4 pb-16">
                 <div className="mx-auto max-w-xl space-y-8">
                     <div className="space-y-2 text-center">

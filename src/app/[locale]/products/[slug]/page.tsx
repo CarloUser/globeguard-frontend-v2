@@ -217,7 +217,7 @@ export default async function ProductDetailPage({params, searchParams}: ProductP
     ]);
 
     return (
-        <>
+        <main id="main-content">
             <JsonLdScript data={productJsonLd ? [productJsonLd, breadcrumbJsonLd] : [breadcrumbJsonLd]} />
             <div className="bg-grid pt-12">
                 <div className="container mx-auto px-4 pb-12 pt-4 lg:px-8">
@@ -280,6 +280,6 @@ export default async function ProductDetailPage({params, searchParams}: ProductP
                     currentProductId={product.id}
                 />
             )}
-        </>
+        </main>
     );
 }

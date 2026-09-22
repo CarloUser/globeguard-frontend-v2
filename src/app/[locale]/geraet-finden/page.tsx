@@ -56,7 +56,7 @@ export default async function GeraetFindenPage() {
     );
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <PageHeader title={t('heading')} subtitle={t('subtitle')} />
 
             <section className="py-8 md:py-12">

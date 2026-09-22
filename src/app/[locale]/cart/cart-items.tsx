@@ -53,9 +53,11 @@ export async function CartItems({
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="mx-auto max-w-md text-center">
-          <h1 className="mb-4 text-3xl font-bold text-foreground">
+          {/* h2, not h1: the page already has one ("Warenkorb"), and two h1 elements leave a
+              screen-reader user without a single title for the document. */}
+          <h2 className="mb-4 text-3xl font-bold text-foreground">
             {t("empty")}
-          </h1>
+          </h2>
           <p className="mb-8 text-muted-foreground">{t("emptyMessage")}</p>
           <Button render={<Link href="/search" />} nativeButton={false}>
             {t("continueShopping")}

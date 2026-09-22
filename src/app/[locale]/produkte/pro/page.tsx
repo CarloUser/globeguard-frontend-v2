@@ -56,7 +56,7 @@ export default async function ProduktePro() {
     ]);
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <PageHeader title={t('title')} subtitle={t('subtitle')}>
                 <span className="text-mono-label mt-4 inline-flex rounded-sm bg-slate-100 px-2 py-1 text-slate-600">
                     {t('badge')}

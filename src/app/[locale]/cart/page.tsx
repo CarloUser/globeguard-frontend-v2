@@ -21,7 +21,7 @@ export default async function CartPage() {
   const t = await getTranslations({ locale, namespace: "Cart" });
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-8">
+    <main id="main-content" className="min-h-screen bg-slate-50 pt-8">
       <div className="container mx-auto px-4 py-8 lg:px-8 lg:py-10">
         <div className="mb-8">
           <h1 className="text-4xl font-bold tracking-tight text-foreground">
@@ -36,6 +36,6 @@ export default async function CartPage() {
           <Cart />
         </Suspense>
       </div>
-    </div>
+    </main>
   );
 }

@@ -189,7 +189,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
     ];
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <JsonLdScript data={jsonLd} />
 
             <section className="border-b border-slate-200 bg-white">

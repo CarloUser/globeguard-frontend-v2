@@ -25,7 +25,10 @@ async function FooterLinkColumn({
 }) {
     return (
         <div>
-            <h4 className={headingClassName}>{title}</h4>
+            {/* h2, not h4: these are the footer landmark's own top-level sections. As h4 they
+               followed the page h1 directly on every page whose content has no h2, which is a
+               two-level jump for anyone navigating by headings. The look is in the class. */}
+            <h2 className={headingClassName}>{title}</h2>
             <ul className="space-y-2 text-sm">
                 {items.map((item) => (
                     <li key={item.href}>
@@ -54,7 +57,7 @@ export async function Footer({locale}: {locale: string}) {
                     <FooterLinkColumn title={t('legal')} items={FOOTER_LEGAL_LINKS} locale={locale} labels={tNav} />
 
                     <div>
-                        <h4 className={headingClassName}>{t('contact')}</h4>
+                        <h2 className={headingClassName}>{t('contact')}</h2>
                         <address className="space-y-1 text-sm not-italic text-secondary-foreground/80">
                             <p className="font-semibold text-secondary-foreground">{name}</p>
                             <p>{address.street}</p>

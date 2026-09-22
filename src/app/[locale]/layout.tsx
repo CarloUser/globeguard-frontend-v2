@@ -97,12 +97,24 @@ export default async function LocaleLayout({children, params}: {children: React.
     const displayCurrencyCookie = (await cookies()).get(DISPLAY_CURRENCY_COOKIE)?.value;
     const initialCurrency = isDisplayCurrency(displayCurrencyCookie) ? displayCurrencyCookie : undefined;
 
+    const tNav = await getTranslations({locale, namespace: "Navigation"});
+
     return (
         <html lang={locale} data-scroll-behavior="smooth">
             <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased flex flex-col min-h-screen`}>
                 {/* No Suspense boundary around the page: a boundary here would let Next flush the
                     shell with HTTP 200 before a page's notFound() runs, so 404s would only be
                     "soft" (client-side). The navbar keeps its own boundaries for the async slots. */}
+                {/* First focusable element on every page: a keyboard or screen-reader visitor can
+                    jump past the navbar instead of tabbing through it on every navigation. It is
+                    off-screen until focused (focus:not-sr-only). Every page gives its own main
+                    landmark the id this points at. */}
+                <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white"
+                >
+                    {tNav("skipToContent")}
+                </a>
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <DisplayCurrencyProvider initialCurrency={initialCurrency}>
                         <Navbar />

@@ -114,7 +114,7 @@ export default async function CategoryPage({params}: CategoryPageProps) {
     const showSectionTitles = sections.length > 1;
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <section className="border-b border-slate-200 bg-white">
                 <div className="container mx-auto max-w-6xl px-4 py-10 lg:px-8">
                     <Breadcrumb className="mb-6">

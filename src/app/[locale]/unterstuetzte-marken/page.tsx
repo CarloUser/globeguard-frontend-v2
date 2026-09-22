@@ -38,7 +38,7 @@ export default async function SupportedBrandsPage() {
     const totalGroups = sections.reduce((sum, section) => sum + section.groups.length, 0);
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <section className="border-b border-slate-200 bg-white">
                 <div className="container mx-auto max-w-5xl px-4 py-10 lg:px-8">
                     <h1 className="text-3xl font-bold text-foreground md:text-4xl">{t('title')}</h1>

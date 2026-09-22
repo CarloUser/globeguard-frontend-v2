@@ -50,7 +50,7 @@ test('ELITE Cars Mixed blocks below four brand groups and stores the selection o
     // absent would also pass while it simply had not rendered yet, so assert the observable
     // end state instead: the cart page still shows its empty state.
     await page.goto('/cart');
-    await expect(page.getByRole('heading', {level: 1, name: 'Ihr Warenkorb ist leer'})).toBeVisible({timeout: 30_000});
+    await expect(page.getByRole('heading', {level: 2, name: 'Ihr Warenkorb ist leer'})).toBeVisible({timeout: 30_000});
 
     // Back to the configurator. A fresh load drops the client-side selection, so the three
     // groups are picked again together with the fourth that lifts the block.

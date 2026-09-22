@@ -18,7 +18,7 @@ export default function LocaleError({error, reset}: {error: Error & {digest?: st
     }, [error]);
 
     return (
-        <main className="container mx-auto flex min-h-[50vh] flex-col items-center justify-center px-4 py-24 text-center">
+        <main id="main-content" className="container mx-auto flex min-h-[50vh] flex-col items-center justify-center px-4 py-24 text-center">
             <h1 className="text-2xl font-bold text-foreground">{t('errorTitle')}</h1>
             <p className="mt-3 max-w-md text-muted-foreground">{t('errorBody')}</p>
             <Button className="mt-8" onClick={() => reset()}>

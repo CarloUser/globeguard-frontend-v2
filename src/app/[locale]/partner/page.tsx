@@ -33,7 +33,7 @@ export default async function PartnerPage() {
     const groups = groupStoreLocationsByType(locations);
 
     return (
-        <main className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50 pt-32">
             <section className="border-b border-slate-200 bg-white">
                 <div className="container mx-auto max-w-5xl px-4 py-10 lg:px-8">
                     <Link href="/support" className="inline-flex items-center text-sm font-semibold text-primary hover:underline">
