@@ -68,11 +68,11 @@ export default function DeliveryStep({ onComplete }: DeliveryStepProps) {
 
       <RadioGroup value={selectedMethodId || ''} onValueChange={setSelectedMethodId}>
         {shippingMethods.map((method) => (
-          <Label key={method.id} htmlFor={method.id} className="cursor-pointer">
+          <Label key={method.id} htmlFor={`shipping-method-${method.id}`} className="cursor-pointer">
             <Card className="p-4">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3 flex-1">
-                  <RadioGroupItem value={method.id} id={method.id} />
+                  <RadioGroupItem value={method.id} id={`shipping-method-${method.id}`} />
                   <Truck className="h-5 w-5 text-muted-foreground" />
                   <div>
                     <p className="font-medium">{method.name}</p>

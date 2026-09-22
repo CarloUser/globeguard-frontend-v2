@@ -135,8 +135,8 @@ export default function ShippingAddressStep({ onComplete }: ShippingAddressStepP
           <RadioGroup value={selectedAddressId || ''} onValueChange={setSelectedAddressId}>
             {addresses.map((address) => (
               <div key={address.id} className="flex items-start space-x-3">
-                <RadioGroupItem value={address.id} id={address.id} className="mt-1" />
-                <Label htmlFor={address.id} className="flex-1 cursor-pointer">
+                <RadioGroupItem value={address.id} id={`shipping-address-${address.id}`} className="mt-1" />
+                <Label htmlFor={`shipping-address-${address.id}`} className="flex-1 cursor-pointer">
                   <Card className="p-4">
                     <div className="leading-tight space-y-0">
                       <p className="font-medium">{address.fullName}</p>

@@ -1,0 +1,187 @@
+# GlobeGuard storefront - continuous integration.
+#
+# Quality gates only. This workflow never deploys, never talks to a running
+# backend and needs no repository secrets. Deployment stays manual and is
+# documented in the workspace docs/DEPLOY.md.
+#
+# The four gates and what each one proves are described in docs/CI.md.
+
+name: Frontend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# One run per branch / pull request; a new push supersedes the previous run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Typecheck, lint, unit tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node 22 (the major the Dockerfile builds on)
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        env:
+          # @playwright/test is a devDependency, but this workflow never runs the
+          # end-to-end suite (see the commented job at the bottom), so the browser
+          # download is dead weight here.
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm ci
+
+      - name: Generate Next.js route types
+        # next-env.d.ts and .next/types/* are gitignored and both are pulled in by
+        # tsconfig.json, so a clean checkout has neither. `next typegen` writes them
+        # without a full build, which is what makes the typecheck below see the same
+        # types a developer sees locally.
+        run: npx next typegen
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      # The Playwright specs in e2e/ are excluded from the Next tsconfig and the suite itself is run manually against a live stack (see the disabled job below), so this is their only automated gate.
+      - name: Typecheck (e2e)
+        run: npx tsc --noEmit -p e2e/tsconfig.json
+
+      - name: Lint
+        run: npx eslint .
+
+      - name: Unit tests (vitest)
+        run: npm test
+
+      - name: Build (next build, standalone output)
+        env:
+          # Baked into the client bundle at build time. CI only proves that the
+          # build succeeds, so these are the .env.example development values and
+          # never a real environment - the beta and production bundles are built
+          # with their own NEXT_PUBLIC_SITE_URL (see docs/DEPLOY.md 4.6 and 4.9).
+          NEXT_PUBLIC_SITE_NAME: GlobeGuard
+          NEXT_PUBLIC_SITE_URL: http://localhost:3001
+        run: npm run build
+
+# ---------------------------------------------------------------------------
+# End-to-end tests (Playwright) - deliberately not enabled.
+#
+# The suite in e2e/ drives the whole stack: a seeded PostgreSQL, the Vendure
+# backend on :3000 and the standalone storefront on :3200. That means a second
+# repository, a catalogue seed of several minutes and a browser download, so it
+# does not belong in the gate that every pull request waits for.
+#
+# To switch it on later, uncomment the job below and add a token that can read
+# the private backend repository. Everything else already matches the local
+# recipe in the workspace STATE.md section 5.
+#
+#  e2e:
+#    name: End-to-end (Playwright)
+#    runs-on: ubuntu-latest
+#    needs: verify
+#    timeout-minutes: 40
+#    permissions:
+#      contents: read
+#    services:
+#      postgres:
+#        image: postgres:16
+#        env:
+#          POSTGRES_USER: postgres
+#          POSTGRES_PASSWORD: postgres
+#          POSTGRES_DB: globeguard
+#        ports:
+#          - 5432:5432
+#        options: >-
+#          --health-cmd "pg_isready -U postgres -d globeguard"
+#          --health-interval 10s
+#          --health-timeout 5s
+#          --health-retries 10
+#    steps:
+#      - name: Check out the storefront
+#        uses: actions/checkout@v5
+#        with:
+#          path: globeguard-frontend
+#      - name: Check out the backend
+#        uses: actions/checkout@v5
+#        with:
+#          repository: CarloUser/globeguard-backend
+#          ref: main
+#          path: globeguard-backend
+#          token: ${{ secrets.BACKEND_CHECKOUT_TOKEN }}
+#      - uses: actions/setup-node@v5
+#        with:
+#          node-version: '22'
+#      - name: Build, seed and start the backend on :3000
+#        working-directory: globeguard-backend
+#        env:
+#          APP_ENV: test
+#          PORT: '3000'
+#          SEED_CATALOG: 'true'
+#          REDIS_DISABLED: 'true'
+#          DB_HOST: 127.0.0.1
+#          DB_PORT: '5432'
+#          DB_NAME: globeguard
+#          DB_USERNAME: postgres
+#          DB_PASSWORD: postgres
+#          COOKIE_SECRET: ci-cookie-secret-not-a-real-secret
+#          SUPERADMIN_USERNAME: superadmin
+#          SUPERADMIN_PASSWORD: ci-superadmin-not-a-real-secret
+#        run: |
+#          set -euo pipefail
+#          npm ci
+#          npm run build:server            # tsc only, the dashboard is not needed
+#          mkdir -p static/assets static/email/test-emails
+#          node dist/index.js > "$RUNNER_TEMP/backend.log" 2>&1 &
+#          for _ in $(seq 1 120); do
+#            curl -fsS --max-time 5 http://127.0.0.1:3000/health && break
+#            sleep 5
+#          done
+#      - name: Build and start the storefront on :3200
+#        working-directory: globeguard-frontend
+#        env:
+#          NEXT_TELEMETRY_DISABLED: '1'
+#          NEXT_PUBLIC_SITE_NAME: GlobeGuard
+#          NEXT_PUBLIC_SITE_URL: http://localhost:3200
+#        run: |
+#          set -euo pipefail
+#          npm ci
+#          npm run build
+#          cp -r .next/static .next/standalone/.next/static
+#          cp -r public .next/standalone/public
+#          cp -r messages .next/standalone/messages
+#          cd .next/standalone
+#          PORT=3200 HOSTNAME=0.0.0.0 \
+#            VENDURE_SHOP_API_URL=http://127.0.0.1:3000/shop-api \
+#            NEXT_PUBLIC_SITE_URL=http://localhost:3200 \
+#            node server.js > "$RUNNER_TEMP/storefront.log" 2>&1 &
+#          for _ in $(seq 1 60); do
+#            curl -fsS --max-time 5 http://127.0.0.1:3200/api/health && break
+#            sleep 2
+#          done
+#      - name: Run Playwright
+#        working-directory: globeguard-frontend
+#        run: |
+#          npx playwright install --with-deps chromium
+#          npx playwright test
+#      - name: Upload the Playwright report
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: playwright-report
+#          path: globeguard-frontend/playwright-report
+#          retention-days: 7

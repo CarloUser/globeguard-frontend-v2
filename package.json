@@ -8,10 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "check-types": "tsc --noEmit",
-    "check": "npm run check-types && npm run lint && npm run build",
+    "check-types:e2e": "tsc --noEmit -p e2e/tsconfig.json",
+    "check": "npm run check-types && npm run check-types:e2e && npm run lint && npm run build",
     "analyze": "next experimental-analyze",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -39,6 +42,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",

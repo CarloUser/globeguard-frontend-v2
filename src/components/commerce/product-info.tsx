@@ -178,17 +178,23 @@ export function ProductInfo({product, searchParams, currencyCode = ORDER_CURRENC
                                     onValueChange={(value) => handleOptionChange(group.id, value)}
                                 >
                                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                                        {group.options.map((option) => (
-                                            <div key={option.id}>
-                                                <RadioGroupItem value={option.id} id={option.id} className="peer sr-only" />
-                                                <Label
-                                                    htmlFor={option.id}
-                                                    className="block cursor-pointer rounded-md border border-border p-3 text-left transition-all hover:border-primary/50 peer-data-[checked]:border-primary peer-data-[checked]:bg-primary/5 peer-data-[checked]:ring-1 peer-data-[checked]:ring-primary"
-                                                >
-                                                    <div className="text-sm font-bold text-foreground">{option.name}</div>
-                                                </Label>
-                                            </div>
-                                        ))}
+                                        {group.options.map((option) => {
+                                            // Namespaced so the raw Vendure entity id cannot collide with
+                                            // another DOM id on the page (same rule as payment-step.tsx).
+                                            const optionId = `product-option-${option.id}`;
+
+                                            return (
+                                                <div key={option.id}>
+                                                    <RadioGroupItem value={option.id} id={optionId} className="peer sr-only" />
+                                                    <Label
+                                                        htmlFor={optionId}
+                                                        className="block cursor-pointer rounded-md border border-border p-3 text-left transition-all hover:border-primary/50 peer-data-[checked]:border-primary peer-data-[checked]:bg-primary/5 peer-data-[checked]:ring-1 peer-data-[checked]:ring-primary"
+                                                    >
+                                                        <div className="text-sm font-bold text-foreground">{option.name}</div>
+                                                    </Label>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </RadioGroup>
                             </div>

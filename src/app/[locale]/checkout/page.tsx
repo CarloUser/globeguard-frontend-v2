@@ -40,11 +40,12 @@ export default async function CheckoutPage() {
     }
 
     // Orders are always in the channel currency (CHF); no currencyCode override.
-    // Shipping/payment method names are localised via the request languageCode.
+    // Product, country, shipping and payment names are translatable, so every query has to
+    // carry the request languageCode - without it the English checkout shows German names.
     const [orderRes, addressesRes, countries, shippingMethodsRes, paymentMethodsRes] =
         await Promise.all([
-            query(GetActiveOrderForCheckoutQuery, {}, {useAuthToken: true}),
-            query(GetCustomerAddressesQuery, {}, {useAuthToken: true}),
+            query(GetActiveOrderForCheckoutQuery, {}, {useAuthToken: true, languageCode: locale}),
+            query(GetCustomerAddressesQuery, {}, {useAuthToken: true, languageCode: locale}),
             getAvailableCountriesCached(locale),
             query(GetEligibleShippingMethodsQuery, {}, {useAuthToken: true, languageCode: locale}),
             query(GetEligiblePaymentMethodsQuery, {}, {useAuthToken: true, languageCode: locale}),
