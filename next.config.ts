@@ -175,9 +175,24 @@ function buildRedirects(): RedirectRule[] {
     return rules;
 }
 
+// Serve the backend's /assets on the storefront's own origin.
+//
+// Only set this where the backend is NOT reachable at the same URL from the browser and from the
+// server — which is exactly the Docker stack: the browser resolves localhost:3000 to the published
+// backend port, while inside the frontend container localhost is the container itself, so
+// next/image's server-side fetch fails and every product image 400s. With this set to
+// http://server:3000, ASSET_URL_PREFIX can be the storefront's own origin and one URL works from
+// both sides.
+//
+// Left unset in production: the konsoleH supervisor already routes /assets to Vendure on the same
+// public origin, so Next never sees those requests.
+const assetOrigin = (process.env.VENDURE_ASSET_ORIGIN || '').trim().replace(/\/$/, '');
+
 const nextConfig: NextConfig = {
     output: 'standalone',
     redirects: async () => buildRedirects(),
+    rewrites: async () =>
+        assetOrigin ? [{source: '/assets/:path*', destination: `${assetOrigin}/assets/:path*`}] : [],
     // messages/<locale>/*.json are read with fs at request time (src/i18n/request.ts), so they
     // are not discovered by the file tracer and must be added to the standalone output explicitly.
     outputFileTracingIncludes: {

@@ -1,6 +1,10 @@
 # GlobeGuard storefront — Claude working notes
 
-> **New session? Read `C:/GlobeGuard/STATE.md` first** - it is the running state of the whole merge (layout, decisions, phase status, how to start the stack, gotchas). Then this file for the rules inside this repo.
+> **This repo is one of three.** It is built and run from the workspace one directory up
+> (`../docker-compose.yml`). New machine: `../ONBOARDING.md`. New session: `../STATE.md` is the
+> running state of the whole merge (layout, decisions, status, how to start the stack, gotchas).
+> Before you start and before you push: `../docs/TODO.md`, the shared to-do list. Then this file
+> for the rules that apply inside this repo.
 
 Last verified against code: 2026-09-22. Workspace docs: `C:/GlobeGuard/docs/` (PROGRESS.md, DECISIONS.md, MERGE-PLAN.md, DEPLOY.md). Read DECISIONS.md before changing behaviour.
 
@@ -48,6 +52,8 @@ npm run dev                  # port 3001, expects the backend on http://localhos
 npx tsc --noEmit && npx eslint . && npm test     # gates
 npm run build                # next build (standalone output); build does not need the backend
 npm run test:e2e             # Playwright against E2E_BASE_URL (default http://localhost:3200)
+npm run audit:a11y           # structural accessibility of 12 rendered pages; exits non-zero on a finding
+npm run verify:redirects     # the 203 old WooCommerce URLs against a running host (also the cutover check)
 node node_modules/gql.tada/bin/cli.js generate-output   # regenerate src/graphql-env.d.ts from the running backend
                              # (the .cmd shim prints nothing under Git Bash)
 npx next typegen             # refresh route types after adding/moving routes
@@ -55,10 +61,12 @@ npx next typegen             # refresh route types after adding/moving routes
 
 Standalone run (what Docker and the Hetzner supervisor do): after `next build`, copy `.next/static` to `.next/standalone/.next/static` and `public` to `.next/standalone/public`, then `PORT=3100 HOSTNAME=0.0.0.0 VENDURE_SHOP_API_URL=… NEXT_PUBLIC_SITE_URL=… node .next/standalone/server.js`. Do not set `HOSTNAME=127.0.0.1` (redirect loop with next-intl). `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_ASSET_HOST` are build-time values for the client bundle; `VENDURE_SHOP_API_URL` is read at request time. For a local standalone run add `ALLOW_LOCAL_IMAGE_HOSTS=true` at build time (next/image refuses a private-IP upstream in a production build, so product images would 400) and copy the sharp DLLs the tracer misses on Windows — `cp node_modules/@img/sharp-win32-x64/lib/*.dll .next/standalone/node_modules/@img/sharp-win32-x64/lib/` then `rm -rf .next/standalone/.next/cache/images`. Without them sharp cannot load and **next/image silently serves the originals** (634 KB hero instead of 17 KB); see `docs/DEPLOY.md` § Images.
 
+`VENDURE_ASSET_ORIGIN` (build-time) makes the storefront serve the backend's `/assets/*` on its own origin by rewriting them to that origin. It exists for the Docker stack, where the backend is not reachable at one URL from both the browser and the server: `ASSET_URL_PREFIX` is then the storefront's origin and one URL works for both. Unset everywhere else — on Hetzner the supervisor already routes `/assets` to Vendure on the same public origin.
+
 ## Payments
 
 Single Mollie tile "Online bezahlen" (method code `mollie`, provisioned by the backend from `MOLLIE_API_KEY`) plus invoice for approved company customers. The review step calls `createMolliePaymentIntent` and redirects externally; `/order-confirmation/[code]` polls the order state (the 3.5.5 plugin has no status-sync mutation). Without a Mollie key the payment step explains that no method is available.
 
 ## Open items (see docs/PROGRESS.md)
 
-Legal texts (Impressum details, AGB, Datenschutz, Widerruf) are placeholders pending the owner; blog slugs must stay identical in de/en (O8); Product JSON-LD not yet wired; header mini-cart does not exist.
+Legal texts (Impressum details, AGB, Datenschutz, Widerruf) are placeholders pending the owner; blog slugs must stay identical in de/en (O8); header mini-cart does not exist. The live list is `../docs/TODO.md`.

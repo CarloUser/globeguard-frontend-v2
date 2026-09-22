@@ -28,9 +28,15 @@ WORKDIR /app
 ARG NEXT_PUBLIC_SITE_NAME=GlobeGuard
 ARG NEXT_PUBLIC_SITE_URL=http://localhost:3100
 ARG NEXT_PUBLIC_ASSET_HOST=
+# Both of these are baked into the build and only make sense where the backend is not reachable at
+# one URL from both the browser and the server — i.e. the compose stack. See next.config.ts.
+ARG VENDURE_ASSET_ORIGIN=
+ARG ALLOW_LOCAL_IMAGE_HOSTS=
 ENV NEXT_PUBLIC_SITE_NAME=$NEXT_PUBLIC_SITE_NAME \
     NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
     NEXT_PUBLIC_ASSET_HOST=$NEXT_PUBLIC_ASSET_HOST \
+    VENDURE_ASSET_ORIGIN=$VENDURE_ASSET_ORIGIN \
+    ALLOW_LOCAL_IMAGE_HOSTS=$ALLOW_LOCAL_IMAGE_HOSTS \
     NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
