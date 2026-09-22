@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import {getTranslations} from 'next-intl/server';
-import {JsonLdScript} from '@/components/blog/json-ld';
+import {JsonLdScript} from '@/components/seo/json-ld';
 import {FaqSection} from '@/components/faq/faq-section';
 import {Benefits} from '@/components/home/benefits';
 import {EliteBand} from '@/components/home/elite-band';

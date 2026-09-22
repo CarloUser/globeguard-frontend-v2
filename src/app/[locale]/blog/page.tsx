@@ -5,7 +5,7 @@ import {notFound} from 'next/navigation';
 import {getTranslations} from 'next-intl/server';
 import {BlogPagination} from '@/components/blog/blog-pagination';
 import {BlogSidebar} from '@/components/blog/blog-sidebar';
-import {JsonLdScript} from '@/components/blog/json-ld';
+import {JsonLdScript} from '@/components/seo/json-ld';
 import {PostCard} from '@/components/blog/post-card';
 import {
     Breadcrumb,

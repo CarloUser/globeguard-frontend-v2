@@ -6,7 +6,7 @@ import {getTranslations} from 'next-intl/server';
 import {BlogContent} from '@/components/blog/blog-content';
 import {BlogFaq} from '@/components/blog/blog-faq';
 import {BlogSidebar} from '@/components/blog/blog-sidebar';
-import {JsonLdScript} from '@/components/blog/json-ld';
+import {JsonLdScript} from '@/components/seo/json-ld';
 import {PostMeta} from '@/components/blog/post-meta';
 import {Badge} from '@/components/ui/badge';
 import {

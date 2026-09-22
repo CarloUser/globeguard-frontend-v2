@@ -4,7 +4,7 @@ import {SITE_NAME, SITE_URL, buildCanonicalUrl} from '@/lib/metadata';
  * Site-wide schema.org builders (Organization, WebSite, BreadcrumbList, Product offer),
  * ported from the old storefront's services/seo/structured-data.ts. Blog-specific types
  * live in src/lib/blog/structured-data.ts. Render the result with `<JsonLdScript/>`
- * (src/components/blog/json-ld.tsx); every URL is absolute.
+ * (src/components/seo/json-ld.tsx); every URL is absolute.
  */
 
 export type JsonLd = Record<string, unknown>;
@@ -125,6 +125,15 @@ export interface ProductJsonLdInput {
     images?: readonly (string | null | undefined)[];
     /** Unit price in minor units (Rappen). Prices are NET; see `priceIncludesVat`. */
     priceMinorUnits: number;
+    /**
+     * Highest variant price in minor units, when the product has variants at different prices.
+     * Set it and the offer becomes an AggregateOffer over `priceMinorUnits`..`highPriceMinorUnits`,
+     * which is what Google expects from a page that shows a price range ("ab CHF …"). Equal to
+     * `priceMinorUnits` or omitted means a single Offer.
+     */
+    highPriceMinorUnits?: number;
+    /** Number of variants behind an AggregateOffer. */
+    offerCount?: number;
     currencyCode?: string;
     /** Whether `priceMinorUnits` already includes VAT (the shop quotes NET prices). */
     priceIncludesVat?: boolean;
@@ -133,14 +142,51 @@ export interface ProductJsonLdInput {
 }
 
 /**
- * Product with a single Offer. The shop quotes NET prices ("zzgl. MwSt."), which Google
- * accepts as long as the amount matches the visible price; `priceIncludesVat` is exposed
- * as `valueAddedTaxIncluded` on a PriceSpecification so the offer is unambiguous.
+ * Product with one Offer, or an AggregateOffer when `highPriceMinorUnits` describes a range.
+ * The shop quotes NET prices ("zzgl. MwSt."), which Google accepts as long as the amount matches
+ * the visible price; on a single Offer `priceIncludesVat` is exposed as `valueAddedTaxIncluded`
+ * on a PriceSpecification so the offer is unambiguous. AggregateOffer has no equivalent field —
+ * schema.org puts no price specification on it — so a range carries lowPrice/highPrice only.
  */
 export function buildProductJsonLd(input: ProductJsonLdInput): JsonLd {
     const currency = input.currencyCode ?? 'CHF';
     const price = (input.priceMinorUnits / 100).toFixed(2);
     const images = (input.images ?? []).map((image) => toAbsoluteUrl(image)).filter(Boolean);
+    const url = toAbsoluteUrl(input.url);
+    const availability = `https://schema.org/${input.availability ?? 'InStock'}`;
+    const seller = {'@type': 'Organization', name: SITE_NAME};
+
+    // A page that shows "ab CHF 583.00" for a product with several differently priced variants
+    // must not claim a single Offer at that price: Google compares the offer with the visible
+    // price and flags the mismatch. AggregateOffer is the shape for a range.
+    const hasRange =
+        typeof input.highPriceMinorUnits === 'number' && input.highPriceMinorUnits > input.priceMinorUnits;
+
+    const offers = hasRange
+        ? {
+              '@type': 'AggregateOffer',
+              url,
+              priceCurrency: currency,
+              lowPrice: price,
+              highPrice: (input.highPriceMinorUnits! / 100).toFixed(2),
+              ...(input.offerCount ? {offerCount: input.offerCount} : {}),
+              availability,
+              seller,
+          }
+        : {
+              '@type': 'Offer',
+              url,
+              priceCurrency: currency,
+              price,
+              priceSpecification: {
+                  '@type': 'UnitPriceSpecification',
+                  price,
+                  priceCurrency: currency,
+                  valueAddedTaxIncluded: input.priceIncludesVat ?? false,
+              },
+              availability,
+              seller,
+          };
 
     return {
         '@context': 'https://schema.org',
@@ -153,22 +199,6 @@ export function buildProductJsonLd(input: ProductJsonLdInput): JsonLd {
             '@type': 'Brand',
             name: input.brand || SITE_NAME,
         },
-        offers: {
-            '@type': 'Offer',
-            url: toAbsoluteUrl(input.url),
-            priceCurrency: currency,
-            price,
-            priceSpecification: {
-                '@type': 'UnitPriceSpecification',
-                price,
-                priceCurrency: currency,
-                valueAddedTaxIncluded: input.priceIncludesVat ?? false,
-            },
-            availability: `https://schema.org/${input.availability ?? 'InStock'}`,
-            seller: {
-                '@type': 'Organization',
-                name: SITE_NAME,
-            },
-        },
+        offers,
     };
 }

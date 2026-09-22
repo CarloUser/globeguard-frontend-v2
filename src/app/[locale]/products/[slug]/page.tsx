@@ -8,6 +8,7 @@ import {ProductInfo} from '@/components/commerce/product-info';
 import {RelatedProducts} from '@/components/commerce/related-products';
 import {ConfigurableProductPanel, type VariantOptionGroup} from '@/components/configurator/configurable-product-panel';
 import {VehicleTypeBadge} from '@/components/configurator/vehicle-type-badge';
+import {JsonLdScript} from '@/components/seo/json-ld';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -27,6 +28,7 @@ import {decodeExtraBrands, skuToProductSlug, type IExtraBrandSelection} from '@/
 import {getProductHighlightItems} from '@/lib/globeguard/product-highlights';
 import type {CatalogProduct} from '@/lib/globeguard/types';
 import {buildAlternates, buildOgImages, SITE_NAME, SITE_URL, truncateDescription} from '@/lib/metadata';
+import {buildBreadcrumbJsonLd, buildProductJsonLd} from '@/lib/seo/structured-data';
 import {query} from '@/lib/vendure/api';
 import {CatalogProductFragment, getProductBySlug, getProductsBySlugs} from '@/lib/vendure/catalog';
 import {getDisplayOptionGroups} from '@/lib/vendure/product-options';
@@ -180,8 +182,43 @@ export default async function ProductDetailPage({params, searchParams}: ProductP
         ? getProductHighlightItems({sku: product.sku, tierKey: product.tierKey, brandGroupId: product.brandGroupId}, locale)
         : [];
 
+    // Structured data. The prices are the NET amounts the page itself shows: a configurable product
+    // displays a range ("ab CHF …"), so the offer is aggregated over the variants rather than
+    // claiming one price. The breadcrumb mirrors the visible trail above.
+    const variantPrices = product.variants.map((variant) => variant.priceNet).filter((price) => price > 0);
+    const canonicalPath = `/products/${slug}`;
+    const productJsonLd =
+        variantPrices.length > 0
+            ? buildProductJsonLd({
+                  name: product.name,
+                  description: truncateDescription(detail.description),
+                  sku: product.sku,
+                  url: buildAlternates(locale, canonicalPath).canonical,
+                  images: images.map((asset) => asset.preview),
+                  priceMinorUnits: Math.min(...variantPrices),
+                  highPriceMinorUnits: Math.max(...variantPrices),
+                  offerCount: variantPrices.length,
+                  currencyCode: ORDER_CURRENCY,
+                  priceIncludesVat: false,
+                  brand: SITE_NAME,
+              })
+            : null;
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        {name: t('home'), url: buildAlternates(locale, '/').canonical},
+        ...(primaryCollection
+            ? [
+                  {
+                      name: primaryCollection.name,
+                      url: buildAlternates(locale, `/produkte/kategorie/${primaryCollection.slug}`).canonical,
+                  },
+              ]
+            : []),
+        {name: product.name, url: buildAlternates(locale, canonicalPath).canonical},
+    ]);
+
     return (
         <>
+            <JsonLdScript data={productJsonLd ? [productJsonLd, breadcrumbJsonLd] : [breadcrumbJsonLd]} />
             <div className="bg-grid pt-12">
                 <div className="container mx-auto px-4 pb-12 pt-4 lg:px-8">
                     <Breadcrumb className="mb-8">
