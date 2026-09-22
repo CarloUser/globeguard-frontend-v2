@@ -1,4 +1,5 @@
 import {ArrowRight} from 'lucide-react';
+import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import {Link} from '@/i18n/navigation';
 
@@ -24,10 +25,24 @@ export async function HomeHero({locale}: HomeHeroProps) {
     ];
 
     return (
-        <section
-            className="relative overflow-hidden border-b border-slate-200 bg-slate-950 bg-cover bg-center bg-no-repeat pb-20 pt-32 text-white md:pb-24 md:pt-36"
-            style={{backgroundImage: "url('/hero-banner-bg.jpg')"}}
-        >
+        <section className="relative overflow-hidden border-b border-slate-200 bg-slate-950 pb-20 pt-32 text-white md:pb-24 md:pt-36">
+            {/*
+             * next/image rather than a CSS background-image: as a background this 1024x1024 JPEG
+             * was downloaded whole (634 KB) by every visitor on the home page, at full size on a
+             * phone, because the optimizer never sees a background-image. `fill` + `sizes="100vw"`
+             * + priority lets Next serve AVIF/WebP at the viewport width and preload it as the LCP
+             * element. Decorative: the alt is empty and it is hidden from assistive technology.
+             */}
+            <Image
+                src="/hero-banner-bg.jpg"
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="100vw"
+                priority
+                className="object-cover object-center"
+            />
+
             <div className="absolute inset-0 bg-slate-950/75 mix-blend-multiply backdrop-blur-[1px]" />
 
             <div className="container relative z-10 mx-auto px-4 text-center lg:px-8">

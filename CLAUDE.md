@@ -53,7 +53,7 @@ node node_modules/gql.tada/bin/cli.js generate-output   # regenerate src/graphql
 npx next typegen             # refresh route types after adding/moving routes
 ```
 
-Standalone run (what Docker and the Hetzner supervisor do): after `next build`, copy `.next/static` to `.next/standalone/.next/static` and `public` to `.next/standalone/public`, then `PORT=3100 HOSTNAME=0.0.0.0 VENDURE_SHOP_API_URL=… NEXT_PUBLIC_SITE_URL=… node .next/standalone/server.js`. Do not set `HOSTNAME=127.0.0.1` (redirect loop with next-intl). `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_ASSET_HOST` are build-time values for the client bundle; `VENDURE_SHOP_API_URL` is read at request time.
+Standalone run (what Docker and the Hetzner supervisor do): after `next build`, copy `.next/static` to `.next/standalone/.next/static` and `public` to `.next/standalone/public`, then `PORT=3100 HOSTNAME=0.0.0.0 VENDURE_SHOP_API_URL=… NEXT_PUBLIC_SITE_URL=… node .next/standalone/server.js`. Do not set `HOSTNAME=127.0.0.1` (redirect loop with next-intl). `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_ASSET_HOST` are build-time values for the client bundle; `VENDURE_SHOP_API_URL` is read at request time. For a local standalone run add `ALLOW_LOCAL_IMAGE_HOSTS=true` at build time (next/image refuses a private-IP upstream in a production build, so product images would 400) and copy the sharp DLLs the tracer misses on Windows — `cp node_modules/@img/sharp-win32-x64/lib/*.dll .next/standalone/node_modules/@img/sharp-win32-x64/lib/` then `rm -rf .next/standalone/.next/cache/images`. Without them sharp cannot load and **next/image silently serves the originals** (634 KB hero instead of 17 KB); see `docs/DEPLOY.md` § Images.
 
 ## Payments
 
