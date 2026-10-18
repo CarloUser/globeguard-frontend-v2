@@ -15,8 +15,9 @@ export default async function NotFound() {
         // Gracefully handle if collections can't be fetched
     }
 
+    // <main id="main-content">: the skip link in the layout points here, like on every other page.
     return (
-        <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-16">
+        <main id="main-content" className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-16">
             <div className="text-center space-y-8 max-w-lg">
                 <div className="flex justify-center">
                     <div className="rounded-full bg-muted p-6">
@@ -63,6 +64,6 @@ export default async function NotFound() {
                     </div>
                 )}
             </div>
-        </div>
+        </main>
     );
 }
