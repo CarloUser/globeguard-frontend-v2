@@ -45,8 +45,8 @@ export async function Navbar() {
                             </Suspense>
                         </div>
 
-                        {/* Mobile menu toggle: visible below lg only */}
-                        <div className="lg:hidden">
+                        {/* Menu toggle: visible below xl only (row 2 needs ~1100px, so tablets get the sheet too) */}
+                        <div className="xl:hidden">
                             <MobileNav
                                 authItem={
                                     <Suspense>
@@ -58,8 +58,8 @@ export async function Navbar() {
                     </div>
                 </div>
 
-                {/* Row 2: desktop main navigation, visible from lg upwards */}
-                <div className="hidden h-12 items-center border-t border-border/60 lg:flex">
+                {/* Row 2: desktop main navigation, visible from xl upwards (wraps below that) */}
+                <div className="hidden h-12 items-center border-t border-border/60 xl:flex">
                     <MainNav />
                 </div>
             </div>

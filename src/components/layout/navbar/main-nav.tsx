@@ -18,7 +18,7 @@ function isActivePath(pathname: string, href: string) {
 
 /**
  * Keyboard-accessible desktop main navigation built from the frozen route map.
- * Rendered from `lg` upwards; the mobile sheet (`MobileNav`) covers smaller viewports.
+ * Rendered from `xl` upwards; the mobile sheet (`MobileNav`) covers smaller viewports.
  */
 export function MainNav({className}: {className?: string}) {
     const t = useTranslations('Navigation');

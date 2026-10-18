@@ -42,7 +42,7 @@ export async function LegalPage({locale, title, description, lastUpdated, toc, c
         <main id="main-content" className="bg-slate-50">
             <section className="border-b border-slate-200 bg-white">
                 <div className="container mx-auto max-w-5xl px-4 py-10 lg:px-8">
-                    <h1 className="text-3xl font-bold text-foreground md:text-4xl">{title}</h1>
+                    <h1 className="break-words text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">{title}</h1>
                     {description && <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">{description}</p>}
                     {hasLastUpdated && (
                         <p className="mt-4 text-xs text-slate-500">

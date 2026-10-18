@@ -25,7 +25,7 @@ export function ProductCarousel({title, products}: ProductCarouselClientProps) {
                         align: 'start',
                         loop: true,
                     }}
-                    className="w-full"
+                    className="w-full md:px-12"
                 >
                     <CarouselContent className="-ml-3 md:-ml-4">
                         {products.map((product, i) => (
@@ -35,8 +35,8 @@ export function ProductCarousel({title, products}: ProductCarouselClientProps) {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="hidden md:flex"/>
-                    <CarouselNext className="hidden md:flex"/>
+                    <CarouselPrevious className="left-0 hidden md:flex"/>
+                    <CarouselNext className="right-0 hidden md:flex"/>
                 </Carousel>
             </div>
         </section>
