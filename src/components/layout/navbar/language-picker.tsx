@@ -27,9 +27,9 @@ export function LanguagePicker() {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger render={<Button variant="ghost" size="sm" className="gap-1.5" aria-label={t('switchLanguage')} />}>
+            <DropdownMenuTrigger render={<Button variant="ghost" size="sm" className="w-8 gap-1.5 px-0 sm:w-auto sm:px-2.5" aria-label={t('switchLanguage')} />}>
                 <Globe className="size-4" />
-                <span>{localeNames[locale as keyof typeof localeNames] ?? locale.toUpperCase()}</span>
+                <span className="hidden sm:inline">{localeNames[locale as keyof typeof localeNames] ?? locale.toUpperCase()}</span>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 {routing.locales.map((loc) => (

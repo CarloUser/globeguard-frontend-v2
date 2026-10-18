@@ -13,7 +13,7 @@ export function GlobeguardBrand({
     className?: string;
     priority?: boolean;
 }) {
-    const logoClassName = compact ? 'w-[132px]' : 'w-[168px]';
+    const logoClassName = compact ? 'w-[132px]' : 'w-[120px] sm:w-[168px]';
 
     return (
         <span className={cn('inline-flex items-center leading-none', className)}>
@@ -23,7 +23,7 @@ export function GlobeguardBrand({
                 width={2048}
                 height={512}
                 className={cn('h-auto object-contain', logoClassName)}
-                sizes={compact ? '132px' : '168px'}
+                sizes={compact ? '132px' : '(min-width: 640px) 168px, 120px'}
                 priority={priority}
             />
         </span>

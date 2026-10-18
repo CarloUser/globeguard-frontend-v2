@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/sheet';
 import {useTranslations} from 'next-intl';
 import {GlobeguardBrand} from '@/components/layout/globeguard-brand';
+import {DisplayCurrencyToggle} from '@/components/layout/navbar/display-currency-toggle';
 import {ACCOUNT_NAV_ITEMS, MAIN_NAV_ITEMS, MOBILE_NAV_ITEM_CLASS} from '@/components/layout/navbar/site-navigation';
 
 // TODO(F3): the Vendure top-collections list was dropped here because `GetTopCollectionsQuery`
@@ -56,6 +57,7 @@ interface MobileNavProps {
 
 export function MobileNav({authItem}: MobileNavProps) {
     const t = useTranslations('Navigation');
+    const tCommon = useTranslations('Common');
     const [open, setOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const router = useRouter();
@@ -148,6 +150,14 @@ export function MobileNav({authItem}: MobileNavProps) {
                             </SheetClose>
                             {authItem}
                         </nav>
+                    </div>
+
+                    {/* The navbar hides its CHF | EUR toggle below 360px; offer it here instead */}
+                    <div className="min-[360px]:hidden">
+                        <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                            {tCommon('displayCurrency')}
+                        </p>
+                        <DisplayCurrencyToggle className="px-3" />
                     </div>
                 </div>
             </SheetContent>
