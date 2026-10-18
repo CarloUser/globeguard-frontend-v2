@@ -464,7 +464,11 @@
     "noCountryFound": "Kein Land gefunden.",
     "errorTitle": "Etwas ist schiefgelaufen",
     "errorBody": "Die Seite konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
-    "retry": "Erneut versuchen"
+    "retry": "Erneut versuchen",
+    "carousel": "Karussell",
+    "carouselSlide": "Folie",
+    "previousSlide": "Vorherige Folie",
+    "nextSlide": "Nächste Folie"
   },
   "Errors": {
     "fieldsRequired": "Alle Felder sind erforderlich",
