@@ -468,7 +468,10 @@
     "carousel": "carousel",
     "carouselSlide": "slide",
     "previousSlide": "Previous slide",
-    "nextSlide": "Next slide"
+    "nextSlide": "Next slide",
+    "paginationLabel": "Pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
   },
   "Errors": {
     "fieldsRequired": "All fields are required",

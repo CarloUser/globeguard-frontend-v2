@@ -28,7 +28,8 @@ export async function generateMetadata({
 
 export default async function SearchPage({searchParams}: PageProps<'/[locale]/search'>) {
     return (
-        <div className="bg-grid pt-12">
+        // <main id="main-content">: target of the layout's skip link, like on every other page
+        <main id="main-content" className="bg-grid pt-12">
             <div className="container mx-auto px-4 py-12 lg:px-8">
                 <Suspense fallback={<SearchTermSkeleton/>}>
                     <SearchTerm searchParams={searchParams}/>
@@ -37,6 +38,6 @@ export default async function SearchPage({searchParams}: PageProps<'/[locale]/se
                     <SearchResults searchParams={searchParams}/>
                 </Suspense>
             </div>
-        </div>
+        </main>
     );
 }

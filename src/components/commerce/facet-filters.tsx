@@ -73,7 +73,7 @@ function FilterContent({
                                                     className="flex cursor-pointer items-center gap-2 text-sm text-slate-600 group-hover:text-foreground"
                                                 >
                                                     {value.name}
-                                                    <span className="font-mono text-xs text-slate-400">{value.count}</span>
+                                                    <span className="font-mono text-xs text-slate-500">{value.count}</span>
                                                 </Label>
                                             </div>
                                         );

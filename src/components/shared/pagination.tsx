@@ -4,6 +4,7 @@ import {useSearchParams} from 'next/navigation';
 import {usePathname, Link} from '@/i18n/navigation';
 import {ChevronLeft, ChevronRight} from 'lucide-react';
 import {Button} from '@/components/ui/button';
+import {useTranslations} from 'next-intl';
 
 interface PaginationProps {
     currentPage: number;
@@ -13,6 +14,7 @@ interface PaginationProps {
 export function Pagination({currentPage, totalPages}: PaginationProps) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const t = useTranslations('Common');
 
     const createPageUrl = (page: number) => {
         const params = new URLSearchParams(searchParams);
@@ -50,22 +52,23 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
     const pages = getPageNumbers();
 
     return (
-        <nav className="flex items-center justify-center gap-2">
+        <nav aria-label={t('paginationLabel')} className="flex items-center justify-center gap-2">
             <Button
                 variant="outline"
                 size="icon"
                 className="rounded-full"
                 render={currentPage !== 1 ? <Link href={createPageUrl(currentPage - 1)} /> : undefined}
                 nativeButton={currentPage !== 1 ? false : undefined}
+                aria-label={t('previousPage')}
                 disabled={currentPage === 1}
             >
-                <ChevronLeft className="h-4 w-4"/>
+                <ChevronLeft className="h-4 w-4" aria-hidden="true"/>
             </Button>
 
             {pages.map((page, index) => {
                 if (page === '...') {
                     return (
-                        <span key={`dots-${index}`} className="px-2 text-muted-foreground">
+                        <span key={`dots-${index}`} className="px-2 text-muted-foreground" aria-hidden="true">
                             ...
                         </span>
                     );
@@ -83,6 +86,7 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
                         render={!isActive ? <Link href={createPageUrl(pageNum)} /> : undefined}
                         nativeButton={!isActive ? false : undefined}
                         disabled={isActive}
+                        aria-current={isActive ? 'page' : undefined}
                     >
                         {pageNum}
                     </Button>
@@ -95,9 +99,10 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
                 className="rounded-full"
                 render={currentPage !== totalPages ? <Link href={createPageUrl(currentPage + 1)} /> : undefined}
                 nativeButton={currentPage !== totalPages ? false : undefined}
+                aria-label={t('nextPage')}
                 disabled={currentPage === totalPages}
             >
-                <ChevronRight className="h-4 w-4"/>
+                <ChevronRight className="h-4 w-4" aria-hidden="true"/>
             </Button>
         </nav>
     );

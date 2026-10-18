@@ -468,7 +468,10 @@
     "carousel": "Karussell",
     "carouselSlide": "Folie",
     "previousSlide": "Vorherige Folie",
-    "nextSlide": "Nächste Folie"
+    "nextSlide": "Nächste Folie",
+    "paginationLabel": "Seitennavigation",
+    "previousPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite"
   },
   "Errors": {
     "fieldsRequired": "Alle Felder sind erforderlich",

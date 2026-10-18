@@ -108,7 +108,8 @@ export function ProductCard({
   if (viewMode === "list") {
     return (
       <article className="grid gap-4 border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/40 md:grid-cols-[170px_minmax(0,1fr)_200px]">
-        <Link href={productHref} className="block overflow-hidden">
+        {/* Duplicate of the name link: one tab stop and one name per card */}
+        <Link href={productHref} className="block overflow-hidden" tabIndex={-1} aria-hidden="true">
           <ProductCardImage
             name={product.productName}
             asset={asset}
@@ -168,9 +169,13 @@ export function ProductCard({
 
   return (
     <article className="flex min-h-full flex-col border border-border bg-card shadow-sm transition-colors hover:border-primary/40">
+      {/* Same target as the name link below: hidden from keyboard and screen readers so each card
+          is one tab stop with a name (without an image this link had no text at all) */}
       <Link
         href={productHref}
         className="relative block border-b border-border"
+        tabIndex={-1}
+        aria-hidden="true"
       >
         <ProductCardImage
           name={product.productName}

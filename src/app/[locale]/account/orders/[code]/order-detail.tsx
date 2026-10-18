@@ -118,7 +118,7 @@ export function OrderDetail({orderPromise}: OrderDetailProps) {
                                 {order.discounts?.length > 0 && order.discounts.map((discount: OrderDiscount, idx: number) => (
                                     <div key={idx} className="flex justify-between text-sm">
                                         <span className="text-muted-foreground">{discount.description}</span>
-                                        <span className="text-green-600">
+                                        <span className="text-green-700">
                                             -<Price value={discount.amount} currencyCode={order.currencyCode}/>
                                         </span>
                                     </div>

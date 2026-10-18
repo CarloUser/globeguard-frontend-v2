@@ -63,7 +63,7 @@ export function BlogPagination({currentPage, totalPages}: BlogPaginationProps) {
 
             {pageNumbers(currentPage, totalPages).map((page, index) =>
                 page === 'gap' ? (
-                    <span key={`gap-${index}`} className="px-1 text-slate-400">
+                    <span key={`gap-${index}`} className="px-1 text-slate-500">
                         &hellip;
                     </span>
                 ) : page === currentPage ? (

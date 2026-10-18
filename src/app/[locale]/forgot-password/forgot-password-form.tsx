@@ -61,7 +61,7 @@ export function ForgotPasswordForm() {
         return (
             <Card>
                 <CardHeader>
-                    <CardTitle>{t('checkYourEmail')}</CardTitle>
+                    <CardTitle role="heading" aria-level={1}>{t('checkYourEmail')}</CardTitle>
                     <CardDescription>
                         {t('checkYourEmailDescription')}
                     </CardDescription>
@@ -80,7 +80,7 @@ export function ForgotPasswordForm() {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>{t('forgotPasswordTitle')}</CardTitle>
+                <CardTitle role="heading" aria-level={1}>{t('forgotPasswordTitle')}</CardTitle>
                 <CardDescription>
                     {t('forgotPasswordDescription')}
                 </CardDescription>

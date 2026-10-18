@@ -49,7 +49,7 @@ export default async function AccountLayout({children}: LayoutProps<'/[locale]/a
                         <AccountNavLinks items={navItems} layout="vertical" />
                     </Suspense>
                 </aside>
-                <main className="flex-1 min-w-0">
+                <main id="main-content" className="flex-1 min-w-0">
                     {children}
                 </main>
             </div>

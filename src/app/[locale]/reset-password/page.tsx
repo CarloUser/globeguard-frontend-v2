@@ -1,16 +1,24 @@
 import type {Metadata} from 'next';
 import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
+import {getTranslations} from 'next-intl/server';
+import {getRouteLocale} from '@/i18n/server';
+import {buildAlternates} from '@/lib/metadata';
 import { ResetPasswordForm } from './reset-password-form';
 
-export const metadata: Metadata = {
-    title: 'Reset Password',
-    description: 'Create a new password for your account.',
-};
+// Was a hard-coded English title/description; now translated like the forgot-password page
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = await getRouteLocale();
+    const t = await getTranslations({locale, namespace: 'Auth'});
+    return {
+        title: t('resetPassword'),
+        alternates: buildAlternates(locale, '/reset-password'),
+    };
+}
 
 export default function ResetPasswordPage({searchParams}: PageProps<'/[locale]/reset-password'>) {
     return (
-        <div className="container mx-auto px-4 py-16">
+        <main id="main-content" className="container mx-auto px-4 py-16">
             <div className="max-w-md mx-auto">
                 <Suspense fallback={
                     <div className="flex justify-center">
@@ -20,6 +28,6 @@ export default function ResetPasswordPage({searchParams}: PageProps<'/[locale]/r
                     <ResetPasswordForm searchParams={searchParams} />
                 </Suspense>
             </div>
-        </div>
+        </main>
     );
 }

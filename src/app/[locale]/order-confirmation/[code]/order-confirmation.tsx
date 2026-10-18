@@ -208,7 +208,7 @@ export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps)
                                 <span><Price value={order.subTotal} currencyCode={order.currencyCode}/></span>
                             </div>
                             {order.discounts.map((discount, index) => (
-                                <div key={index} className="flex justify-between text-green-600">
+                                <div key={index} className="flex justify-between text-green-700">
                                     <span>{discount.description}</span>
                                     <span><Price value={discount.amount} currencyCode={order.currencyCode}/></span>
                                 </div>

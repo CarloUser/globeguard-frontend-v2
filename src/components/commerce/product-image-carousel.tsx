@@ -51,25 +51,26 @@ export function ProductImageCarousel({productName, images}: ProductImageCarousel
                     priority={currentIndex === 0}
                 />
 
+                {/* Shown on hover, and on keyboard focus (they were tab stops while invisible) */}
                 {images.length > 1 && (
                     <>
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 shadow-sm opacity-0 transition-opacity hover:bg-white group-hover:opacity-100"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 shadow-sm opacity-0 transition-opacity hover:bg-white group-hover:opacity-100 focus-visible:opacity-100"
                             onClick={goToPrevious}
                             aria-label={t('previousImage')}
                         >
-                            <ChevronLeft className="size-5" />
+                            <ChevronLeft className="size-5" aria-hidden="true" />
                         </Button>
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 shadow-sm opacity-0 transition-opacity hover:bg-white group-hover:opacity-100"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 shadow-sm opacity-0 transition-opacity hover:bg-white group-hover:opacity-100 focus-visible:opacity-100"
                             onClick={goToNext}
                             aria-label={t('nextImage')}
                         >
-                            <ChevronRight className="size-5" />
+                            <ChevronRight className="size-5" aria-hidden="true" />
                         </Button>
                     </>
                 )}

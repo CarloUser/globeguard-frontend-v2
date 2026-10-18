@@ -74,7 +74,7 @@ export function EditEmailForm({ currentEmail }: EditEmailFormProps) {
                         </div>
                     )}
                     {state?.success && (
-                        <div className="text-sm text-green-600">
+                        <div className="text-sm text-green-700">
                             {t('verificationEmailSent')}
                         </div>
                     )}

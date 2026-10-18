@@ -83,6 +83,8 @@ export function MobileNav({authItem}: MobileNavProps) {
                 <SheetHeader>
                     <SheetTitle>
                         <GlobeguardBrand compact />
+                        {/* Dialog name for screen readers; the logo alone only says "GlobeGuard" */}
+                        <span className="sr-only">{t('menu')}</span>
                     </SheetTitle>
                 </SheetHeader>
 

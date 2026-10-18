@@ -30,7 +30,7 @@ export function SgwCompatibilityTable() {
 
     return (
         <div className="rounded-md border border-slate-200 bg-white">
-            <Table className="min-w-[640px]">
+            <Table className="min-w-[640px]" scrollLabel={t('tableCaption')}>
                 <TableCaption className="sr-only">{t('tableCaption')}</TableCaption>
                 <TableHeader>
                     <TableRow>

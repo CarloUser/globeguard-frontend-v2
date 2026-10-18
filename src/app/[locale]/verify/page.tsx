@@ -39,12 +39,12 @@ async function VerifyLoading() {
 
 export default function VerifyPage({searchParams}: PageProps<'/[locale]/verify'>) {
     return (
-        <div className="flex min-h-screen items-center justify-center px-4">
+        <main id="main-content" className="flex min-h-screen items-center justify-center px-4">
             <div className="w-full max-w-md space-y-6">
                 <Suspense fallback={<VerifyLoading/>}>
                     <VerifyContent searchParams={searchParams}/>
                 </Suspense>
             </div>
-        </div>
+        </main>
     );
 }

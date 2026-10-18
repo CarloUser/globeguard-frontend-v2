@@ -203,7 +203,8 @@ export function ProductInfo({product, searchParams, currencyCode = ORDER_CURRENC
                 )}
 
                 <div className="flex flex-col gap-3 sm:flex-row">
-                    <label className="flex h-12 shrink-0 items-center rounded-md border border-border bg-background px-3 text-sm font-bold text-foreground">
+                    {/* The select draws no outline of its own; the label shows the same focus ring as ui/input */}
+                    <label className="flex h-12 shrink-0 items-center rounded-md border border-border bg-background px-3 text-sm font-bold text-foreground has-[select:focus-visible]:border-ring has-[select:focus-visible]:ring-3 has-[select:focus-visible]:ring-ring/50">
                         <span className="sr-only">{t('quantity')}</span>
                         <select
                             value={quantity}
