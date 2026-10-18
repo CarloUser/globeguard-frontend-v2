@@ -11,7 +11,8 @@ export type JsonLd = Record<string, unknown>;
 
 export const ORGANIZATION_LEGAL_NAME = 'GlobeGuard GmbH';
 export const ORGANIZATION_EMAIL = 'info@globeguard.ch';
-export const LOGO_PATH = '/globeguard-logo-transparent.png';
+// Same navy file as the header logo (GlobeguardBrand)
+export const LOGO_PATH = '/globeguard-logo-navy.png';
 
 /** Registered office (Impressum). */
 export const ORGANIZATION_ADDRESS = {

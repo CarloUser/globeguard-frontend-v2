@@ -12,7 +12,7 @@ import {blogPostHref} from './slug';
 
 export type JsonLd = Record<string, unknown>;
 
-const LOGO_PATH = '/globeguard-logo-transparent.png';
+const LOGO_PATH = '/globeguard-logo-navy.png';
 
 function publisher(): JsonLd {
     return {
