@@ -77,7 +77,7 @@ export default async function WarumGlobeGuardPage() {
     }));
 
     return (
-        <main id="main-content" className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50">
             {/* Hero */}
             <section className="border-b border-slate-200 bg-slate-950 text-white">
                 <div className="container mx-auto max-w-6xl px-4 py-16 lg:px-8 md:py-20">

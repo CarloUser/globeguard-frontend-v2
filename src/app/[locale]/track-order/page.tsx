@@ -27,8 +27,8 @@ export default async function TrackOrderPage() {
     const t = await getTranslations({locale, namespace: 'Tracking'});
 
     return (
-        <main id="main-content" className="bg-slate-50 pt-32">
-            <div className="container mx-auto px-4 pb-16">
+        <main id="main-content" className="bg-slate-50">
+            <div className="container mx-auto px-4 pb-16 pt-10">
                 <div className="mx-auto max-w-xl space-y-8">
                     <div className="space-y-2 text-center">
                         <h1 className="text-3xl font-bold text-foreground">{t('pageTitle')}</h1>

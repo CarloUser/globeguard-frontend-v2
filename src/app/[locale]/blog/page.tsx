@@ -110,7 +110,7 @@ export default async function BlogListPage({searchParams}: BlogListPageProps) {
     ];
 
     return (
-        <main id="main-content" className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50">
             <JsonLdScript data={jsonLd} />
 
             <section className="border-b border-slate-200 bg-white">

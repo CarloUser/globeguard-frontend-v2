@@ -69,7 +69,7 @@ export default async function ProdukteHubPage() {
     ]);
 
     return (
-        <main id="main-content" className="bg-slate-50 pt-32">
+        <main id="main-content" className="bg-slate-50">
             <PageHeader title={t('pageTitle')} subtitle={t('pageSubtitle')} />
 
             {/* B2C lines */}
