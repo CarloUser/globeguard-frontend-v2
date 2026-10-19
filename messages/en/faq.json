@@ -5,6 +5,23 @@
     "emptyTitle": "No questions published yet",
     "emptyBody": "The FAQ is currently being compiled. If you have any questions, you can reach us by e-mail at any time.",
     "contact": "Get in touch",
-    "lastReviewed": "Last reviewed: {date}"
+    "lastReviewed": "Last reviewed: {date}",
+    "searchLabel": "Search the FAQ",
+    "searchPlaceholder": "What are you looking for? e.g. SGW, remote diagnostics, shipping",
+    "clearSearch": "Clear search",
+    "topicsLabel": "Popular topics:",
+    "topics": ["SGW", "Remote diagnostics", "Shipping", "Payment", "Warranty", "Update"],
+    "resultsCount": "{count, plural, =0 {No results} one {# result} other {# results}} for “{query}”",
+    "noResultsTitle": "No matching answer found",
+    "noResultsBody": "Try a different term, or ask us directly – we are happy to help.",
+    "chaptersLabel": "Chapters",
+    "groupFallback": "More questions",
+    "copyLink": "Copy link to this question",
+    "linkCopied": "Link copied",
+    "ctaTitle": "Didn't find your answer?",
+    "ctaBody": "Our support team in Cham is happy to help.",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail",
+    "contactForm": "Contact form"
   }
 }

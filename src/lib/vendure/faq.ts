@@ -19,6 +19,10 @@ export const GetSitePageFaqQuery = graphql(`
                 question
                 answerHtml
                 sortOrder
+                group
+                groupTitle
+                groupIntro
+                slug
             }
         }
     }

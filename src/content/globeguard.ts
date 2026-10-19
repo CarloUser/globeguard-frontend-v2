@@ -4,7 +4,8 @@
  * Keep this object small and factual. Marketing copy, navigation labels and
  * product descriptions belong in the next-intl message files or the catalogue,
  * not here. Phone number and business hours are intentionally omitted until
- * they are confirmed by the owner.
+ * they are confirmed by the owner; the WhatsApp Business number is the one the
+ * owner's FAQ (v10.1, 2026-10-19) publishes.
  */
 export const globeguardCompany = {
     name: 'GlobeGuard GmbH',
@@ -16,6 +17,10 @@ export const globeguardCompany = {
     },
     addressLine: 'Untermühlestrasse 12, 6330 Cham, Schweiz',
     email: 'info@globeguard.ch',
+    whatsapp: {
+        display: '+41 41 559 90 20',
+        url: 'https://wa.me/41415599020',
+    },
     vat: 'CHE-184.027.784',
     tagline: 'Lösungen für Reisemobile, Fernreisende und Werkstätten',
 } as const;

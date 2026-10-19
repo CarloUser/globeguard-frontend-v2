@@ -164,3 +164,9 @@
 @utility text-mono-label {
   @apply font-mono text-[11px] uppercase leading-tight tracking-[0.1em] text-slate-500;
 }
+
+/* FAQ search hits, set by components/faq/faq-browser.tsx through the CSS Custom Highlight API. */
+::highlight(faq-search) {
+  background-color: #fde68a;
+  color: inherit;
+}

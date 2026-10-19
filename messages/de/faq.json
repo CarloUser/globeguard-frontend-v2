@@ -5,6 +5,23 @@
     "emptyTitle": "Noch keine Fragen veröffentlicht",
     "emptyBody": "Die FAQ werden derzeit zusammengestellt. Bei Fragen erreichen Sie uns jederzeit per E-Mail.",
     "contact": "Kontakt aufnehmen",
-    "lastReviewed": "Zuletzt geprüft: {date}"
+    "lastReviewed": "Zuletzt geprüft: {date}",
+    "searchLabel": "FAQ durchsuchen",
+    "searchPlaceholder": "Wonach suchen Sie? z. B. SGW, Ferndiagnose, Versand",
+    "clearSearch": "Suche löschen",
+    "topicsLabel": "Häufige Themen:",
+    "topics": ["SGW", "Ferndiagnose", "Versand", "Zahlung", "Garantie", "Update"],
+    "resultsCount": "{count, plural, =0 {Keine Treffer} one {# Treffer} other {# Treffer}} für «{query}»",
+    "noResultsTitle": "Keine passende Antwort gefunden",
+    "noResultsBody": "Versuchen Sie einen anderen Begriff, oder fragen Sie uns direkt – wir helfen gerne weiter.",
+    "chaptersLabel": "Kapitel",
+    "groupFallback": "Weitere Fragen",
+    "copyLink": "Link zu dieser Frage kopieren",
+    "linkCopied": "Link kopiert",
+    "ctaTitle": "Antwort nicht gefunden?",
+    "ctaBody": "Unser Support-Team in Cham hilft Ihnen gerne weiter.",
+    "whatsapp": "WhatsApp",
+    "email": "E-Mail",
+    "contactForm": "Kontaktformular"
   }
 }
