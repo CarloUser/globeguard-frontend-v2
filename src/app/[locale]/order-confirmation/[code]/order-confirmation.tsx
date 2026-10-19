@@ -11,7 +11,8 @@ import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
 import {query} from '@/lib/vendure/api';
 import {graphql, type ResultOf} from '@/graphql';
-import {PaymentPendingStatus, PENDING_ORDER_STATES} from './payment-pending-status';
+import {PENDING_ORDER_STATES} from './order-states';
+import {PaymentPendingStatus} from './payment-pending-status';
 
 const GetOrderByCodeQuery = graphql(`
     query GetOrderByCode($code: String!) {

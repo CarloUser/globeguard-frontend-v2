@@ -7,9 +7,7 @@ import {Button} from '@/components/ui/button';
 import {Spinner} from '@/components/ui/spinner';
 import {Link, useRouter} from '@/i18n/navigation';
 import {getOrderPaymentState} from './actions';
-
-/** Order states in which the payment has not been settled or authorised yet. */
-export const PENDING_ORDER_STATES: readonly string[] = ['AddingItems', 'ArrangingPayment'];
+import {PENDING_ORDER_STATES} from './order-states';
 
 const POLL_INTERVAL_MS = 2_000;
 const POLL_TIMEOUT_MS = 30_000;
