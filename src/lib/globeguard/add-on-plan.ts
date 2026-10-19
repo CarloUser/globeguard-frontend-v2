@@ -58,12 +58,14 @@ export const SGW_LICENSE_LABELS_DE: Record<string, string> = {
     stellantis: 'SGW-Lizenz Fiat/Stellantis',
     mercedes: 'SGW-Lizenz Mercedes-Benz',
     vag: 'SGW-Lizenz VW-Gruppe',
+    hyundaiKia: 'SGW-Lizenz Hyundai/Kia',
 };
 
 export const SGW_LICENSE_LABELS_EN: Record<string, string> = {
     stellantis: 'SGW license Fiat/Stellantis',
     mercedes: 'SGW license Mercedes-Benz',
     vag: 'SGW license VW Group',
+    hyundaiKia: 'SGW license Hyundai/Kia',
 };
 
 /** Human name of the ELITE SGW cable options (old `eliteCable` copy). */

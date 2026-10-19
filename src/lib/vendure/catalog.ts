@@ -95,6 +95,7 @@ export const GetCatalogProductBySlugQuery = graphql(`
             ...CatalogProduct
             assets {
                 id
+                name
                 preview
                 source
             }

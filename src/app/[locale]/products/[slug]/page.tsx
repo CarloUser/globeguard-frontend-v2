@@ -74,6 +74,21 @@ function isConfigurableProduct(
     }).flags.hasConfigurator;
 }
 
+/**
+ * Licence artwork comes in one file per language (asset names ending in `_DE` / `_EN`, e.g.
+ * `SGW-Lizenz_VAG_EN.jpg`): show only the page language. Untagged images stay; if nothing is
+ * left for the language, all images are shown.
+ */
+function imagesForLocale<T extends {name: string}>(assets: T[], locale: string): T[] {
+    const languageOf = (asset: T) => /_(de|en).[a-z0-9]+$/i.exec(asset.name)?.[1]?.toLowerCase();
+    const wanted = locale === 'en' ? 'en' : 'de';
+    const matching = assets.filter((asset) => {
+        const language = languageOf(asset);
+        return !language || language === wanted;
+    });
+    return matching.length > 0 ? matching : assets;
+}
+
 /** Option groups (code, translated name, options in variant order) actually used by the product's variants. */
 function deriveOptionGroups(product: ResultOf<typeof CatalogProductFragment>): VariantOptionGroup[] {
     const groups = new Map<string, VariantOptionGroup>();
@@ -109,7 +124,7 @@ export async function generateMetadata({params}: ProductPageProps): Promise<Meta
     const product = readFragment(CatalogProductFragment, gqlProduct);
     const description = truncateDescription(product.description);
     const fallbackDescription = t('shopProductAt', {name: product.name, siteName: SITE_NAME});
-    const ogImage = gqlProduct.assets?.[0]?.preview ?? product.featuredAsset?.preview;
+    const ogImage = imagesForLocale(gqlProduct.assets ?? [], locale)[0]?.preview ?? product.featuredAsset?.preview;
     const ogLocale = toOgLocale(locale);
     const alternates = buildAlternates(locale, `/products/${product.slug}`);
 
@@ -166,7 +181,7 @@ export default async function ProductDetailPage({params, searchParams}: ProductP
     const configurable = isConfigurableProduct(product, urlYear, extraBrands, addOnProducts);
 
     const primaryCollection = gqlProduct.collections?.find((collection) => collection.parent?.id) ?? gqlProduct.collections?.[0];
-    const images = gqlProduct.assets ?? [];
+    const images = imagesForLocale(gqlProduct.assets ?? [], locale);
     const variantDetails = detail.variants.map((variant) => ({
         id: variant.id,
         name: variant.name,

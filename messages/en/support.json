@@ -55,17 +55,19 @@
             "licenseGroups": {
                 "stellantis": "SGW license Fiat/Stellantis",
                 "mercedes": "SGW license Mercedes-Benz",
-                "vag": "SGW license VW Group"
+                "vag": "SGW license VW Group",
+                "hyundaiKia": "SGW license Hyundai/Kia"
             },
             "licenseFallback": "SGW license",
             "note": "All other brand groups currently require no SGW unlocking. PRO devices support vehicles from model year {proFromYear}, BASIC from {basicFromYear}.",
             "licensesTitle": "SGW Licenses (Day / Week / Month / Year)",
-            "licensesText": "Licenses for Fiat/Stellantis, Mercedes-Benz and the VW Group – flexible from 1 day. You can purchase a license at any time whenever you need it.",
+            "licensesText": "Licenses for Fiat/Stellantis, Mercedes-Benz, the VW Group and Hyundai/Kia – flexible from 1 day. You can purchase a license at any time whenever you need it.",
             "durationsLabel": "Durations",
             "licenseProducts": {
                 "stellantis": "License Fiat/Stellantis",
                 "mercedes": "License Mercedes-Benz",
-                "vag": "License VW Group"
+                "vag": "License VW Group",
+                "hyundaiKia": "License Hyundai/Kia"
             },
             "licensesAll": "All SGW licenses",
             "cablesTitle": "SGW Bypass Cables",

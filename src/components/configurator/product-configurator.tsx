@@ -61,7 +61,7 @@ export interface ProductConfiguratorProps {
 
 const LICENSE_GROUPS = Object.keys(SGW_LICENSE_SKUS) as SgwLicenseGroup[];
 const CABLE_CODES = Object.keys(SGW_CABLE_SKUS) as SgwCableCode[];
-const KNOWN_LICENSE_GROUPS: readonly string[] = ['stellantis', 'mercedes', 'vag'];
+const KNOWN_LICENSE_GROUPS: readonly string[] = ['stellantis', 'mercedes', 'vag', 'hyundaiKia'];
 const KNOWN_CABLE_CODES: readonly string[] = ['IVE', 'FCCA'];
 
 const SGW_QUANTITY_OPTIONS = Array.from(

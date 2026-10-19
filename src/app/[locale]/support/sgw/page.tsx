@@ -15,7 +15,7 @@ import {
 } from '@/lib/globeguard/picker';
 import {SITE_URL, buildAlternates} from '@/lib/metadata';
 
-const LICENSE_GROUPS = ['stellantis', 'mercedes', 'vag'] as const;
+const LICENSE_GROUPS = ['stellantis', 'mercedes', 'vag', 'hyundaiKia'] as const;
 const CABLES = [
     {key: 'fcca', sku: SGW_CABLE_SKUS.FCCA},
     {key: 'ive', sku: SGW_CABLE_SKUS.IVE},

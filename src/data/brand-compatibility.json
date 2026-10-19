@@ -2,7 +2,7 @@
   "proFromYear": 1991,
   "basicFromYear": 2008,
   "source": "GlobeGuard Markenverwendung.xlsx",
-  "generatedAt": "2026-09-17T13:12:30.488Z",
+  "generatedAt": "2026-10-19T21:17:09.158Z",
   "brandGroups": [
     {
       "id": "cars-vans-bentley",
@@ -189,7 +189,14 @@
         "BASIC",
         "PRO"
       ],
-      "basicFromYear": 2008
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2018,
+          "toYear": null,
+          "licenseGroup": "hyundaiKia"
+        }
+      }
     },
     {
       "id": "cars-vans-ineos",
@@ -256,7 +263,14 @@
         "BASIC",
         "PRO"
       ],
-      "basicFromYear": 2008
+      "basicFromYear": 2008,
+      "sgw": {
+        "license": {
+          "fromYear": 2018,
+          "toYear": null,
+          "licenseGroup": "hyundaiKia"
+        }
+      }
     },
     {
       "id": "cars-vans-lada",

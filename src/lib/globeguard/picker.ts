@@ -202,7 +202,7 @@ export function getErweiterungSku(brand: IBrandGroup): string | null {
 }
 
 /** SGW licence groups referenced by brand-compatibility.json (`sgw.license.licenseGroup`). */
-export type SgwLicenseGroup = 'stellantis' | 'mercedes' | 'vag';
+export type SgwLicenseGroup = 'stellantis' | 'mercedes' | 'vag' | 'hyundaiKia';
 
 /** Physical SGW bypass cables (`ISgwRequirement.detail` for type 'bypass-cable'). */
 export type SgwCableCode = 'IVE' | 'FCCA';
@@ -211,6 +211,7 @@ export const SGW_LICENSE_SKUS: Record<string, string> = {
     stellantis: 'GG-SGW-LIC-STELLANTIS',
     mercedes: 'GG-SGW-LIC-MERCEDES',
     vag: 'GG-SGW-LIC-VAG',
+    hyundaiKia: 'GG-SGW-LIC-HYUNDAI-KIA',
 };
 
 export const SGW_CABLE_SKUS: Record<string, string> = {

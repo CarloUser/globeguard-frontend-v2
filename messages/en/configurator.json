@@ -10,6 +10,7 @@
             "stellantis": "SGW license Fiat/Stellantis",
             "mercedes": "SGW license Mercedes-Benz",
             "vag": "SGW license VW Group",
+            "hyundaiKia": "SGW license Hyundai/Kia",
             "other": "SGW license ({detail})"
         },
         "cableNames": {
@@ -17,7 +18,7 @@
             "FCCA": "Fiat group"
         },
         "addOn": {
-            "sgwLicense": "{quantity, plural, =1 {} other {#× }}{licenseGroup, select, stellantis {SGW license Fiat/Stellantis} mercedes {SGW license Mercedes-Benz} vag {SGW license VW Group} other {SGW license}} ({duration, select, day {1 day} week {1 week} month {1 month} year {1 year} other {{duration}}})",
+            "sgwLicense": "{quantity, plural, =1 {} other {#× }}{licenseGroup, select, stellantis {SGW license Fiat/Stellantis} mercedes {SGW license Mercedes-Benz} vag {SGW license VW Group} hyundaiKia {SGW license Hyundai/Kia} other {SGW license}} ({duration, select, day {1 day} week {1 week} month {1 month} year {1 year} other {{duration}}})",
             "sgwCable": "SGW bypass cable ({cable})",
             "proExtension": "PRO Extension – {name}",
             "proExtensionModule": "PRO Extension – {name}",
@@ -93,7 +94,7 @@
         },
         "eliteNoSgwDialog": {
             "title": "No SGW unlock selected",
-            "text": "You have not selected an SGW unlock. Without Security Gateway access, diagnostic functions on Fiat/Stellantis, Mercedes-Benz and the VW Group are severely limited. Continue without an unlock anyway?",
+            "text": "You have not selected an SGW unlock. Without Security Gateway access, diagnostic functions on Fiat/Stellantis, Mercedes-Benz, the VW Group and Hyundai/Kia are severely limited. Continue without an unlock anyway?",
             "cancel": "Back",
             "confirm": "Continue without unlock"
         },

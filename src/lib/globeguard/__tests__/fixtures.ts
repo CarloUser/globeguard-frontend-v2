@@ -145,6 +145,7 @@ export const cableTruma = simpleProduct('GG-CABLE-TRUMA', 9000, 'Adapterkabel-Se
 export const licStellantis = licenseProduct('GG-SGW-LIC-STELLANTIS', 'Security Gateway – Stellantis Lizenz');
 export const licMercedes = licenseProduct('GG-SGW-LIC-MERCEDES', 'Security Gateway – Mercedes-Benz Lizenz');
 export const licVag = licenseProduct('GG-SGW-LIC-VAG', 'Security Gateway – VAG Lizenz');
+export const licHyundaiKia = licenseProduct('GG-SGW-LIC-HYUNDAI-KIA', 'Security Gateway – Hyundai/Kia Lizenz');
 export const svcFern = licenseProduct('GG-SVC-FERN', 'Ferndiagnose', 'SERVICE');
 
 /**
@@ -164,6 +165,7 @@ export const ALL_ADD_ON_PRODUCTS: Record<string, CatalogProduct> = {
     'GG-SGW-LIC-STELLANTIS': licStellantis,
     'GG-SGW-LIC-MERCEDES': licMercedes,
     'GG-SGW-LIC-VAG': licVag,
+    'GG-SGW-LIC-HYUNDAI-KIA': licHyundaiKia,
 };
 
 /** Variant id helper for assertions. */

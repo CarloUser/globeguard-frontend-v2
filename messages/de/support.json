@@ -55,17 +55,19 @@
             "licenseGroups": {
                 "stellantis": "SGW-Lizenz Fiat/Stellantis",
                 "mercedes": "SGW-Lizenz Mercedes-Benz",
-                "vag": "SGW-Lizenz VW-Gruppe"
+                "vag": "SGW-Lizenz VW-Gruppe",
+                "hyundaiKia": "SGW-Lizenz Hyundai/Kia"
             },
             "licenseFallback": "SGW-Lizenz",
             "note": "Alle anderen Markengruppen benötigen derzeit keine SGW-Freischaltung. PRO-Geräte unterstützen Fahrzeuge ab Modelljahr {proFromYear}, BASIC ab {basicFromYear}.",
             "licensesTitle": "SGW-Lizenzen (Tag / Woche / Monat / Jahr)",
-            "licensesText": "Lizenzen für Fiat/Stellantis, Mercedes-Benz und die VW-Gruppe – flexibel ab 1 Tag. Sie können eine Lizenz jederzeit nachkaufen, wenn Sie sie brauchen.",
+            "licensesText": "Lizenzen für Fiat/Stellantis, Mercedes-Benz, die VW-Gruppe und Hyundai/Kia – flexibel ab 1 Tag. Sie können eine Lizenz jederzeit nachkaufen, wenn Sie sie brauchen.",
             "durationsLabel": "Laufzeiten",
             "licenseProducts": {
                 "stellantis": "Lizenz Fiat/Stellantis",
                 "mercedes": "Lizenz Mercedes-Benz",
-                "vag": "Lizenz VW-Gruppe"
+                "vag": "Lizenz VW-Gruppe",
+                "hyundaiKia": "Lizenz Hyundai/Kia"
             },
             "licensesAll": "Alle SGW-Lizenzen",
             "cablesTitle": "SGW-Bypass-Kabel",

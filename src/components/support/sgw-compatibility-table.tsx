@@ -13,6 +13,7 @@ function licenseGroupLabel(t: SgwTranslator, licenseGroup: string): string {
         case 'stellantis':
         case 'mercedes':
         case 'vag':
+        case 'hyundaiKia':
             return t(`licenseGroups.${licenseGroup}`);
         default:
             return t('licenseFallback');

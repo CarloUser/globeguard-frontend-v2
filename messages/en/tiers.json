@@ -22,7 +22,8 @@
             "sgwLicense": {
                 "stellantis": "SGW license Fiat/Stellantis",
                 "mercedes": "SGW license Mercedes-Benz",
-                "vag": "SGW license VW Group"
+                "vag": "SGW license VW Group",
+                "hyundaiKia": "SGW license Hyundai/Kia"
             },
             "sgwLicenseFallback": "SGW license ({detail})",
             "priceLabel": "Price incl. 1 brand group:",
@@ -87,7 +88,7 @@
                 },
                 "services": {
                     "title": "Services",
-                    "description": "SGW licenses for Fiat/Stellantis, Mercedes-Benz and the VW Group, as well as remote diagnostics packages."
+                    "description": "SGW licenses for Fiat/Stellantis, Mercedes-Benz, the VW Group and Hyundai/Kia, as well as remote diagnostics packages."
                 },
                 "softwareUpdates": {
                     "title": "Software Updates & Extensions",

@@ -42,6 +42,8 @@ function group(id: string): IBrandGroup {
 const fiat = group('cars-vans-fiat-alfa-romeo-lancia');
 const iveco = group('cars-vans-iveco-daily');
 const mercedes = group('cars-vans-mercedes-benz-pkw-van');
+const hyundai = group('cars-vans-hyundai');
+const kia = group('cars-vans-kia');
 const mbTruck = group('truck-bus-mercedes-benz-truck');
 const vw = group('cars-vans-vw-gruppe-audi-cupra-seat-skoda-volkswagen');
 const bmw = group('cars-vans-bmw-mini');
@@ -172,6 +174,13 @@ describe('getSgwRequirements', () => {
         expect(getSgwRequirements(mercedes, 2020)).toEqual([]);
     });
 
+    it('Hyundai and Kia 2018 → hyundaiKia licence; 2017 → none', () => {
+        expect(getSgwRequirements(hyundai, 2018)).toEqual([{ type: 'license', detail: 'hyundaiKia' }]);
+        expect(getSgwRequirements(kia, 2024)).toEqual([{ type: 'license', detail: 'hyundaiKia' }]);
+        expect(getSgwRequirements(hyundai, 2017)).toEqual([]);
+        expect(getSgwRequirements(kia, 2017)).toEqual([]);
+    });
+
     it('Mercedes-Benz Truck 2022 → mercedes licence; 2021 → none', () => {
         expect(getSgwRequirements(mbTruck, 2022)).toEqual([{ type: 'license', detail: 'mercedes' }]);
         expect(getSgwRequirements(mbTruck, 2021)).toEqual([]);
@@ -211,6 +220,7 @@ describe('add-on SKU resolution', () => {
             stellantis: 'GG-SGW-LIC-STELLANTIS',
             mercedes: 'GG-SGW-LIC-MERCEDES',
             vag: 'GG-SGW-LIC-VAG',
+            hyundaiKia: 'GG-SGW-LIC-HYUNDAI-KIA',
         });
         expect(SGW_CABLE_SKUS).toEqual({ IVE: 'GG-SGW-CABLE-IVE', FCCA: 'GG-SGW-CABLE-FCCA' });
         expect(SGW_LICENSE_DURATIONS.map((entry) => entry.code)).toEqual(['day', 'week', 'month', 'year']);

@@ -10,6 +10,7 @@
             "stellantis": "SGW-Lizenz Fiat/Stellantis",
             "mercedes": "SGW-Lizenz Mercedes-Benz",
             "vag": "SGW-Lizenz VW-Gruppe",
+            "hyundaiKia": "SGW-Lizenz Hyundai/Kia",
             "other": "SGW-Lizenz ({detail})"
         },
         "cableNames": {
@@ -17,7 +18,7 @@
             "FCCA": "Fiat-Gruppe"
         },
         "addOn": {
-            "sgwLicense": "{quantity, plural, =1 {} other {#× }}{licenseGroup, select, stellantis {SGW-Lizenz Fiat/Stellantis} mercedes {SGW-Lizenz Mercedes-Benz} vag {SGW-Lizenz VW-Gruppe} other {SGW-Lizenz}} ({duration, select, day {1 Tag} week {1 Woche} month {1 Monat} year {1 Jahr} other {{duration}}})",
+            "sgwLicense": "{quantity, plural, =1 {} other {#× }}{licenseGroup, select, stellantis {SGW-Lizenz Fiat/Stellantis} mercedes {SGW-Lizenz Mercedes-Benz} vag {SGW-Lizenz VW-Gruppe} hyundaiKia {SGW-Lizenz Hyundai/Kia} other {SGW-Lizenz}} ({duration, select, day {1 Tag} week {1 Woche} month {1 Monat} year {1 Jahr} other {{duration}}})",
             "sgwCable": "SGW-Bypass-Kabel ({cable})",
             "proExtension": "PRO Erweiterung – {name}",
             "proExtensionModule": "PRO Erweiterung – {name}",
@@ -93,7 +94,7 @@
         },
         "eliteNoSgwDialog": {
             "title": "Keine SGW-Freischaltung gewählt",
-            "text": "Sie haben keine SGW-Freischaltung gewählt. Ohne Security-Gateway-Zugang sind die Diagnosefunktionen bei Fiat/Stellantis, Mercedes-Benz und der VW-Gruppe stark eingeschränkt. Trotzdem ohne Freischaltung fortfahren?",
+            "text": "Sie haben keine SGW-Freischaltung gewählt. Ohne Security-Gateway-Zugang sind die Diagnosefunktionen bei Fiat/Stellantis, Mercedes-Benz, der VW-Gruppe und Hyundai/Kia stark eingeschränkt. Trotzdem ohne Freischaltung fortfahren?",
             "cancel": "Zurück",
             "confirm": "Ohne Freischaltung fortfahren"
         },

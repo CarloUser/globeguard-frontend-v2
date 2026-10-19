@@ -610,7 +610,7 @@ describe('standalone licence products', () => {
         const month = licStellantis.variants.find((variant) => variant.sku.endsWith('-MONTH'))!;
         const result = plan(licStellantis, { selectedVariant: month });
 
-        expect(LICENSE_PRODUCT_SKUS).toEqual(['GG-SGW-LIC-STELLANTIS', 'GG-SGW-LIC-MERCEDES', 'GG-SGW-LIC-VAG', 'GG-SVC-FERN']);
+        expect(LICENSE_PRODUCT_SKUS).toEqual(['GG-SGW-LIC-STELLANTIS', 'GG-SGW-LIC-MERCEDES', 'GG-SGW-LIC-VAG', 'GG-SGW-LIC-HYUNDAI-KIA', 'GG-SVC-FERN']);
         expect(result.flags.isStandaloneLicense).toBe(true);
         expect(result.selectedVariantDuration).toBe('month');
         expect(result.lines).toEqual([]);
@@ -743,7 +743,7 @@ describe('missing add-on products', () => {
 });
 
 describe('getRequiredAddOnSkus (lazy-fetch list)', () => {
-    it('main SGW SKUs, per extra brand Erweiterung + cable + SGW, ELITE all five, WoMo/Truma cable', () => {
+    it('main SGW SKUs, per extra brand Erweiterung + cable + SGW, ELITE all six, WoMo/Truma cable', () => {
         expect(getRequiredAddOnSkus(basicFiat, 2020, [])).toEqual(['GG-SGW-CABLE-FCCA', 'GG-SGW-LIC-STELLANTIS']);
         expect(getRequiredAddOnSkus(basicFiat, 2019, [])).toEqual(['GG-SGW-CABLE-FCCA']);
         expect(getRequiredAddOnSkus(basicFiat, null, [])).toEqual([]);
@@ -752,7 +752,8 @@ describe('getRequiredAddOnSkus (lazy-fetch list)', () => {
         ]);
         expect(getRequiredAddOnSkus(proBmw, null, decodeExtraBrands(`${VW}`))).toEqual(['GG-PRO-EXT-CAR']);
         expect(getRequiredAddOnSkus(eliteCarsMb, null, [])).toEqual([
-            'GG-SGW-LIC-STELLANTIS', 'GG-SGW-LIC-MERCEDES', 'GG-SGW-LIC-VAG', 'GG-SGW-CABLE-IVE', 'GG-SGW-CABLE-FCCA',
+            'GG-SGW-LIC-STELLANTIS', 'GG-SGW-LIC-MERCEDES', 'GG-SGW-LIC-VAG', 'GG-SGW-LIC-HYUNDAI-KIA',
+            'GG-SGW-CABLE-IVE', 'GG-SGW-CABLE-FCCA',
         ]);
         expect(getRequiredAddOnSkus(eliteCarsMx, null, [])).toEqual([]);
         expect(getRequiredAddOnSkus(womoFiat, 2020, [])).toEqual(['GG-SGW-CABLE-FCCA', 'GG-SGW-LIC-STELLANTIS', TRUMA_CABLE_SKU]);
